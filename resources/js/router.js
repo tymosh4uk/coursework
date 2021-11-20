@@ -14,40 +14,69 @@ import paginate from 'vuejs-paginate'
 Vue.component('Paginate', paginate)
 
 
-const routes = [
-    {
-        path: '/',
-        component: Index
-    },
-    {
-        path: '/blog',
-        component: Blog
-    },
-    {
-        path: '/receipt/:id',
-        component: Receipt
-    },
-    {
-        path: '/create',
-        component: CreateKitchen
-    },
-    {
-        path: '/createReceipt',
-        component: CreateReceipt
-    },
-    {
-        path: '/app',
-        component: App
-    },
-    {
-        path: '/recepty',
-        component: AllReceipt
-    }
-
-
-];
-
-export default new vueRouter({
+const router = new vueRouter({
     mode: "history",
-    routes: routes
-});
+    routes: [
+        {
+            path: '/',
+            component: Index
+        },
+        {
+            path: '/blog',
+            component: Blog
+        },
+        {
+            path: '/receipt/:id',
+            component: Receipt
+        },
+        {
+            path: '/create',
+            component: CreateKitchen
+        },
+        {
+            path: '/createReceipt',
+            component: CreateReceipt,
+            meta: {auth: true}
+        },
+        {
+            path: '/app',
+            component: App
+        },
+        {
+            path: '/recepty',
+            component: AllReceipt
+        }
+
+
+    ]
+})
+
+router.beforeEach(async (to, from, next) => {
+    var currentUser;
+
+    const requireAuth = to.matched.some(record => record.meta.auth)
+    await axios.get('/currentId')
+        .then(res => {
+        console.log(res.data);
+            currentUser = res.data;
+
+
+        }).catch((error) => {
+            this.showErrors(error.response.data.error)
+        });
+
+    console.log(requireAuth);
+    console.log(currentUser);
+
+    if (requireAuth && !currentUser) {
+
+        next(window.location.href = '/login')
+
+
+    } else {
+        next()
+    }
+})
+
+
+export default router

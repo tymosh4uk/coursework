@@ -5,12 +5,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
-//Auth::routes();
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+})->name('index');
 
-Route::get('/createReceipt1', function () {
-})->middleware('auth');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+Route::get('/currentId', [App\Http\Controllers\HomeController::class, 'getId'])->name('getId');
+
+Auth::routes();
 
 Route::get('/{any}', function() {
     return view('index');
