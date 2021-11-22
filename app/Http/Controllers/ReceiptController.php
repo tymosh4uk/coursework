@@ -12,6 +12,10 @@ use Validator;
 use Storage;
 use File;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
+
+
 
 class ReceiptController extends Controller
 {
@@ -22,7 +26,6 @@ class ReceiptController extends Controller
      */
     public function index()
     {
-
 
         $receipts = DB::table('receipts')
             ->join('categories', 'receipts.id_category', '=','categories.id')
@@ -71,13 +74,13 @@ class ReceiptController extends Controller
      */
     public function store(Request $request)
     {
-
+//        return $request;
 
         $request['ingradients'] = json_decode($request['ingradients']);
         $request['count_ingradients'] = json_decode($request['count_ingradients']);
         $request['type_measurings'] = json_decode($request['type_measurings']);
 
-//        return $request;
+
         $validator = Validator::make(
             $request->all(),
             [
@@ -86,7 +89,7 @@ class ReceiptController extends Controller
                 "cooking_minutes" => ["required"],
                 "category" => ["required"],
                 "kitchen" => ["required"],
-                "id_user" => ["required"],
+                "user_id" => ["required"],
                 "advice" => ["nullable"],
                 "id_step" => ["required"]
 //                "ingradients" => ["required"],
@@ -130,7 +133,7 @@ class ReceiptController extends Controller
             "main_img" => $name,
             "id_category" => $category->id,
             "id_kitchen" => $kitchen->id,
-            "id_user" => $request['id_user'],
+            "id_user" => $request['user_id'],
             "advice" => $request['advice'],
             "id_step" => $request['id_step']
         ]);
