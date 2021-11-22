@@ -57,7 +57,7 @@ router.beforeEach(async (to, from, next) => {
     const requireAuth = to.matched.some(record => record.meta.auth)
     await axios.get('/currentId')
         .then(res => {
-        console.log(res.data);
+        //console.log(res.data);
             currentUser = res.data;
 
 
@@ -65,8 +65,8 @@ router.beforeEach(async (to, from, next) => {
             this.showErrors(error.response.data.error)
         });
 
-    console.log(requireAuth);
-    console.log(currentUser);
+    //console.log(requireAuth);
+    //console.log(currentUser);
 
     if (requireAuth && !currentUser) {
 

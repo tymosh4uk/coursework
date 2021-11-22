@@ -2065,6 +2065,148 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Header.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Header.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      isAuth: Boolean,
+      userName: Object,
+      links: [{
+        title: "Головна",
+        href: "/"
+      }, {
+        title: "Блог",
+        href: "/blog"
+      }, {
+        title: "Создать кухню",
+        href: "/create"
+      }, {
+        title: "Создать рецепт",
+        href: "/createReceipt"
+      }]
+    };
+  },
+  mounted: function mounted() {
+    this.checkAuth();
+  },
+  methods: {
+    checkAuth: function checkAuth() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('is-auth').then(function (response) {
+        if (response.data.auth) {
+          //console.log(response.data.login);
+          _this.isAuth = response.data.login;
+        }
+
+        if (_this.isAuth) {
+          _this.userName = response.data.name;
+        }
+
+        _this.isAuth = response.data.login; //console.log(response.data.login);
+        // this.isAuth = true;
+        //console.log("logged in");
+      })["catch"](function (error) {
+        return console.log("error");
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Spin.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Spin.vue?vue&type=script&lang=js& ***!
@@ -2848,8 +2990,8 @@ __webpack_require__.r(__webpack_exports__);
         main_img_file: "",
         category: "",
         kitchen: "",
-        id_user: "",
         advice: "",
+        user_id: "",
         id_step: "",
         ingradients: [],
         count_ingradients: [],
@@ -2862,16 +3004,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    // onImageChange(e){
-    //     console.log(e.target.files[0]);
-    //     this.main_img_file = e.target.files[0];
-    // },
     filldata: function filldata() {
-      this.form.main_img_file = this.$refs.main_img_file.files[0]; //console.log(this.main_img_file);
-
-      console.log(this.$refs.step_img_file); // for( var i = 0; i < this.$refs.step_img_file.files.length; i++ ){
-      //     console.log(this.$refs.step_img_file.files[i]);
-      // }
+      this.form.main_img_file = this.$refs.main_img_file.files[0]; //console.log(this.$refs.step_img_file);
 
       var category = document.getElementById('categories');
       this.form.category = category.options[category.selectedIndex].text;
@@ -2906,21 +3040,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
 
-      this.form.type_measurings = measurings;
-      console.log(measurings); // let all_ingradients = document.getElementsByName("ingradients[]");
-      // for (let i = 0; i < all_ingradients.length; i++) {
-      //     this.form.ingradients.push({ ingradient: all_ingradients[i].value });
-      // }
-      //
-      // let all_count_ingradients = document.getElementsByName("count_ingradients[]");
-      // for (let i = 0; i < all_count_ingradients.length; i++) {
-      //     this.form.count_ingradients.push({ count_ingradient: all_count_ingradients[i].value });
-      // }
-      //
-      // let all_type_measurings = document.getElementsByName("type_measurings[]");
-      // for (let i = 0; i < all_type_measurings.length; i++) {
-      //     this.form.type_measurings.push({ type_measuring: all_type_measurings[i].value  });
-      // }
+      this.form.type_measurings = measurings; //console.log(measurings);
     },
     store: function store() {
       var _this = this;
@@ -2933,15 +3053,12 @@ __webpack_require__.r(__webpack_exports__);
       data.append('cooking_minutes', this.form.cooking_minutes);
       data.append('category', this.form.category);
       data.append('kitchen', this.form.kitchen);
-      data.append('id_user', this.form.id_user);
       data.append('advice', this.form.advice);
+      data.append('user_id', this.form.user_id);
       data.append('id_step', this.form.id_step);
       data.append('ingradients', JSON.stringify(this.form.ingradients));
       data.append('count_ingradients', JSON.stringify(this.form.count_ingradients));
-      data.append('type_measurings', JSON.stringify(this.form.type_measurings)); // if(document.getElementById('main_img_file').files[0]) {
-      //     data.append('photo', document.getElementById('main_img_file').files[0]);
-      // }
-
+      data.append('type_measurings', JSON.stringify(this.form.type_measurings));
       data.append('photo', this.form.main_img_file); // for (var pair of data.entries()) {
       //     console.log(pair[0]+ ', ' + pair[1]);
       // }
@@ -2961,142 +3078,146 @@ __webpack_require__.r(__webpack_exports__);
     getData: function getData() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/receipts/create ').then(function (_ref) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/receipts/create').then(function (_ref) {
         var data = _ref.data;
         return _this2.getInfo = data;
       });
-      console.log(this.getInfo);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/currentUserId').then(function (_ref2) {
+        var data = _ref2.data;
+        return _this2.form.user_id = data;
+      }); //console.log(this.getInfo );
     }
   },
   created: function created() {
     this.getData();
   }
-}); //
-// $('body').delegate('#addIngradient', 'click', function () {
-//     let day = $(this).attr('day');
-//     let setIngradient = '<div class="ingradients__group">'
-//     setIngradient += '<div class="ingradients__ingradient">'
-//     setIngradient += '<div class="ingradients__ingradient__container">'
-//     setIngradient += '<input class="uk-input"  type="text" name="ingradients[]" placeholder="Вкажіть інградієнт">'
-//     setIngradient += '</div>'
-//     setIngradient += '</div>'
-//
-//     setIngradient += '<div class="ingradients__numbers">'
-//     setIngradient += '<div class="ingradients__count">'
-//     setIngradient += '<input class="uk-input"  type="number" name="count[]" value=0 min=0>'
-//     setIngradient += '</div>'
-//
-//     setIngradient += '<div class="ingradients__type">'
-//     setIngradient += '<select class="uk-select" name="type_measurings[]">\n' +
-//                       '<option name="measure">мл</option>\n' +
-//                       '<option name="measure">грам</option>\n' +
-//                       '<option name="measure">штук</option>\n' +
-//                       '</select>\n' +
-//                       '</div> '
-//     setIngradient += '</div>'
-//
-//     setIngradient += '<div class="ingradients__button" style="position: absolute; top: 15px; right: -30px; cursor: pointer;">'
-//     setIngradient += '<button id=deleteIngradient class="ingradients__deleteIngradient uk-close-large" onclick="event.preventDefault()" type="button" uk-close></button>'
-//     setIngradient += '</div>'
-//
-//     setIngradient += '</div>'
-//
-//     $('#ingradients').append(setIngradient)
-// })
-// $('body').delegate('#deleteIngradient', 'click', function () {
-//     $(this).parent().parent().remove()
-// })
-//
-//
-//
-// $('body').delegate('#addStep', 'click', function () {
-//     let setStep = '<div class="step">'
-//     setStep += '<div class="step__header">'
-//     setStep += '<span class="step__header__title">Крок ' + $('#step_clicks').html(function(i, val) { return val }).html() + '</span>'
-//     setStep += '</div>'
-//
-//     setStep += '<div class="step__body">'
-//
-//     setStep += '<div class="step__body__image__wrapper">'
-//     setStep += '<div class="step__body__image__wrapper__content">'
-//
-//     setStep += '<input id="step_img_file" class="step__body__input" type="file" name="step_img_file" ref="step_img_file">'
-//     setStep += '<div class="step__img__content">'
-//     setStep += '<div class="step__img__content__aligner">'
-//     setStep += '<span class="step__img__content__icon" uk-icon="icon: cloud-upload"></span>'
-//     setStep += '<span class="step__img__content__text">Додати фото<br>(Завантажити)</span>'
-//     setStep += '</div>'
-//     setStep += '</div>'
-//
-//     setStep += '<div class="step__img__contain">'
-//     setStep += '<div class="step__img__overlay">'
-//     setStep += '<img id="previewStepHolder" alt="Uploaded Image Preview Holder"/>'
-//     setStep += '</div>'
-//     setStep += '</div>'
-//
-//     setStep += '</div>'
-//     setStep += '</div>'
-//
-//     setStep += '<div class="step__textarea__container">'
-//     setStep += '<textarea class="step__textarea" placeholder="Инструкция к шагу приготовления" name="input" autocomplete="on">fhgjrh</textarea>'
-//     setStep += '</div>'
-//
-//
-//     setStep += '</div>'
-//
-//     setStep += '<div class="step__button" style="position: absolute; top: 15px; right: -30px; cursor: pointer;">'
-//     setStep += '<button id=deleteStep class="ingradients__deleteIngradient uk-close-large" onclick="event.preventDefault()" type="button" uk-close></button>'
-//     setStep += '</div>'
-//
-//     setStep += '</div>'
-//
-//     $('#steps').append(setStep)
-// })
-// $('body').delegate('#deleteStep', 'click', function () {
-//     $(this).parent().parent().remove();
-//     $('#step_clicks').html(function(i, val) { return val*1-1 });
-// })
-//
-//
-// $(function(){
+});
+$('body').delegate('#addIngradient', 'click', function () {
+  var day = $(this).attr('day');
+  var setIngradient = '<div class="ingradients__group">';
+  setIngradient += '<div class="ingradients__ingradient">';
+  setIngradient += '<div class="ingradients__ingradient__container">';
+  setIngradient += '<input class="uk-input"  type="text" name="ingradients[]" placeholder="Вкажіть інградієнт">';
+  setIngradient += '</div>';
+  setIngradient += '</div>';
+  setIngradient += '<div class="ingradients__numbers">';
+  setIngradient += '<div class="ingradients__count">';
+  setIngradient += '<input class="uk-input"  type="number" name="count[]" value=0 min=0>';
+  setIngradient += '</div>';
+  setIngradient += '<div class="ingradients__type">';
+  setIngradient += '<select class="uk-select" name="type_measurings[]">\n' + '<option name="measure">мл</option>\n' + '<option name="measure">грам</option>\n' + '<option name="measure">штук</option>\n' + '</select>\n' + '</div> ';
+  setIngradient += '</div>';
+  setIngradient += '<div class="ingradients__button" style="position: absolute; top: 15px; right: -30px; cursor: pointer;">';
+  setIngradient += '<button id=deleteIngradient class="ingradients__deleteIngradient uk-close-large" onclick="event.preventDefault()" type="button" uk-close></button>';
+  setIngradient += '</div>';
+  setIngradient += '</div>';
+  $('#ingradients').append(setIngradient);
+});
+$('body').delegate('#deleteIngradient', 'click', function () {
+  $(this).parent().parent().remove();
+});
+$('body').delegate('#addStep', 'click', function () {
+  var setStep = '<div class="step">';
+  setStep += '<div class="step__header">';
+  setStep += '<span class="step__header__title">Крок ' + $('#step_clicks').html(function (i, val) {
+    return val;
+  }).html() + '</span>';
+  setStep += '</div>';
+  setStep += '<div class="step__body">';
+  setStep += '<div class="step__body__image__wrapper">';
+  setStep += '<div class="step__body__image__wrapper__content">';
+  setStep += '<input id="step_img_file" class="step__body__input" type="file" name="step_img_file" ref="step_img_file">';
+  setStep += '<div class="step__img__content">';
+  setStep += '<div class="step__img__content__aligner">';
+  setStep += '<span class="step__img__content__icon" uk-icon="icon: cloud-upload"></span>';
+  setStep += '<span class="step__img__content__text">Додати фото<br>(Завантажити)</span>';
+  setStep += '</div>';
+  setStep += '</div>';
+  setStep += '<div class="step__img__contain">';
+  setStep += '<div class="step__img__overlay">';
+  setStep += '<img id="previewStepHolder" alt="Uploaded Image Preview Holder"/>';
+  setStep += '</div>';
+  setStep += '</div>';
+  setStep += '</div>';
+  setStep += '</div>';
+  setStep += '<div class="step__textarea__container">';
+  setStep += '<textarea class="step__textarea" placeholder="Инструкция к шагу приготовления" name="input" autocomplete="on">fhgjrh</textarea>';
+  setStep += '</div>';
+  setStep += '</div>';
+  setStep += '<div class="step__button" style="position: absolute; top: 15px; right: -30px; cursor: pointer;">';
+  setStep += '<button id=deleteStep class="ingradients__deleteIngradient uk-close-large" onclick="event.preventDefault()" type="button" uk-close></button>';
+  setStep += '</div>';
+  setStep += '</div>';
+  $('#steps').append(setStep);
+});
+$('body').delegate('#deleteStep', 'click', function () {
+  $(this).parent().parent().remove();
+  $('#step_clicks').html(function (i, val) {
+    return val * 1 - 1;
+  });
+});
+$('body').delegate('#addStep', 'click', function () {
+  $('#step_clicks').html(function (i, val) {
+    return val * 1 + 1;
+  });
+});
+$('body').delegate('#main_img_file', 'change', function () {
+  readURL(this);
+  console.log("Uploading image");
+});
+
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      $('#previewHolder').attr('src', e.target.result);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  } else {}
+} // $(function(){
 //     $('#addStep').click(function() {
 //         $('#step_clicks').html(function(i, val) { return val*1+1 });
 //     });
 // });
-//
-// $(function(){
-//     function readURL(input) {
-//         if (input.files && input.files[0]) {
-//             var reader = new FileReader();
-//             reader.onload = function(e) {
-//                 $('#previewHolder').attr('src', e.target.result);
-//             }
-//             reader.readAsDataURL(input.files[0]);
-//         } else {
-//         }
-//     }
-//
-//     $("#main_img_file").change(function() {
-//         readURL(this);
-//         console.log("Uploading image");
-//     });
-//
-//     function readStepURL(input) {
-//         if (input.files && input.files[0]) {
-//             var reader = new FileReader();
-//             reader.onload = function(e) {
-//                 $('#previewStepHolder').attr('src', e.target.result);
-//             }
-//             reader.readAsDataURL(input.files[0]);
-//         } else {
-//         }
-//     }
-//
-//     $("#step_img_file").change(function() {
-//         readStepURL(this);
-//         console.log("Uploading image");
-//     });
-// });
+
+
+$(function () {
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#previewHolder').attr('src', e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    } else {}
+  }
+
+  $("#main_img_file").change(function () {
+    readURL(this);
+    console.log("Uploading image");
+  });
+
+  function readStepURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#previewStepHolder').attr('src', e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    } else {}
+  }
+
+  $("#step_img_file").change(function () {
+    readStepURL(this);
+    console.log("Uploading image");
+  });
+});
 
 /***/ }),
 
@@ -3526,6 +3647,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js"
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('test', __webpack_require__(/*! ./components/Test.vue */ "./resources/js/components/Test.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('my-header', __webpack_require__(/*! ./components/Header.vue */ "./resources/js/components/Header.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -3708,23 +3830,22 @@ router.beforeEach( /*#__PURE__*/function () {
             });
             _context.next = 3;
             return axios.get('/currentId').then(function (res) {
-              console.log(res.data);
+              //console.log(res.data);
               currentUser = res.data;
             })["catch"](function (error) {
               _this.showErrors(error.response.data.error);
             });
 
           case 3:
-            console.log(requireAuth);
-            console.log(currentUser);
-
+            //console.log(requireAuth);
+            //console.log(currentUser);
             if (requireAuth && !currentUser) {
               next(window.location.href = '/login');
             } else {
               next();
             }
 
-          case 6:
+          case 4:
           case "end":
             return _context.stop();
         }
@@ -40221,6 +40342,45 @@ module.exports = function (list, options) {
 
 /***/ }),
 
+/***/ "./resources/js/components/Header.vue":
+/*!********************************************!*\
+  !*** ./resources/js/components/Header.vue ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Header_vue_vue_type_template_id_1f42fb90_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Header.vue?vue&type=template&id=1f42fb90&scoped=true& */ "./resources/js/components/Header.vue?vue&type=template&id=1f42fb90&scoped=true&");
+/* harmony import */ var _Header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Header.vue?vue&type=script&lang=js& */ "./resources/js/components/Header.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Header_vue_vue_type_template_id_1f42fb90_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Header_vue_vue_type_template_id_1f42fb90_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "1f42fb90",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Header.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Spin.vue":
 /*!******************************************!*\
   !*** ./resources/js/components/Spin.vue ***!
@@ -40730,6 +40890,22 @@ component.options.__file = "resources/js/views/Task.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/Header.vue?vue&type=script&lang=js&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/Header.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Header.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Header.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Spin.vue?vue&type=script&lang=js&":
 /*!*******************************************************************!*\
   !*** ./resources/js/components/Spin.vue?vue&type=script&lang=js& ***!
@@ -40951,6 +41127,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Header.vue?vue&type=template&id=1f42fb90&scoped=true&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/Header.vue?vue&type=template&id=1f42fb90&scoped=true& ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_template_id_1f42fb90_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_template_id_1f42fb90_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_template_id_1f42fb90_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Header.vue?vue&type=template&id=1f42fb90&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Header.vue?vue&type=template&id=1f42fb90&scoped=true&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Spin.vue?vue&type=template&id=2be37e2d&scoped=true&":
 /*!*************************************************************************************!*\
   !*** ./resources/js/components/Spin.vue?vue&type=template&id=2be37e2d&scoped=true& ***!
@@ -41168,6 +41361,235 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Task_vue_vue_type_template_id_5abc6ab8___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Task_vue_vue_type_template_id_5abc6ab8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Task.vue?vue&type=template&id=5abc6ab8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Task.vue?vue&type=template&id=5abc6ab8&");
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Header.vue?vue&type=template&id=1f42fb90&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Header.vue?vue&type=template&id=1f42fb90&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "nav__container" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "nav__top-line__container" }, [
+        _c(
+          "ul",
+          { staticClass: "nav__navbar" },
+          _vm._l(_vm.links, function (link) {
+            return _c(
+              "li",
+              { staticClass: "nav__navbar__li" },
+              [
+                _c("router-link", { attrs: { to: link.href } }, [
+                  _vm._v(_vm._s(link.title)),
+                ]),
+              ],
+              1
+            )
+          }),
+          0
+        ),
+      ]),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _vm._m(2),
+      _vm._v(" "),
+      !_vm.isAuth
+        ? _c("div", { staticClass: "nav__user-navbar__container" }, [_vm._m(3)])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.isAuth
+        ? _c("div", { staticClass: "nav__user-navbar__container" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "nav__user-navbar__item_enter__container nav__user-navbar__item nav__user-navbar__item_border",
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "nav__user-navbar__item_enter__link",
+                    attrs: { href: "/login" },
+                  },
+                  [
+                    _c("img", {
+                      staticClass: "header_user_img",
+                      attrs: { src: "img/camera.png", alt: "Nazariy" },
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(_vm.userName))]),
+                  ]
+                ),
+              ]
+            ),
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._m(4),
+    ]),
+    _vm._v(" "),
+    _c(
+      "nav",
+      { staticClass: "uk-navbar-container", attrs: { "uk-navbar": "" } },
+      [
+        _c("div", { staticClass: "uk-navbar-left" }, [
+          _c(
+            "ul",
+            { staticClass: "uk-navbar-nav" },
+            _vm._l(_vm.links, function (link) {
+              return _c(
+                "li",
+                [
+                  _c("router-link", { attrs: { to: link.href } }, [
+                    _vm._v(_vm._s(link.title)),
+                  ]),
+                ],
+                1
+              )
+            }),
+            0
+          ),
+        ]),
+      ]
+    ),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "nav-line__logo__wrapper", attrs: { href: "" } },
+      [_c("i", { staticClass: "fas fa-hat-chef" })]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "nav__user-navbar__container" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "nav__user-navbar__item_search__container nav__user-navbar__item",
+        },
+        [
+          _c("i", {
+            staticClass: "fas fa-search nav__user-navbar__item_search",
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "nav__user-navbar__item_search__text" }, [
+            _vm._v("Пошук по сайту"),
+          ]),
+        ]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "nav__user-navbar__container" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "nav__user-navbar__item_search__container nav__user-navbar__item nav__user-navbar__item_border",
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "nav__user-navbar__item__link-bookmark__container" },
+            [
+              _c("i", {
+                staticClass:
+                  "fas fa-bookmark nav__user-navbar__item__link-bookmark",
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                { staticClass: "nav__user-navbar__item__link-bookmark__text" },
+                [_vm._v("Моя книга рецептів")]
+              ),
+            ]
+          ),
+        ]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "nav__user-navbar__item_enter__container nav__user-navbar__item nav__user-navbar__item_border",
+      },
+      [
+        _c(
+          "a",
+          {
+            staticClass: "nav__user-navbar__item_enter__link",
+            attrs: { href: "/login" },
+          },
+          [
+            _c("i", { staticClass: "fas fa-hat-chef" }),
+            _vm._v(" "),
+            _c("span", [_vm._v("Увійти")]),
+          ]
+        ),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "nav__user-navbar__container" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "nav__user-navbar__item_add__container nav__user-navbar__item",
+        },
+        [
+          _c(
+            "a",
+            {
+              staticClass: "nav__user-navbar__item_add__link",
+              attrs: { href: "/createReceipt" },
+            },
+            [_vm._v("Додати рецепт")]
+          ),
+        ]
+      ),
+    ])
+  },
+]
+render._withStripped = true
+
 
 
 /***/ }),
@@ -42107,30 +42529,6 @@ var render = function () {
                 ),
               ]),
             ]),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "uk-margin" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.form.id_user,
-                  expression: "form.id_user",
-                },
-              ],
-              staticClass: "uk-input",
-              attrs: { type: "number", placeholder: "id_user" },
-              domProps: { value: _vm.form.id_user },
-              on: {
-                input: function ($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.form, "id_user", $event.target.value)
-                },
-              },
-            }),
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "hr" }),

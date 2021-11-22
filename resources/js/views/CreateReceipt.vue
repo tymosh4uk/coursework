@@ -93,9 +93,9 @@
 
 
 
-                <div class="uk-margin">
-                    <input class="uk-input" v-model="form.id_user" type="number" placeholder="id_user">
-                </div>
+<!--                <div class="uk-margin">-->
+<!--                    <input class="uk-input" v-model="form.id_user" type="number" placeholder="id_user">-->
+<!--                </div>-->
 
 
 
@@ -209,8 +209,8 @@ export default {
             main_img_file: "",
             category: "",
             kitchen: "",
-            id_user: "",
             advice: "",
+            user_id: "",
             id_step: "",
             ingradients: [],
             count_ingradients: [],
@@ -222,17 +222,10 @@ export default {
         error: false
     }),
     methods: {
-        // onImageChange(e){
-        //     console.log(e.target.files[0]);
-        //     this.main_img_file = e.target.files[0];
-        // },
         filldata() {
             this.form.main_img_file = this.$refs.main_img_file.files[0];
-            //console.log(this.main_img_file);
-            console.log(this.$refs.step_img_file);
-            // for( var i = 0; i < this.$refs.step_img_file.files.length; i++ ){
-            //     console.log(this.$refs.step_img_file.files[i]);
-            // }
+
+            //console.log(this.$refs.step_img_file);
 
             let category = document.getElementById('categories');
             this.form.category = category.options[category.selectedIndex].text;
@@ -271,24 +264,8 @@ export default {
             this.form.type_measurings = measurings;
 
 
-            console.log(measurings);
+            //console.log(measurings);
 
-
-
-            // let all_ingradients = document.getElementsByName("ingradients[]");
-            // for (let i = 0; i < all_ingradients.length; i++) {
-            //     this.form.ingradients.push({ ingradient: all_ingradients[i].value });
-            // }
-            //
-            // let all_count_ingradients = document.getElementsByName("count_ingradients[]");
-            // for (let i = 0; i < all_count_ingradients.length; i++) {
-            //     this.form.count_ingradients.push({ count_ingradient: all_count_ingradients[i].value });
-            // }
-            //
-            // let all_type_measurings = document.getElementsByName("type_measurings[]");
-            // for (let i = 0; i < all_type_measurings.length; i++) {
-            //     this.form.type_measurings.push({ type_measuring: all_type_measurings[i].value  });
-            // }
         },
 
         store() {
@@ -304,16 +281,13 @@ export default {
             data.append('cooking_minutes', this.form.cooking_minutes);
             data.append('category', this.form.category);
             data.append('kitchen', this.form.kitchen);
-            data.append('id_user', this.form.id_user);
             data.append('advice', this.form.advice);
+            data.append('user_id', this.form.user_id);
             data.append('id_step', this.form.id_step);
             data.append('ingradients', JSON.stringify(this.form.ingradients));
             data.append('count_ingradients', JSON.stringify(this.form.count_ingradients));
             data.append('type_measurings', JSON.stringify(this.form.type_measurings));
 
-            // if(document.getElementById('main_img_file').files[0]) {
-            //     data.append('photo', document.getElementById('main_img_file').files[0]);
-            // }
 
             data.append('photo', this.form.main_img_file);
 
@@ -340,8 +314,9 @@ export default {
         },
 
         getData() {
-            axios.get('/api/receipts/create ').then(({ data }) => ( this.getInfo = data));
-            console.log(this.getInfo );
+            axios.get('/api/receipts/create').then(({ data }) => ( this.getInfo = data));
+            axios.get('/currentUserId').then(({ data }) => ( this.form.user_id = data));
+            //console.log(this.getInfo );
 
         }
     },
@@ -349,132 +324,151 @@ export default {
         this.getData();
     }
 }
-//
-// $('body').delegate('#addIngradient', 'click', function () {
-//     let day = $(this).attr('day');
-//     let setIngradient = '<div class="ingradients__group">'
-//     setIngradient += '<div class="ingradients__ingradient">'
-//     setIngradient += '<div class="ingradients__ingradient__container">'
-//     setIngradient += '<input class="uk-input"  type="text" name="ingradients[]" placeholder="Вкажіть інградієнт">'
-//     setIngradient += '</div>'
-//     setIngradient += '</div>'
-//
-//     setIngradient += '<div class="ingradients__numbers">'
-//     setIngradient += '<div class="ingradients__count">'
-//     setIngradient += '<input class="uk-input"  type="number" name="count[]" value=0 min=0>'
-//     setIngradient += '</div>'
-//
-//     setIngradient += '<div class="ingradients__type">'
-//     setIngradient += '<select class="uk-select" name="type_measurings[]">\n' +
-//                       '<option name="measure">мл</option>\n' +
-//                       '<option name="measure">грам</option>\n' +
-//                       '<option name="measure">штук</option>\n' +
-//                       '</select>\n' +
-//                       '</div> '
-//     setIngradient += '</div>'
-//
-//     setIngradient += '<div class="ingradients__button" style="position: absolute; top: 15px; right: -30px; cursor: pointer;">'
-//     setIngradient += '<button id=deleteIngradient class="ingradients__deleteIngradient uk-close-large" onclick="event.preventDefault()" type="button" uk-close></button>'
-//     setIngradient += '</div>'
-//
-//     setIngradient += '</div>'
-//
-//     $('#ingradients').append(setIngradient)
-// })
-// $('body').delegate('#deleteIngradient', 'click', function () {
-//     $(this).parent().parent().remove()
-// })
-//
-//
-//
-// $('body').delegate('#addStep', 'click', function () {
-//     let setStep = '<div class="step">'
-//     setStep += '<div class="step__header">'
-//     setStep += '<span class="step__header__title">Крок ' + $('#step_clicks').html(function(i, val) { return val }).html() + '</span>'
-//     setStep += '</div>'
-//
-//     setStep += '<div class="step__body">'
-//
-//     setStep += '<div class="step__body__image__wrapper">'
-//     setStep += '<div class="step__body__image__wrapper__content">'
-//
-//     setStep += '<input id="step_img_file" class="step__body__input" type="file" name="step_img_file" ref="step_img_file">'
-//     setStep += '<div class="step__img__content">'
-//     setStep += '<div class="step__img__content__aligner">'
-//     setStep += '<span class="step__img__content__icon" uk-icon="icon: cloud-upload"></span>'
-//     setStep += '<span class="step__img__content__text">Додати фото<br>(Завантажити)</span>'
-//     setStep += '</div>'
-//     setStep += '</div>'
-//
-//     setStep += '<div class="step__img__contain">'
-//     setStep += '<div class="step__img__overlay">'
-//     setStep += '<img id="previewStepHolder" alt="Uploaded Image Preview Holder"/>'
-//     setStep += '</div>'
-//     setStep += '</div>'
-//
-//     setStep += '</div>'
-//     setStep += '</div>'
-//
-//     setStep += '<div class="step__textarea__container">'
-//     setStep += '<textarea class="step__textarea" placeholder="Инструкция к шагу приготовления" name="input" autocomplete="on">fhgjrh</textarea>'
-//     setStep += '</div>'
-//
-//
-//     setStep += '</div>'
-//
-//     setStep += '<div class="step__button" style="position: absolute; top: 15px; right: -30px; cursor: pointer;">'
-//     setStep += '<button id=deleteStep class="ingradients__deleteIngradient uk-close-large" onclick="event.preventDefault()" type="button" uk-close></button>'
-//     setStep += '</div>'
-//
-//     setStep += '</div>'
-//
-//     $('#steps').append(setStep)
-// })
-// $('body').delegate('#deleteStep', 'click', function () {
-//     $(this).parent().parent().remove();
-//     $('#step_clicks').html(function(i, val) { return val*1-1 });
-// })
-//
-//
+
+$('body').delegate('#addIngradient', 'click', function () {
+    let day = $(this).attr('day');
+    let setIngradient = '<div class="ingradients__group">'
+    setIngradient += '<div class="ingradients__ingradient">'
+    setIngradient += '<div class="ingradients__ingradient__container">'
+    setIngradient += '<input class="uk-input"  type="text" name="ingradients[]" placeholder="Вкажіть інградієнт">'
+    setIngradient += '</div>'
+    setIngradient += '</div>'
+
+    setIngradient += '<div class="ingradients__numbers">'
+    setIngradient += '<div class="ingradients__count">'
+    setIngradient += '<input class="uk-input"  type="number" name="count[]" value=0 min=0>'
+    setIngradient += '</div>'
+
+    setIngradient += '<div class="ingradients__type">'
+    setIngradient += '<select class="uk-select" name="type_measurings[]">\n' +
+                      '<option name="measure">мл</option>\n' +
+                      '<option name="measure">грам</option>\n' +
+                      '<option name="measure">штук</option>\n' +
+                      '</select>\n' +
+                      '</div> '
+    setIngradient += '</div>'
+
+    setIngradient += '<div class="ingradients__button" style="position: absolute; top: 15px; right: -30px; cursor: pointer;">'
+    setIngradient += '<button id=deleteIngradient class="ingradients__deleteIngradient uk-close-large" onclick="event.preventDefault()" type="button" uk-close></button>'
+    setIngradient += '</div>'
+
+    setIngradient += '</div>'
+
+    $('#ingradients').append(setIngradient)
+})
+$('body').delegate('#deleteIngradient', 'click', function () {
+    $(this).parent().parent().remove()
+})
+
+
+
+$('body').delegate('#addStep', 'click', function () {
+    let setStep = '<div class="step">'
+    setStep += '<div class="step__header">'
+    setStep += '<span class="step__header__title">Крок ' + $('#step_clicks').html(function(i, val) { return val }).html() + '</span>'
+    setStep += '</div>'
+
+    setStep += '<div class="step__body">'
+
+    setStep += '<div class="step__body__image__wrapper">'
+    setStep += '<div class="step__body__image__wrapper__content">'
+
+    setStep += '<input id="step_img_file" class="step__body__input" type="file" name="step_img_file" ref="step_img_file">'
+    setStep += '<div class="step__img__content">'
+    setStep += '<div class="step__img__content__aligner">'
+    setStep += '<span class="step__img__content__icon" uk-icon="icon: cloud-upload"></span>'
+    setStep += '<span class="step__img__content__text">Додати фото<br>(Завантажити)</span>'
+    setStep += '</div>'
+    setStep += '</div>'
+
+    setStep += '<div class="step__img__contain">'
+    setStep += '<div class="step__img__overlay">'
+    setStep += '<img id="previewStepHolder" alt="Uploaded Image Preview Holder"/>'
+    setStep += '</div>'
+    setStep += '</div>'
+
+    setStep += '</div>'
+    setStep += '</div>'
+
+    setStep += '<div class="step__textarea__container">'
+    setStep += '<textarea class="step__textarea" placeholder="Инструкция к шагу приготовления" name="input" autocomplete="on">fhgjrh</textarea>'
+    setStep += '</div>'
+
+
+    setStep += '</div>'
+
+    setStep += '<div class="step__button" style="position: absolute; top: 15px; right: -30px; cursor: pointer;">'
+    setStep += '<button id=deleteStep class="ingradients__deleteIngradient uk-close-large" onclick="event.preventDefault()" type="button" uk-close></button>'
+    setStep += '</div>'
+
+    setStep += '</div>'
+
+    $('#steps').append(setStep)
+})
+
+$('body').delegate('#deleteStep', 'click', function () {
+    $(this).parent().parent().remove();
+    $('#step_clicks').html(function(i, val) { return val*1-1 });
+})
+
+$('body').delegate('#addStep', 'click', function () {
+    $('#step_clicks').html(function(i, val) { return val*1+1 });
+})
+$('body').delegate('#main_img_file', 'change', function () {
+    readURL(this);
+    console.log("Uploading image");
+})
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#previewHolder').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    } else {
+    }
+}
+
+
 // $(function(){
 //     $('#addStep').click(function() {
 //         $('#step_clicks').html(function(i, val) { return val*1+1 });
 //     });
 // });
-//
-// $(function(){
-//     function readURL(input) {
-//         if (input.files && input.files[0]) {
-//             var reader = new FileReader();
-//             reader.onload = function(e) {
-//                 $('#previewHolder').attr('src', e.target.result);
-//             }
-//             reader.readAsDataURL(input.files[0]);
-//         } else {
-//         }
-//     }
-//
-//     $("#main_img_file").change(function() {
-//         readURL(this);
-//         console.log("Uploading image");
-//     });
-//
-//     function readStepURL(input) {
-//         if (input.files && input.files[0]) {
-//             var reader = new FileReader();
-//             reader.onload = function(e) {
-//                 $('#previewStepHolder').attr('src', e.target.result);
-//             }
-//             reader.readAsDataURL(input.files[0]);
-//         } else {
-//         }
-//     }
-//
-//     $("#step_img_file").change(function() {
-//         readStepURL(this);
-//         console.log("Uploading image");
-//     });
-// });
+
+$(function(){
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#previewHolder').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        } else {
+        }
+    }
+
+    $("#main_img_file").change(function() {
+        readURL(this);
+        console.log("Uploading image");
+    });
+
+    function readStepURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#previewStepHolder').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        } else {
+        }
+    }
+
+    $("#step_img_file").change(function() {
+        readStepURL(this);
+        console.log("Uploading image");
+    });
+});
 
 
 

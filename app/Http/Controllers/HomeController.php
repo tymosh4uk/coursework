@@ -36,6 +36,9 @@ class HomeController extends Controller
         else {
             return Auth::check();
         }
+    }
 
+    public function getUserId() {
+        return Auth::user()->id;
     }
 }
