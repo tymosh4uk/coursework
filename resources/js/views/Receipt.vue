@@ -170,8 +170,23 @@
             </div>
 
 
-            <h1>{{ receipt[0].id }} <span class="uk-badge">{{ receipt[0].name }}</span></h1>
-            <p class="uk-text-lead">lerbtny trh tt </p>
+            <div class="comments__container" v-if="userId">
+                <div>
+                    <form id="form-logout" enctype="multipart/form-data">
+                        <div class="comments__row"></div>
+    <!--                    <p>{{ userId }}</p>-->
+                        <textarea placeholder="Добавить комментарий" v-model="comment" name="input" autocomplete="on" class="comments__textarea"></textarea>
+
+                        <div class="comments__button__wrapper">
+
+                            <button type="button" class="comments__button" @click.prevent="sendComment">Отправить</button>
+
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
         </div>
         <div uk-alert v-if="not_found">
             <a class="uk-alert-close" uk-close></a>
@@ -189,12 +204,16 @@ export default {
     },
     data: () => ({
         loading: true,
+        userId: Number,
         receipt: Object,
         ingradients: [],
-        not_found: false
+        not_found: false,
+        comment: ""
     }),
     mounted() {
         this.loadReceipt(this.$route.params.id)
+        this.checkAuth()
+        console.log(this.userId)
     },
     methods: {
         loadReceipt(id) {
@@ -202,13 +221,45 @@ export default {
             .then(res => {
                 this.receipt = res.data.receipt;
                 this.ingradients = res.data.ingradients;
-                console.log(this.ingradients);
+                // console.log(this.receipt[0].id);
                 this.loading = false;
             })
             .catch(err => {
                 this.not_found = true;
                 this.loading = false;
             })
+        },
+        checkAuth() {
+            axios.get('/getAuthStatus')
+                .then(response => {
+                    this.userId = response.data;
+                    console.log(this.userId)
+                })
+                .catch(error => console.log("error"));
+
+        },
+        sendComment() {
+            const data = new FormData();
+
+            data.append('comment', this.comment);
+            data.append('id_receipt', this.receipt[0].id);
+            data.append('id_user', this.userId);
+            this.comment = "";
+            axios.post('/addComment', data)
+                .then(res => {
+                    // console.log(res.data);
+                    if (res.data.status) {
+
+                        this.$router.push('/receipt/' + this.receipt[0].id);
+
+
+                    } else {
+                        setTimeout(() => {
+                            this.loading = false;
+                        }, 300);
+                    }
+                })
+
         }
     }
 }

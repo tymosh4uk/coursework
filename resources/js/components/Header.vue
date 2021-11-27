@@ -59,6 +59,13 @@
             </div>
         </div>
 
+        <form id="form-logout" enctype="multipart/form-data">
+            <button class="uk-button uk-button-primary" @click.prevent="logout">
+
+                <span>Logout</span>
+            </button>
+        </form>
+
 
     </div>
 
@@ -97,8 +104,8 @@ export default {
                     href: "/"
                 },
                 {
-                    title: "Блог",
-                    href: "/blog"
+                    title: "Рецепти",
+                    href: "/recepty"
                 },
                 {
                     title: "Создать кухню",
@@ -116,6 +123,17 @@ export default {
         this.checkAuth()
     },
     methods: {
+        logout() {
+            axios.post('logout')
+                .then(res => {
+                    //console.log(res.data);
+
+                        window.location.reload();
+
+
+
+                })
+        },
         checkAuth() {
             axios.get('is-auth')
                 .then(response => {

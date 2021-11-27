@@ -12,6 +12,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
+Route::get('/getAuthStatus', [App\Http\Controllers\HomeController::class, 'getAuthStatus'])->name('getAuthStatus');
 Route::get('/currentId', [App\Http\Controllers\HomeController::class, 'getId'])->name('getId');
 Route::get('/currentUserId', [App\Http\Controllers\HomeController::class, 'getUserId'])->name('getUserId');
 Route::post('/receiptSearch', [App\Http\Controllers\HomeController::class, 'receiptSearch'])->name('receiptSearch');
@@ -28,7 +29,12 @@ Route::get('is-auth', function () {
         "login" => $auth
     ];
 });
+Route::post('logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
+Route::post('/addComment', [App\Http\Controllers\HomeController::class, 'addComment'])->name('addComment');
 
+//Admin
+Route::get('/getChartInfo',[App\Http\Controllers\AdminController::class, 'getChartInfo'])->name('getChartInfo');
+Route::get('/getChartInfoKitchens', [App\Http\Controllers\AdminController::class, 'getChartInfoKitchens'])->name('getChartInfoKitchens');
 
 
 
