@@ -74,12 +74,14 @@ class ReceiptController extends Controller
      */
     public function store(Request $request)
     {
-//        return $request;
+
 
         $request['ingradients'] = json_decode($request['ingradients']);
         $request['count_ingradients'] = json_decode($request['count_ingradients']);
         $request['type_measurings'] = json_decode($request['type_measurings']);
+        $request['step_images'] = json_decode($request['step_images']);
 
+//        return $request;
 
         $validator = Validator::make(
             $request->all(),
@@ -122,6 +124,22 @@ class ReceiptController extends Controller
             $name = time() .'_'. $image->getClientOriginalName();
             //Storage::disk('public')->put($name, File::get($image));
             $request['photo']->storeAs('images', $name, 'public');
+        }
+
+        if($request['step_images']) {
+            for($i = 0; $i < count($request['step_images']); $i++) {
+//                $step_image = $request['step_images'][$i]->step_image;
+//                $step_name = time().'_'.$step_image->getClientOriginalName();
+//                return $step_name;
+//                $step_image->storeAs('step_images', $name, 'public');
+//                if($request['step_images'][$i]->step_image->isValid()){
+//                    return 'dfb';
+//                }
+//                $image = $request['step_images'][$i]->step_image;
+//                $name = time() .'_'. $image->getClientOriginalName();
+//                $request['step_images'][$i]->step_image->storeAs('step_images', $name, 'public');
+            }
+
         }
 
 

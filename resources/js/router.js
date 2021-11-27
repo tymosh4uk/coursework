@@ -10,6 +10,9 @@ import CreateKitchen from "./views/CreateKitchen";
 import CreateReceipt from "./views/CreateReceipt";
 import App from "./views/App";
 import AllReceipt from "./views/AllReceipt";
+import Admin from "./views/AdminStatistics";
+import AdminHeader from "./components/Test";
+import UserHeader from "./components/Header";
 import paginate from 'vuejs-paginate'
 Vue.component('Paginate', paginate)
 
@@ -19,7 +22,10 @@ const router = new vueRouter({
     routes: [
         {
             path: '/',
-            component: Index
+            components: {
+                default: Index,
+                header: UserHeader
+            }
         },
         {
             path: '/blog',
@@ -27,15 +33,24 @@ const router = new vueRouter({
         },
         {
             path: '/receipt/:id',
-            component: Receipt
+            components: {
+                default: Receipt,
+                header: UserHeader
+            }
         },
         {
             path: '/create',
-            component: CreateKitchen
+            components:{
+                default: CreateKitchen,
+                header: AdminHeader
+            }
         },
         {
             path: '/createReceipt',
-            component: CreateReceipt,
+            components: {
+                default: CreateReceipt,
+                header: UserHeader
+            },
             meta: {auth: true}
         },
         {
@@ -44,7 +59,17 @@ const router = new vueRouter({
         },
         {
             path: '/recepty',
-            component: AllReceipt
+            components: {
+                default: AllReceipt,
+                header: UserHeader
+            }
+        },
+        {
+            path: '/admin',
+            components: {
+                default: Admin,
+                header: AdminHeader
+            }
         }
 
 

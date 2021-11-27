@@ -31,7 +31,9 @@
         "webpack": "^5.61.0"
     },
     "dependencies": {
+        "chart.js": "^2.8.0",
         "vue-axios": "^3.3.7",
+        "vue-chartjs": "^3.5.0",
         "vue-router": "^3.5.3",
         "vuejs-paginate": "^2.1.0"
     }

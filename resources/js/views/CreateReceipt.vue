@@ -40,7 +40,7 @@
                 <div id="form__main-img__wrapper" class="form__main-img__wrapper">
                     <div class="form__main-img__wrapper__inner">
 
-                        <input id="main_img_file" class="form__main-img__input" type="file" name="main_img_file" ref="main_img_file">
+                        <input id="main_img_file" class="form__main-img__input" type="file" name="main_img_file" ref="main_img_file" accept="image/*">
 
                         <div class="form__main-img__content">
                             <div class="form__main-img__content__aligner">
@@ -142,7 +142,7 @@
                 <div class="ingradients__wrapper">
                     <div class="ingradients__cont">
                         <div id="steps" class="ingradients">
-                            <div id="step_clicks" style="display:none">0</div>
+                            <div id="step_clicks" style="display:none">1</div>
                             <span title="" class="ingradients__title">Покрокова інструкція</span>
                             <p class="ingradients__info">Покрокова інструкція допоможе початківцям приготувати ваш рецепт. Ми рекомендуємо розбити рецепт мінімум на 5 кроків</p>
 
@@ -150,7 +150,7 @@
                         <button id="addStep" class="ingradients__add-button" onclick="event.preventDefault()">
                             <div class="ingradients__add-button__container">
                                 <span class="first" uk-icon="plus-circle"></span>
-                                <span class="second">Додати інградієнт</span>
+                                <span class="second">Додати новий крок</span>
                             </div>
 
                         </button>
@@ -225,6 +225,27 @@ export default {
         filldata() {
             this.form.main_img_file = this.$refs.main_img_file.files[0];
 
+            var imagesArr = [];
+            var stepImages = $( ".step_img_file" );
+
+            for(var i = 0; i < stepImages.length; i++){
+                var fileUpload = stepImages[i];                    // ***
+                if (fileUpload.files.length > 0) {                    // ***
+                    imagesArr.push({ step_image: fileUpload.files[0]});
+                }                                                 // ***
+            }
+
+            this.form.step_images = imagesArr;
+
+            // stepImages.each(function() {
+            //     this.form.step_images.push(this.files[0]);
+            // });
+
+            // $('.step_img_file').each(function() {
+            //     console.log($(this).files[0]);
+            // });
+
+
             //console.log(this.$refs.step_img_file);
 
             let category = document.getElementById('categories');
@@ -288,7 +309,7 @@ export default {
             data.append('count_ingradients', JSON.stringify(this.form.count_ingradients));
             data.append('type_measurings', JSON.stringify(this.form.type_measurings));
 
-
+            data.append('step_images', JSON.stringify(this.form.step_images));
             data.append('photo', this.form.main_img_file);
 
 
@@ -299,7 +320,7 @@ export default {
 
             axios.post('/api/receipts', data)
                 .then(res => {
-                    // console.log(res.data);
+                    //console.log(res.data);
                     if (res.data.status) {
                         this.$router.push('/receipt/' + res.data.receipt.id);
 
@@ -373,7 +394,7 @@ $('body').delegate('#addStep', 'click', function () {
     setStep += '<div class="step__body__image__wrapper">'
     setStep += '<div class="step__body__image__wrapper__content">'
 
-    setStep += '<input id="step_img_file" class="step__body__input" type="file" name="step_img_file" ref="step_img_file">'
+    setStep += '<input id="" class="step__body__input step_img_file" type="file" name="step_img_file" accept="image/*" ref="step_img_file">'
     setStep += '<div class="step__img__content">'
     setStep += '<div class="step__img__content__aligner">'
     setStep += '<span class="step__img__content__icon" uk-icon="icon: cloud-upload"></span>'
@@ -383,7 +404,7 @@ $('body').delegate('#addStep', 'click', function () {
 
     setStep += '<div class="step__img__contain">'
     setStep += '<div class="step__img__overlay">'
-    setStep += '<img id="previewStepHolder" alt="Uploaded Image Preview Holder"/>'
+    setStep += '<img class="previewStepHolder" alt="Uploaded Image Preview Holder"/>'
     setStep += '</div>'
     setStep += '</div>'
 
@@ -404,6 +425,11 @@ $('body').delegate('#addStep', 'click', function () {
     setStep += '</div>'
 
     $('#steps').append(setStep)
+    let lastItem = $( "#steps > div:last " )
+    let lastInput = lastItem.find('.step_img_file')
+    lastInput.attr('name', $('#step_clicks').html(function(i, val) { return val }).html())
+    let lastImg = lastItem.find('.previewStepHolder')
+    lastImg.attr('id', 'step-img-'+ $('#step_clicks').html(function(i, val) { return val }).html())
 })
 
 $('body').delegate('#deleteStep', 'click', function () {
@@ -414,10 +440,17 @@ $('body').delegate('#deleteStep', 'click', function () {
 $('body').delegate('#addStep', 'click', function () {
     $('#step_clicks').html(function(i, val) { return val*1+1 });
 })
+
 $('body').delegate('#main_img_file', 'change', function () {
     readURL(this);
-    console.log("Uploading image");
+    // console.log("Uploading image");
 })
+
+$('body').delegate('.step_img_file', 'change', function () {
+    readStepURL(this);
+    // console.log("Uploading step image");
+})
+
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -428,6 +461,22 @@ function readURL(input) {
     } else {
     }
 }
+
+function readStepURL(input) {
+    // console.log(input.name)
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#step-img-'+input.name).attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    } else {}
+}
+
+// $("#step_img_file").change(function() {
+//     readStepURL(this);
+//     console.log("Uploading image");
+// });
 
 
 // $(function(){

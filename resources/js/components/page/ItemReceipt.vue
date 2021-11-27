@@ -17,7 +17,7 @@
 <!--    </div>-->
         <ul>
             <li v-for="record of receipts">
-                <a class="record_item" href="#">
+                <router-link :to="'/receipt/' + record.id">
                     <div class="receipt__container">
                         <div class="receipt__container__inner">
                             <div class="receipt__img__container">
@@ -116,7 +116,7 @@
 <!--                        {{ record.kitchen }}-->
 <!--                        {{ record.image }}-->
                     </div>
-                </a>
+                </router-link>
 
             </li>
     </ul>
