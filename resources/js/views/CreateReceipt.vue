@@ -183,10 +183,12 @@
 
 
 
-                <button class="uk-button uk-button-primary" @click.prevent="store">
-                    <div uk-spinner v-if="loading"></div>
-                    <span v-else>Опубликовать</span>
-                </button>
+                <div class="send-btn__container">
+                    <button class="send-btn__on-create" @click.prevent="store">
+                        <div uk-spinner v-if="loading"></div>
+                        <span v-else>Опубликовать</span>
+                    </button>
+                </div>
             </fieldset>
 
         </form>

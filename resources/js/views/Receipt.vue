@@ -40,11 +40,35 @@
                             </span>
                         </div>
 
-                        <div class="content__header__add-receipt-btn__wrapper">
+                        <div v-if="userId">
+                            <div class="content__header__add-receipt-btn__wrapper" v-if="isSaved == 0">
+                                <form id="form-addSaved" enctype="multipart/form-data">
+                                    <button type="button" class="content__header__add-receipt-btn" @click.prevent="addToSaved(receipt[0].id)">
+                                        <span uk-icon="bookmark" class="receipt__content__options__btn__icon"></span>
+                                        Добавить в книгу рецептов
+                                        <span class="content__header__add-receipt-btn__count">1</span>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="content__header__add-receipt-btn__wrapper" v-if="isSaved != 0">
+                                <div class="receipt__content__options__btn__wrapper" style="min-width: 0px; border-color: #af212b;">
+                                    <!--                                                    <input style="display: none" type="text" value="{{ record.id }}">-->
+                                    <!--                                                    <label style="display: none" v-model="idReceipt">{{  }}</label>-->
+                                    <button type="button" class="receipt__content__options__btn" @click.prevent="removeFromSaved(receipt[0].id)">
+                                        <div class="receipt__content__options__btn__inner">
+                                            <i class="fas fa-bookmark nav__user-navbar__item__link-bookmark"></i>
+                                            Додано
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content__header__add-receipt-btn__wrapper" v-else>
                             <button type="button" class="content__header__add-receipt-btn">
                                 <span uk-icon="bookmark" class="receipt__content__options__btn__icon"></span>
                                 Добавить в книгу рецептов
-                                <span class="content__header__add-receipt-btn__count">1</span>
+                                <span class="content__header__add-receipt-btn__count">2</span>
                             </button>
                         </div>
 
@@ -65,7 +89,7 @@
                 </div>
 
                 <div class="content__receipt__main-img__container">
-                    <img class="content__receipt__main-img" src="https://storge.pic2.me/c/1360x800/575/586198aedc963.jpg" alt="">
+                    <img class="content__receipt__main-img" :src="'../storage/images/'+ receipt[0].main_img" alt="">
                 </div>
             </div>
 
@@ -81,7 +105,7 @@
                                         <img class="content__user-info__user-content__img" src="https://agile.yakubovsky.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" alt="">
                                     </div>
                                     <div class="content__user-info__user-content__info__container">
-                                        <span class="content__user-info__user-content__info__author">Автор: Алексей Скобелев</span>
+                                        <span class="content__user-info__user-content__info__author">Автор: {{ receipt[0].username }} {{ receipt[0].surname }}</span>
                                         <span class="content__user-info__user-content__info__receipts">2 рецепта</span>
                                     </div>
                                 </div>
@@ -185,8 +209,45 @@
                         </div>
                     </form>
                 </div>
-
             </div>
+
+            <div class="comments__container" v-if="comments != 0">
+                <div class="comments__inner">
+
+                    <div class="comments__header__container">
+                        <span class="comments__header">Коментарії</span>
+                    </div>
+
+                    <div class="comments__content__container">
+                        <div class="comments__content__wrapper">
+                            <div class="comments__content__item__container" v-for="commentary in comments">
+                                <div class="comments__content__item__user__container">
+                                    <a href="">
+                                        <div class="comments__content__item__user__wrapper">
+                                            <div class="comments__content__item__user__img__container">
+                                                <div class="comments__content__item__user__img__wrapper">
+                                                    <img class="content__user-info__user-content__img" src="https://agile.yakubovsky.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="comments__content__item__user__info__container">
+                                                <span class="comments__content__item__user__info__name">{{ commentary.name }} {{ commentary.surname }}</span>
+                                                <span class="comments__content__item__user__info__date">{{ commentary.created_at }}</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="comments__content__item__text__container">
+                                    <span class="comments__content__item__text">{{ commentary.comment }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
         </div>
         <div uk-alert v-if="not_found">
             <a class="uk-alert-close" uk-close></a>
@@ -208,35 +269,57 @@ export default {
         receipt: Object,
         ingradients: [],
         not_found: false,
-        comment: ""
+        comment: "",
+        comments: "",
+        isSaved: ""
     }),
     mounted() {
         this.loadReceipt(this.$route.params.id)
         this.checkAuth()
-        console.log(this.userId)
+        this.getAllComments()
+        this.getSavedById()
+        // console.log(this.userId)
     },
     methods: {
         loadReceipt(id) {
             axios.get('/api/receipts/' + id)
-            .then(res => {
-                this.receipt = res.data.receipt;
-                this.ingradients = res.data.ingradients;
-                // console.log(this.receipt[0].id);
-                this.loading = false;
-            })
-            .catch(err => {
-                this.not_found = true;
-                this.loading = false;
-            })
+                .then(res => {
+                    this.receipt = res.data.receipt;
+                    this.ingradients = res.data.ingradients;
+                    console.log(res.data);
+                    this.loading = false;
+                })
+                .catch(err => {
+                    this.not_found = true;
+                    this.loading = false;
+                })
         },
         checkAuth() {
             axios.get('/getAuthStatus')
                 .then(response => {
                     this.userId = response.data;
-                    console.log(this.userId)
+                    // console.log(this.userId)
                 })
                 .catch(error => console.log("error"));
 
+        },
+        getAllComments() {
+            axios.get('/getAllComments', {
+                params: {
+                    receipt: this.$route.params.id
+                }
+            })
+                .then(res => {
+                    // console.log(res.data);
+                    this.comments = res.data;
+                    // this.receipt = res.data.receipt;
+                    // this.ingradients = res.data.ingradients;
+                    // console.log(this.receipt[0].id);
+                    this.loading = false;
+                })
+                .catch(err => {
+                    this.loading = false;
+                })
         },
         sendComment() {
             const data = new FormData();
@@ -248,6 +331,7 @@ export default {
             axios.post('/addComment', data)
                 .then(res => {
                     // console.log(res.data);
+                    window.location.reload();
                     if (res.data.status) {
 
                         this.$router.push('/receipt/' + this.receipt[0].id);
@@ -260,6 +344,57 @@ export default {
                     }
                 })
 
+        },
+        addToSaved(receipt) {
+            // console.log(receipt);
+            const data = new FormData();
+            //
+            data.append('id_receipt', receipt);
+            //
+            axios.post('/saveReceipt', data)
+                .then(res => {
+                    // console.log(res.data);
+                    window.location.reload();
+                    if (res.data.status) {
+                        // this.$router.push('/receipt/' + this.receipt[0].id);
+                    }
+                    else {
+                    }
+                })
+        },
+        getSavedById() {
+            axios.get('/getSavedById', {
+                params: {
+                    receipt: this.$route.params.id
+                }
+            })
+                .then(res => {
+                    console.log(res.data);
+                    this.isSaved = res.data;
+                    // this.receipt = res.data.receipt;
+                    // this.ingradients = res.data.ingradients;
+                    // console.log(this.receipt[0].id);
+                    this.loading = false;
+                })
+                .catch(err => {
+                    this.loading = false;
+                })
+        },
+        removeFromSaved(receipt) {
+            const data = new FormData();
+            //
+            data.append('id_receipt', receipt);
+            //
+            axios.post('/removeFromSaved', data)
+                .then(res => {
+                    console.log(res.data);
+                    window.location.reload();
+                    if (res.data.status) {
+                        // this.$router.push('/receipt/' + this.receipt[0].id);
+                    }
+                    else {
+                    }
+                })
         }
     }
 }

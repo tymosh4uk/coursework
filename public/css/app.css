@@ -10772,6 +10772,36 @@ button:focus {
   color: #D0D0D0;
 }
 
+.send-btn__container {
+  flex-flow: column wrap;
+  flex: 1 1 auto;
+  width: 620px;
+  margin: 50px auto;
+  display: flex;
+  align-items: center;
+}
+.send-btn__on-create {
+  transition: color 0.3s ease-in 0s;
+  cursor: pointer;
+  outline: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font: 500 18px/20px Roboto;
+  text-transform: uppercase;
+  width: 300px;
+  height: 60px;
+  margin: 0px auto;
+  letter-spacing: 0.4px;
+  color: white;
+  background-color: #24af30;
+  border-radius: 2px;
+  border: none;
+}
+.send-btn__on-create:hover {
+  color: #d6cbcb;
+}
+
 .receipt__container {
   margin-bottom: 35px;
 }
@@ -10984,6 +11014,9 @@ button:focus {
   margin: 0px;
   border: 0px;
   background-color: transparent;
+}
+.receipt__content__options__btn:focus {
+  background-color: #fff;
 }
 .receipt__content__options__btn__icon {
   height: 18px;
@@ -11218,6 +11251,7 @@ button:focus {
 }
 .content__receipt__main-img {
   width: 620px;
+  max-height: 500px;
   height: auto;
   -o-object-fit: contain;
      object-fit: contain;
@@ -11597,6 +11631,7 @@ button:focus {
 .comments__container {
   display: flex;
   justify-content: flex-start;
+  flex-direction: column;
   max-width: 620px;
 }
 .comments__container div {
@@ -11657,6 +11692,142 @@ button:focus {
   align-items: center;
   width: 100%;
   justify-content: center;
+}
+.comments__inner {
+  position: relative;
+  margin: 2px 0px;
+  flex-grow: 0;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  display: block;
+  max-width: 620px;
+  width: 620px;
+  min-width: 620px;
+  flex-basis: 66.664% !important;
+}
+.comments__header {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 1px;
+  margin: 10px 0px;
+  display: block;
+  font-family: "PT Serif", sans-serif;
+}
+.comments__header__container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 24px 0px;
+  width: 100%;
+}
+.comments__content__container {
+  position: relative;
+  margin: 2px 0px;
+  flex-grow: 0;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  display: block;
+  min-width: 66.664%;
+  flex-basis: 66.664% !important;
+}
+.comments__content__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+  align-items: center;
+}
+.comments__content__item__container {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+  align-items: center;
+  margin-left: 0px;
+}
+.comments__content__item__user__container {
+  position: relative;
+  margin: 2px 0px;
+  flex-grow: 0;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  display: block;
+  min-width: 100%;
+  flex-basis: 100% !important;
+}
+.comments__content__item__user__container a {
+  text-decoration: none;
+  outline: none;
+  color: #000;
+}
+.comments__content__item__user__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+  align-items: center;
+}
+.comments__content__item__user__img__container {
+  flex: 0 0 50px;
+}
+.comments__content__item__user__img__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+.comments__content__item__user__info__container {
+  flex: 1 0 50%;
+  margin-left: 10px;
+}
+.comments__content__item__user__info__name {
+  color: black;
+  align-items: center;
+  justify-content: center;
+  display: block;
+  font: 13px/16px "PT Serif", Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.comments__content__item__user__info__date {
+  color: black;
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  font: 8px/1 Roboto, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.comments__content__item__text {
+  color: black;
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  font-family: "PT Serif", Georgia, serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 33px;
+}
+.comments__content__item__text__container {
+  position: relative;
+  margin: 2px 0px;
+  flex-grow: 0;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  display: block;
+  min-width: 99.996%;
+  flex-basis: 99.996% !important;
+  margin-bottom: 20px;
+  margin-left: 5px;
 }
 
 .registration__container {

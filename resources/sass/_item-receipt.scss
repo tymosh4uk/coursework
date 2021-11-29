@@ -252,6 +252,10 @@
                 border: 0px;
                 background-color: transparent;
 
+                &:focus {
+                    background-color: #fff;
+                }
+
                 &__icon {
                     height: 18px;
                     width: 15px;

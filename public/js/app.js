@@ -2164,12 +2164,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       isAuth: Boolean,
       userName: Object,
+      savedHref: "/saved",
       links: [{
         title: "Головна",
         href: "/"
@@ -2439,6 +2455,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2571,15 +2589,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {};
+  },
   props: {
     receipts: {
       required: true,
       type: Array
+    },
+    ingradients: {
+      required: true,
+      type: Array // type: Object
+
     }
   },
-  mounted: function mounted() {
-    console.log(this.receipts);
+  mounted: function mounted() {// console.log(this.ingradients);
+  },
+  methods: {
+    addToSaved: function addToSaved(receipt) {
+      // console.log(receipt);
+      var data = new FormData(); //
+
+      data.append('id_receipt', receipt); //
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/saveReceipt', data).then(function (res) {
+        // console.log(res.data);
+        //         // window.location.reload();
+        if (res.data.status) {//
+          //             // this.$router.push('/receipt/' + this.receipt[0].id);
+          //
+          //
+        } else {}
+      });
+    }
   } // props: {
   //     id: {
   //         type: Number,
@@ -2764,9 +2812,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -2791,7 +2836,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_1___default().get('api/receipts').then(function (res) {
-        console.log(res.data);
+        // console.log(res.data);
         _this.receipts = res.data;
 
         _this.setupPagination(res.data.receipts);
@@ -3010,6 +3055,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
 //
 //
 //
@@ -3734,6 +3781,67 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3747,13 +3855,16 @@ __webpack_require__.r(__webpack_exports__);
       receipt: Object,
       ingradients: [],
       not_found: false,
-      comment: ""
+      comment: "",
+      comments: "",
+      isSaved: ""
     };
   },
   mounted: function mounted() {
     this.loadReceipt(this.$route.params.id);
     this.checkAuth();
-    console.log(this.userId);
+    this.getAllComments();
+    this.getSavedById(); // console.log(this.userId)
   },
   methods: {
     loadReceipt: function loadReceipt(id) {
@@ -3761,8 +3872,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/receipts/' + id).then(function (res) {
         _this.receipt = res.data.receipt;
-        _this.ingradients = res.data.ingradients; // console.log(this.receipt[0].id);
-
+        _this.ingradients = res.data.ingradients;
+        console.log(res.data);
         _this.loading = false;
       })["catch"](function (err) {
         _this.not_found = true;
@@ -3773,14 +3884,31 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_1___default().get('/getAuthStatus').then(function (response) {
-        _this2.userId = response.data;
-        console.log(_this2.userId);
+        _this2.userId = response.data; // console.log(this.userId)
       })["catch"](function (error) {
         return console.log("error");
       });
     },
-    sendComment: function sendComment() {
+    getAllComments: function getAllComments() {
       var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get('/getAllComments', {
+        params: {
+          receipt: this.$route.params.id
+        }
+      }).then(function (res) {
+        // console.log(res.data);
+        _this3.comments = res.data; // this.receipt = res.data.receipt;
+        // this.ingradients = res.data.ingradients;
+        // console.log(this.receipt[0].id);
+
+        _this3.loading = false;
+      })["catch"](function (err) {
+        _this3.loading = false;
+      });
+    },
+    sendComment: function sendComment() {
+      var _this4 = this;
 
       var data = new FormData();
       data.append('comment', this.comment);
@@ -3789,13 +3917,140 @@ __webpack_require__.r(__webpack_exports__);
       this.comment = "";
       axios__WEBPACK_IMPORTED_MODULE_1___default().post('/addComment', data).then(function (res) {
         // console.log(res.data);
+        window.location.reload();
+
         if (res.data.status) {
-          _this3.$router.push('/receipt/' + _this3.receipt[0].id);
+          _this4.$router.push('/receipt/' + _this4.receipt[0].id);
         } else {
           setTimeout(function () {
-            _this3.loading = false;
+            _this4.loading = false;
           }, 300);
         }
+      });
+    },
+    addToSaved: function addToSaved(receipt) {
+      // console.log(receipt);
+      var data = new FormData(); //
+
+      data.append('id_receipt', receipt); //
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post('/saveReceipt', data).then(function (res) {
+        // console.log(res.data);
+        window.location.reload();
+
+        if (res.data.status) {// this.$router.push('/receipt/' + this.receipt[0].id);
+        } else {}
+      });
+    },
+    getSavedById: function getSavedById() {
+      var _this5 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get('/getSavedById', {
+        params: {
+          receipt: this.$route.params.id
+        }
+      }).then(function (res) {
+        console.log(res.data);
+        _this5.isSaved = res.data; // this.receipt = res.data.receipt;
+        // this.ingradients = res.data.ingradients;
+        // console.log(this.receipt[0].id);
+
+        _this5.loading = false;
+      })["catch"](function (err) {
+        _this5.loading = false;
+      });
+    },
+    removeFromSaved: function removeFromSaved(receipt) {
+      var data = new FormData(); //
+
+      data.append('id_receipt', receipt); //
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post('/removeFromSaved', data).then(function (res) {
+        console.log(res.data);
+        window.location.reload();
+
+        if (res.data.status) {// this.$router.push('/receipt/' + this.receipt[0].id);
+        } else {}
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Saved.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Saved.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _components_Spin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Spin */ "./resources/js/components/Spin.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_page_ItemReceipt__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/page/ItemReceipt */ "./resources/js/components/page/ItemReceipt.vue");
+/* harmony import */ var _mixins_pagination_mixin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../mixins/pagination.mixin */ "./resources/js/mixins/pagination.mixin.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  mixins: [_mixins_pagination_mixin__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  components: {
+    Spin: _components_Spin__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Item: _components_page_ItemReceipt__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      loading: true,
+      receipts: []
+    };
+  },
+  mounted: function mounted() {
+    this.loadReceipt();
+  },
+  methods: {
+    loadReceipt: function loadReceipt() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get('/getAllSaved').then(function (res) {
+        console.log(res.data);
+        _this.receipts = res.data;
+
+        _this.setupPagination(res.data.receipts);
+
+        setTimeout(function () {
+          _this.loading = false;
+        }, 500);
       });
     }
   }
@@ -4098,8 +4353,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_AdminStatistics__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./views/AdminStatistics */ "./resources/js/views/AdminStatistics.vue");
 /* harmony import */ var _components_Test__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/Test */ "./resources/js/components/Test.vue");
 /* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/Header */ "./resources/js/components/Header.vue");
-/* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuejs-paginate */ "./node_modules/vuejs-paginate/dist/index.js");
-/* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(vuejs_paginate__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _views_Saved__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./views/Saved */ "./resources/js/views/Saved.vue");
+/* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuejs-paginate */ "./node_modules/vuejs-paginate/dist/index.js");
+/* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(vuejs_paginate__WEBPACK_IMPORTED_MODULE_14__);
 var _this = undefined;
 
 
@@ -4122,7 +4378,8 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vue_router__WEBPACK_IMPORTED_MOD
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('Paginate', (vuejs_paginate__WEBPACK_IMPORTED_MODULE_13___default()));
+
+vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('Paginate', (vuejs_paginate__WEBPACK_IMPORTED_MODULE_14___default()));
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   mode: "history",
   routes: [{
@@ -4169,6 +4426,12 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     components: {
       "default": _views_AdminStatistics__WEBPACK_IMPORTED_MODULE_10__["default"],
       header: _components_Test__WEBPACK_IMPORTED_MODULE_11__["default"]
+    }
+  }, {
+    path: '/saved',
+    components: {
+      "default": _views_Saved__WEBPACK_IMPORTED_MODULE_13__["default"],
+      header: _components_Header__WEBPACK_IMPORTED_MODULE_12__["default"]
     }
   }]
 });
@@ -77646,6 +77909,45 @@ component.options.__file = "resources/js/views/Receipt.vue"
 
 /***/ }),
 
+/***/ "./resources/js/views/Saved.vue":
+/*!**************************************!*\
+  !*** ./resources/js/views/Saved.vue ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Saved_vue_vue_type_template_id_f6be0d10_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Saved.vue?vue&type=template&id=f6be0d10&scoped=true& */ "./resources/js/views/Saved.vue?vue&type=template&id=f6be0d10&scoped=true&");
+/* harmony import */ var _Saved_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Saved.vue?vue&type=script&lang=js& */ "./resources/js/views/Saved.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Saved_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Saved_vue_vue_type_template_id_f6be0d10_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Saved_vue_vue_type_template_id_f6be0d10_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "f6be0d10",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/Saved.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/views/Task-item.vue":
 /*!******************************************!*\
   !*** ./resources/js/views/Task-item.vue ***!
@@ -77948,6 +78250,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/views/Saved.vue?vue&type=script&lang=js&":
+/*!***************************************************************!*\
+  !*** ./resources/js/views/Saved.vue?vue&type=script&lang=js& ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Saved_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Saved.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Saved.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Saved_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/views/Task-item.vue?vue&type=script&lang=js&":
 /*!*******************************************************************!*\
   !*** ./resources/js/views/Task-item.vue?vue&type=script&lang=js& ***!
@@ -78231,6 +78549,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/views/Saved.vue?vue&type=template&id=f6be0d10&scoped=true&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/views/Saved.vue?vue&type=template&id=f6be0d10&scoped=true& ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Saved_vue_vue_type_template_id_f6be0d10_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Saved_vue_vue_type_template_id_f6be0d10_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Saved_vue_vue_type_template_id_f6be0d10_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Saved.vue?vue&type=template&id=f6be0d10&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Saved.vue?vue&type=template&id=f6be0d10&scoped=true&");
+
+
+/***/ }),
+
 /***/ "./resources/js/views/Task-item.vue?vue&type=template&id=6b43fecc&":
 /*!*************************************************************************!*\
   !*** ./resources/js/views/Task-item.vue?vue&type=template&id=6b43fecc& ***!
@@ -78307,7 +78642,52 @@ var render = function () {
       _vm._v(" "),
       _vm._m(1),
       _vm._v(" "),
-      _vm._m(2),
+      !_vm.isAuth
+        ? _c("div", { staticClass: "nav__user-navbar__container" }, [_vm._m(2)])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.isAuth
+        ? _c(
+            "div",
+            { staticClass: "nav__user-navbar__container" },
+            [
+              _c("router-link", { attrs: { to: _vm.savedHref } }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "nav__user-navbar__item_search__container nav__user-navbar__item nav__user-navbar__item_border",
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "nav__user-navbar__item__link-bookmark__container",
+                      },
+                      [
+                        _c("i", {
+                          staticClass:
+                            "fas fa-bookmark nav__user-navbar__item__link-bookmark",
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "nav__user-navbar__item__link-bookmark__text",
+                          },
+                          [_vm._v("Моя книга рецептів")]
+                        ),
+                      ]
+                    ),
+                  ]
+                ),
+              ]),
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
       !_vm.isAuth
         ? _c("div", { staticClass: "nav__user-navbar__container" }, [_vm._m(3)])
@@ -78337,32 +78717,48 @@ var render = function () {
                     _c("span", [_vm._v(_vm._s(_vm.userName))]),
                   ]
                 ),
+                _vm._v(" "),
+                _c("div", { attrs: { "uk-drop": "pos: bottom-justify" } }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "uk-card uk-card-body uk-card-default",
+                      staticStyle: { padding: "20px 10px", width: "130px" },
+                    },
+                    [
+                      _c(
+                        "form",
+                        {
+                          attrs: {
+                            id: "form-logout",
+                            enctype: "multipart/form-data",
+                          },
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "uk-button uk-button-danger",
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.logout.apply(null, arguments)
+                                },
+                              },
+                            },
+                            [_c("span", [_vm._v("Вийти")])]
+                          ),
+                        ]
+                      ),
+                    ]
+                  ),
+                ]),
               ]
             ),
           ])
         : _vm._e(),
       _vm._v(" "),
       _vm._m(4),
-      _vm._v(" "),
-      _c(
-        "form",
-        { attrs: { id: "form-logout", enctype: "multipart/form-data" } },
-        [
-          _c(
-            "button",
-            {
-              staticClass: "uk-button uk-button-primary",
-              on: {
-                click: function ($event) {
-                  $event.preventDefault()
-                  return _vm.logout.apply(null, arguments)
-                },
-              },
-            },
-            [_c("span", [_vm._v("Logout")])]
-          ),
-        ]
-      ),
     ]),
     _vm._v(" "),
     _c(
@@ -78429,33 +78825,31 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "nav__user-navbar__container" }, [
-      _c(
-        "div",
-        {
-          staticClass:
-            "nav__user-navbar__item_search__container nav__user-navbar__item nav__user-navbar__item_border",
-        },
-        [
-          _c(
-            "div",
-            { staticClass: "nav__user-navbar__item__link-bookmark__container" },
-            [
-              _c("i", {
-                staticClass:
-                  "fas fa-bookmark nav__user-navbar__item__link-bookmark",
-              }),
-              _vm._v(" "),
-              _c(
-                "span",
-                { staticClass: "nav__user-navbar__item__link-bookmark__text" },
-                [_vm._v("Моя книга рецептів")]
-              ),
-            ]
-          ),
-        ]
-      ),
-    ])
+    return _c(
+      "div",
+      {
+        staticClass:
+          "nav__user-navbar__item_search__container nav__user-navbar__item nav__user-navbar__item_border",
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "nav__user-navbar__item__link-bookmark__container" },
+          [
+            _c("i", {
+              staticClass:
+                "fas fa-bookmark nav__user-navbar__item__link-bookmark",
+            }),
+            _vm._v(" "),
+            _c(
+              "span",
+              { staticClass: "nav__user-navbar__item__link-bookmark__text" },
+              [_vm._v("Моя книга рецептів")]
+            ),
+          ]
+        ),
+      ]
+    )
   },
   function () {
     var _vm = this
@@ -78747,7 +79141,14 @@ var render = function () {
                         staticClass: "receipt__content__description__author",
                         attrs: { title: "" },
                       },
-                      [_vm._v("Автор: Anastasia Sheveleva")]
+                      [
+                        _vm._v(
+                          "Автор: " +
+                            _vm._s(record.username) +
+                            " " +
+                            _vm._s(record.surname)
+                        ),
+                      ]
                     ),
                     _vm._v(" "),
                     _c(
@@ -78875,34 +79276,51 @@ var render = function () {
                           { staticClass: "receipt__content__options__inner" },
                           [
                             _c(
-                              "div",
+                              "form",
                               {
-                                staticClass:
-                                  "receipt__content__options__btn__wrapper",
+                                attrs: {
+                                  id: "form-logout",
+                                  enctype: "multipart/form-data",
+                                },
                               },
                               [
                                 _c(
-                                  "button",
+                                  "div",
                                   {
                                     staticClass:
-                                      "receipt__content__options__btn",
-                                    attrs: { type: "button" },
+                                      "receipt__content__options__btn__wrapper",
                                   },
                                   [
                                     _c(
-                                      "div",
+                                      "button",
                                       {
                                         staticClass:
-                                          "receipt__content__options__btn__inner",
+                                          "receipt__content__options__btn",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function ($event) {
+                                            $event.preventDefault()
+                                            return _vm.addToSaved(record.id)
+                                          },
+                                        },
                                       },
                                       [
-                                        _c("span", {
-                                          staticClass:
-                                            "receipt__content__options__btn__icon",
-                                          attrs: { "uk-icon": "bookmark" },
-                                        }),
-                                        _vm._v(
-                                          "\n                                                        Добавить в книгу рецептов\n                                                    "
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "receipt__content__options__btn__inner",
+                                          },
+                                          [
+                                            _c("span", {
+                                              staticClass:
+                                                "receipt__content__options__btn__icon",
+                                              attrs: { "uk-icon": "bookmark" },
+                                            }),
+                                            _vm._v(
+                                              "\n                                                            Добавить в книгу рецептов\n                                                        "
+                                            ),
+                                          ]
                                         ),
                                       ]
                                     ),
@@ -79636,23 +80054,25 @@ var render = function () {
             }),
           ]),
           _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "uk-button uk-button-primary",
-              on: {
-                click: function ($event) {
-                  $event.preventDefault()
-                  return _vm.store.apply(null, arguments)
+          _c("div", { staticClass: "send-btn__container" }, [
+            _c(
+              "button",
+              {
+                staticClass: "send-btn__on-create",
+                on: {
+                  click: function ($event) {
+                    $event.preventDefault()
+                    return _vm.store.apply(null, arguments)
+                  },
                 },
               },
-            },
-            [
-              _vm.loading
-                ? _c("div", { attrs: { "uk-spinner": "" } })
-                : _c("span", [_vm._v("Опубликовать")]),
-            ]
-          ),
+              [
+                _vm.loading
+                  ? _c("div", { attrs: { "uk-spinner": "" } })
+                  : _c("span", [_vm._v("Опубликовать")]),
+              ]
+            ),
+          ]),
         ]),
       ]
     ),
@@ -79970,38 +80390,158 @@ var render = function () {
                     ),
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "content__header__add-receipt-btn__wrapper",
-                    },
-                    [
-                      _c(
-                        "button",
+                  _vm.userId
+                    ? _c("div", [
+                        _vm.isSaved == 0
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "content__header__add-receipt-btn__wrapper",
+                              },
+                              [
+                                _c(
+                                  "form",
+                                  {
+                                    attrs: {
+                                      id: "form-addSaved",
+                                      enctype: "multipart/form-data",
+                                    },
+                                  },
+                                  [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "content__header__add-receipt-btn",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function ($event) {
+                                            $event.preventDefault()
+                                            return _vm.addToSaved(
+                                              _vm.receipt[0].id
+                                            )
+                                          },
+                                        },
+                                      },
+                                      [
+                                        _c("span", {
+                                          staticClass:
+                                            "receipt__content__options__btn__icon",
+                                          attrs: { "uk-icon": "bookmark" },
+                                        }),
+                                        _vm._v(
+                                          "\n                                    Добавить в книгу рецептов\n                                    "
+                                        ),
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass:
+                                              "content__header__add-receipt-btn__count",
+                                          },
+                                          [_vm._v("1")]
+                                        ),
+                                      ]
+                                    ),
+                                  ]
+                                ),
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.isSaved != 0
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "content__header__add-receipt-btn__wrapper",
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "receipt__content__options__btn__wrapper",
+                                    staticStyle: {
+                                      "min-width": "0px",
+                                      "border-color": "#af212b",
+                                    },
+                                  },
+                                  [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "receipt__content__options__btn",
+                                        attrs: { type: "button" },
+                                        on: {
+                                          click: function ($event) {
+                                            $event.preventDefault()
+                                            return _vm.removeFromSaved(
+                                              _vm.receipt[0].id
+                                            )
+                                          },
+                                        },
+                                      },
+                                      [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "receipt__content__options__btn__inner",
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass:
+                                                "fas fa-bookmark nav__user-navbar__item__link-bookmark",
+                                            }),
+                                            _vm._v(
+                                              "\n                                        Додано\n                                    "
+                                            ),
+                                          ]
+                                        ),
+                                      ]
+                                    ),
+                                  ]
+                                ),
+                              ]
+                            )
+                          : _vm._e(),
+                      ])
+                    : _c(
+                        "div",
                         {
-                          staticClass: "content__header__add-receipt-btn",
-                          attrs: { type: "button" },
+                          staticClass:
+                            "content__header__add-receipt-btn__wrapper",
                         },
                         [
-                          _c("span", {
-                            staticClass: "receipt__content__options__btn__icon",
-                            attrs: { "uk-icon": "bookmark" },
-                          }),
-                          _vm._v(
-                            "\n                            Добавить в книгу рецептов\n                            "
-                          ),
                           _c(
-                            "span",
+                            "button",
                             {
-                              staticClass:
-                                "content__header__add-receipt-btn__count",
+                              staticClass: "content__header__add-receipt-btn",
+                              attrs: { type: "button" },
                             },
-                            [_vm._v("1")]
+                            [
+                              _c("span", {
+                                staticClass:
+                                  "receipt__content__options__btn__icon",
+                                attrs: { "uk-icon": "bookmark" },
+                              }),
+                              _vm._v(
+                                "\n                            Добавить в книгу рецептов\n                            "
+                              ),
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "content__header__add-receipt-btn__count",
+                                },
+                                [_vm._v("2")]
+                              ),
+                            ]
                           ),
                         ]
                       ),
-                    ]
-                  ),
                   _vm._v(" "),
                   _c("div", { staticClass: "content__header__rate__wrapper" }, [
                     _c("div", { staticClass: "content__header__rate__inner" }, [
@@ -80056,7 +80596,7 @@ var render = function () {
                   _c("img", {
                     staticClass: "content__receipt__main-img",
                     attrs: {
-                      src: "https://storge.pic2.me/c/1360x800/575/586198aedc963.jpg",
+                      src: "../storage/images/" + _vm.receipt[0].main_img,
                       alt: "",
                     },
                   }),
@@ -80119,7 +80659,14 @@ var render = function () {
                                     staticClass:
                                       "content__user-info__user-content__info__author",
                                   },
-                                  [_vm._v("Автор: Алексей Скобелев")]
+                                  [
+                                    _vm._v(
+                                      "Автор: " +
+                                        _vm._s(_vm.receipt[0].username) +
+                                        " " +
+                                        _vm._s(_vm.receipt[0].surname)
+                                    ),
+                                  ]
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -80455,6 +81002,137 @@ var render = function () {
                   ]),
                 ])
               : _vm._e(),
+            _vm._v(" "),
+            _vm.comments != 0
+              ? _c("div", { staticClass: "comments__container" }, [
+                  _c("div", { staticClass: "comments__inner" }, [
+                    _c("div", { staticClass: "comments__header__container" }, [
+                      _c("span", { staticClass: "comments__header" }, [
+                        _vm._v("Коментарії"),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "comments__content__container" }, [
+                      _c(
+                        "div",
+                        { staticClass: "comments__content__wrapper" },
+                        _vm._l(_vm.comments, function (commentary) {
+                          return _c(
+                            "div",
+                            {
+                              staticClass: "comments__content__item__container",
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "comments__content__item__user__container",
+                                },
+                                [
+                                  _c("a", { attrs: { href: "" } }, [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "comments__content__item__user__wrapper",
+                                      },
+                                      [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "comments__content__item__user__img__container",
+                                          },
+                                          [
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass:
+                                                  "comments__content__item__user__img__wrapper",
+                                              },
+                                              [
+                                                _c("img", {
+                                                  staticClass:
+                                                    "content__user-info__user-content__img",
+                                                  attrs: {
+                                                    src: "https://agile.yakubovsky.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png",
+                                                    alt: "",
+                                                  },
+                                                }),
+                                              ]
+                                            ),
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "comments__content__item__user__info__container",
+                                          },
+                                          [
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "comments__content__item__user__info__name",
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(commentary.name) +
+                                                    " " +
+                                                    _vm._s(commentary.surname)
+                                                ),
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "comments__content__item__user__info__date",
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(commentary.created_at)
+                                                ),
+                                              ]
+                                            ),
+                                          ]
+                                        ),
+                                      ]
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "comments__content__item__text__container",
+                                },
+                                [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "comments__content__item__text",
+                                    },
+                                    [_vm._v(_vm._s(commentary.comment))]
+                                  ),
+                                ]
+                              ),
+                            ]
+                          )
+                        }),
+                        0
+                      ),
+                    ]),
+                  ]),
+                ])
+              : _vm._e(),
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -80471,6 +81149,84 @@ var render = function () {
     ],
     1
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Saved.vue?vue&type=template&id=f6be0d10&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Saved.vue?vue&type=template&id=f6be0d10&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "h3",
+      {
+        staticClass: "uk-heading-small uk-text-center",
+        staticStyle: { "margin-bottom": "20px" },
+      },
+      [_vm._v("Збережені")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "receipt-container" },
+      [
+        _c("link", {
+          attrs: {
+            rel: "stylesheet",
+            href: "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css",
+          },
+        }),
+        _vm._v(" "),
+        _vm.loading
+          ? _c("spin")
+          : _c(
+              "div",
+              [
+                _c("item", {
+                  attrs: { receipts: _vm.items, ingradients: _vm.items },
+                }),
+                _vm._v(" "),
+                _c("paginate", {
+                  attrs: {
+                    "page-count": _vm.pageCount,
+                    "click-handler": _vm.pageChangeHandler,
+                    "prev-text": "Назад",
+                    "next-text": "Далі",
+                    "container-class": "pagination",
+                    "page-class": "waves-effect",
+                  },
+                  model: {
+                    value: _vm.page,
+                    callback: function ($$v) {
+                      _vm.page = $$v
+                    },
+                    expression: "page",
+                  },
+                }),
+              ],
+              1
+            ),
+      ],
+      1
+    ),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

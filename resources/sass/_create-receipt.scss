@@ -822,3 +822,39 @@
     }
 
 }
+
+
+.send-btn {
+    &__container {
+        flex-flow: column wrap;
+        flex: 1 1 auto;
+        width: 620px;
+        margin: 50px auto;
+        display: flex;
+        align-items: center;
+    }
+
+    &__on-create {
+        transition: color 0.3s ease-in 0s;
+        cursor: pointer;
+        outline: none;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font: 500 18px / 20px Roboto;
+        text-transform: uppercase;
+        width: 300px;
+        height: 60px;
+        margin: 0px auto;
+        letter-spacing: 0.4px;
+        color: rgb(255, 255, 255);
+        background-color: rgb(36, 175, 48);
+        border-radius: 2px;
+        border: none;
+
+        &:hover {
+            color: rgb(214 203 203);
+        }
+    }
+}
+

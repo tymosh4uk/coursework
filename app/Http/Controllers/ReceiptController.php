@@ -30,7 +30,8 @@ class ReceiptController extends Controller
         $receipts = DB::table('receipts')
             ->join('categories', 'receipts.id_category', '=','categories.id')
             ->join('kitchens', 'receipts.id_kitchen', '=','kitchens.id')
-            ->select('receipts.id', 'receipts.name', 'receipts.cooking_hours', 'receipts.cooking_minutes', 'receipts.main_img as image', 'categories.category', 'kitchens.kitchen')
+            ->join('users', 'receipts.id_user', '=','users.id')
+            ->select('receipts.id', 'receipts.name', 'receipts.cooking_hours', 'receipts.cooking_minutes', 'receipts.main_img as image', 'categories.category', 'kitchens.kitchen', 'users.name as username', 'users.surname')
             ->get();
 
         $ingradients = [];
@@ -222,8 +223,9 @@ class ReceiptController extends Controller
         $receipt = DB::table('receipts')
             ->join('categories', 'categories.id', '=', 'receipts.id_category')
             ->join('kitchens', 'kitchens.id', '=', 'receipts.id_kitchen')
+            ->join('users', 'receipts.id_user', '=','users.id')
             ->select('receipts.id', 'receipts.name','receipts.cooking_hours', 'cooking_minutes', 'receipts.main_img',
-            'receipts.advice', 'categories.category as category', 'kitchens.kitchen as kitchen')
+            'receipts.advice', 'categories.category as category', 'kitchens.kitchen as kitchen', 'users.name as username', 'users.surname')
             ->where('receipts.id', '=', $id)
             ->get();
 

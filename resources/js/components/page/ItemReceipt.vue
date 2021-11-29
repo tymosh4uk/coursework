@@ -48,7 +48,7 @@
                                 </div>
 
                                 <div class="receipt__content__description">
-                                    <span title="" class="receipt__content__description__author">Автор: Anastasia Sheveleva</span>
+                                    <span title="" class="receipt__content__description__author">Автор: {{ record.username }} {{ record.surname }}</span>
                                     <div class="receipt__content__description__elements__wrapper">
                                         <div class="receipt__content__description__elements__container">
                                             <div class="receipt__content__description__elements__ingradients__container">
@@ -71,14 +71,18 @@
                                 <div class="receipt__content__options">
                                     <div class="receipt__content__options__wrapper">
                                         <div class="receipt__content__options__inner">
-                                            <div class="receipt__content__options__btn__wrapper">
-                                                <button type="button" class="receipt__content__options__btn">
-                                                    <div class="receipt__content__options__btn__inner">
-                                                        <span uk-icon="bookmark" class="receipt__content__options__btn__icon"></span>
-                                                        Добавить в книгу рецептов
-                                                    </div>
-                                                </button>
-                                            </div>
+                                            <form id="form-logout" enctype="multipart/form-data">
+                                                <div class="receipt__content__options__btn__wrapper">
+<!--                                                    <input style="display: none" type="text" value="{{ record.id }}">-->
+<!--                                                    <label style="display: none" v-model="idReceipt">{{  }}</label>-->
+                                                    <button type="button" class="receipt__content__options__btn" @click.prevent="addToSaved(record.id)">
+                                                        <div class="receipt__content__options__btn__inner">
+                                                            <span uk-icon="bookmark" class="receipt__content__options__btn__icon"></span>
+                                                            Добавить в книгу рецептов
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </form>
                                             <div class="receipt__content__options__elements__container">
                                                 <div class="receipt__content__options__element__wrapper">
                                                     <div class="receipt__content__options__element__inner">
@@ -131,15 +135,47 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
+    data: () => ({
+
+    }),
     props: {
         receipts: {
             required: true,
             type: Array
+        },
+        ingradients: {
+            required: true,
+            type: Array
+            // type: Object
         }
     },
     mounted() {
-        console.log(this.receipts);
+        // console.log(this.ingradients);
+    },
+    methods: {
+        addToSaved(receipt) {
+            // console.log(receipt);
+            const data = new FormData();
+            //
+            data.append('id_receipt', receipt);
+            //
+            axios.post('/saveReceipt', data)
+                .then(res => {
+                    // console.log(res.data);
+            //         // window.location.reload();
+                    if (res.data.status) {
+            //
+            //             // this.$router.push('/receipt/' + this.receipt[0].id);
+            //
+            //
+                    }
+                    else {
+                    }
+                })
+        }
     }
 
 

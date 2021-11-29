@@ -13,6 +13,7 @@ import AllReceipt from "./views/AllReceipt";
 import Admin from "./views/AdminStatistics";
 import AdminHeader from "./components/Test";
 import UserHeader from "./components/Header";
+import Saved from "./views/Saved";
 import paginate from 'vuejs-paginate'
 Vue.component('Paginate', paginate)
 
@@ -69,6 +70,13 @@ const router = new vueRouter({
             components: {
                 default: Admin,
                 header: AdminHeader
+            }
+        },
+        {
+            path: '/saved',
+            components: {
+                default: Saved,
+                header: UserHeader
             }
         }
 

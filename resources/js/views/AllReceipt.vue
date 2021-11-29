@@ -1,8 +1,5 @@
 <template>
 
-
-
-
     <div class="receipt-container">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <spin v-if="loading"></spin>
@@ -48,7 +45,7 @@ export default {
         loadKitchen() {
             axios.get('api/receipts')
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.receipts = res.data;
                     this.setupPagination(res.data.receipts);
 
