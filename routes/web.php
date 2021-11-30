@@ -42,8 +42,8 @@ Route::get('/getAllSaved', [App\Http\Controllers\HomeController::class, 'getAllS
 //Admin
 Route::get('/getChartInfo',[App\Http\Controllers\AdminController::class, 'getChartInfo'])->name('getChartInfo');
 Route::get('/getChartInfoKitchens', [App\Http\Controllers\AdminController::class, 'getChartInfoKitchens'])->name('getChartInfoKitchens');
-
-
+Route::post('/createCategory', [App\Http\Controllers\AdminController::class, 'createCategory'])->name('createCategory');
+Route::post('/createKitchen', [App\Http\Controllers\AdminController::class, 'createKitchen'])->name('createKitchen');
 
 Auth::routes();
 

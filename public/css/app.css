@@ -10039,8 +10039,9 @@ body {
   margin-left: auto;
   margin-right: auto;
   background-color: white;
-  padding: 60px 30px 0px;
+  padding: 60px 30px;
   margin-top: 70px;
+  margin-bottom: 50px;
 }
 
 a {
@@ -11063,6 +11064,17 @@ button:focus {
   color: #d9d9d9;
   font-size: 13px;
   margin-right: 3px;
+}
+.receipt__delete__container {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  width: auto;
+  flex-wrap: nowrap;
+  background-color: white;
+}
+.receipt__aligner__container {
+  display: inline-flex;
 }
 
 .record_item {
@@ -12166,4 +12178,12 @@ button:focus {
   width: 32px;
   margin: 0;
   margin-right: 5px;
+}
+
+.uk-notification-message {
+  background: #fff !important;
+}
+
+.uk-notification-message-success {
+  background: #fff !important;
 }

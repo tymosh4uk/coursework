@@ -315,6 +315,22 @@
             }
         }
     }
+    &__delete {
+        &__container {
+            display: flex;
+            flex: 1 1 auto;
+            align-items: center;
+            width: auto;
+            flex-wrap: nowrap;
+            background-color: white;
+        }
+    }
+
+    &__aligner {
+        &__container {
+            display: inline-flex;
+        }
+    }
 }
 
 .record_item {

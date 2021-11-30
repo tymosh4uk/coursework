@@ -287,7 +287,19 @@ class ReceiptController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $receipt = Receipt::find($id);
+//        return $receipt;
+        try
+        {
+            Category::destroy($receipt->id_category);
+            Kitchen::destroy($receipt->id_kitchen);
+            Receipt::destroy($id);
+            return response()->json('receipt deleted');
+        }
+
+        catch (Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
     }
 
     private function saveImageToFolder(Request $request) {

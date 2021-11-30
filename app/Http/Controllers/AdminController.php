@@ -28,4 +28,24 @@ class AdminController extends Controller
 
         return $kitchens;
     }
+
+    public function createCategory(Request $request) {
+        if($request->category != null) {
+            $category = new Category();
+            $category->category = $request->category;
+            $category->save();
+            return true;
+        }
+        return false;
+    }
+
+    public function createKitchen(Request $request) {
+        if($request->kitchen != null) {
+            $kitchen = new Kitchen();
+            $kitchen->kitchen = $request->kitchen;
+            $kitchen->save();
+            return true;
+        }
+        return false;
+    }
 }
