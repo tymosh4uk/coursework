@@ -8,6 +8,7 @@ use App\Models\Receipt;
 use App\Models\Kitchen;
 use App\Models\Category;
 use App\Models\Ingradient;
+use App\Models\Step;
 use Validator;
 use Storage;
 use File;
@@ -76,11 +77,13 @@ class ReceiptController extends Controller
     public function store(Request $request)
     {
 
-
+        //console.log($request['step_images']);
         $request['ingradients'] = json_decode($request['ingradients']);
         $request['count_ingradients'] = json_decode($request['count_ingradients']);
         $request['type_measurings'] = json_decode($request['type_measurings']);
-        $request['step_images'] = json_decode($request['step_images']);
+//        $request['step_images'] = json_decode($request['step_images']);
+        $request['step_descriptions'] = json_decode($request['step_descriptions']);
+
 
 //        return $request;
 
@@ -107,6 +110,24 @@ class ReceiptController extends Controller
             ];
         }
 
+//        if($request['step_images']) {
+//            for($i = 0; $i < count($request['step_images']); $i++) {
+//                $step_image = $request['step_images'][$i];
+//                $step_name = time().'_'.$step_image->name;
+////                return $step_name;
+//                $step_image->storeAs('step_images', $step_name, 'public');
+////
+////
+////                if($request['step_images'][$i]->step_image->isValid()){
+////                    return 'dfb';
+////                }
+////                $image = $request['step_images'][$i]->step_image;
+////                $name = time() .'_'. $image->getClientOriginalName();
+////                $request['step_images'][$i]->step_image->storeAs('step_images', $name, 'public');
+//            }
+
+//        }
+
         $ingradients=[];
 
         $category = Category::create([
@@ -121,27 +142,13 @@ class ReceiptController extends Controller
 
         if($request['photo']) {
             $image = $request['photo'];
-//            $extension = $image->getOriginalExtension();
             $name = time() .'_'. $image->getClientOriginalName();
-            //Storage::disk('public')->put($name, File::get($image));
             $request['photo']->storeAs('images', $name, 'public');
         }
 
-        if($request['step_images']) {
-            for($i = 0; $i < count($request['step_images']); $i++) {
-//                $step_image = $request['step_images'][$i]->step_image;
-//                $step_name = time().'_'.$step_image->getClientOriginalName();
-//                return $step_name;
-//                $step_image->storeAs('step_images', $name, 'public');
-//                if($request['step_images'][$i]->step_image->isValid()){
-//                    return 'dfb';
-//                }
-//                $image = $request['step_images'][$i]->step_image;
-//                $name = time() .'_'. $image->getClientOriginalName();
-//                $request['step_images'][$i]->step_image->storeAs('step_images', $name, 'public');
-            }
 
-        }
+
+
 
 
 
@@ -170,7 +177,21 @@ class ReceiptController extends Controller
 
         }
 
+        $temp = 0;
 
+        for($i = 0; $i < $request['step_count']; $i++) {
+            $step_image =  $request["step_images_".$i];
+            $step_name = time() .'_'. $step_image->getClientOriginalName();
+            $step_image->storeAs('step_images', $step_name, 'public');
+            $temp = $i+1;
+            Step::create([
+                "id_receipt" => $receipt['id'],
+                "step" => $temp,
+                "step_image" => $step_name,
+                "step_description" => $request["step_descriptions"][$i]->step_description
+            ]);
+
+        }
 
 
 
@@ -236,6 +257,12 @@ class ReceiptController extends Controller
             ->orderBy('id')
             ->get();
 
+        $steps = DB::table('steps')
+            ->select('*')
+            ->where('id_receipt', '=', $id)
+            ->orderBy('id')
+            ->get();
+
         if(!$receipt) {
             return response()->json([
                 "status" => false,
@@ -252,7 +279,8 @@ class ReceiptController extends Controller
         return [
             "status" => true,
             "receipt" => $receipt,
-            "ingradients" => $ingradients
+            "ingradients" => $ingradients,
+            "steps" => $steps
         ];
     }
 

@@ -17,6 +17,7 @@ import Saved from "./views/Saved";
 import paginate from 'vuejs-paginate'
 import AdminAllReceipt from "./views/AdminAllReceipt";
 import AdminCreate from "./views/AdminCreate";
+import AdminEdit from "./views/AdminEdit";
 Vue.component('Paginate', paginate)
 
 
@@ -89,6 +90,13 @@ const router = new vueRouter({
             }
         },
         {
+            path: '/adminEdit/:id',
+            components: {
+                default: AdminEdit,
+                header: AdminHeader
+            }
+        },
+        {
             path: '/saved',
             components: {
                 default: Saved,
@@ -102,25 +110,16 @@ const router = new vueRouter({
 
 router.beforeEach(async (to, from, next) => {
     var currentUser;
-
     const requireAuth = to.matched.some(record => record.meta.auth)
     await axios.get('/currentId')
         .then(res => {
-        //console.log(res.data);
             currentUser = res.data;
-
-
         }).catch((error) => {
             this.showErrors(error.response.data.error)
         });
 
-    //console.log(requireAuth);
-    //console.log(currentUser);
-
     if (requireAuth && !currentUser) {
-
         next(window.location.href = '/login')
-
 
     } else {
         next()

@@ -56,7 +56,6 @@
         <div class="nav__user-navbar__container" v-if="isAuth">
             <div class="nav__user-navbar__item_enter__container nav__user-navbar__item nav__user-navbar__item_border">
                 <a href="/login" class="nav__user-navbar__item_enter__link">
-<!--                    <i class="fas fa-hat-chef"></i>-->
                     <img class="header_user_img" :src="'img/camera.png'" alt="Nazariy">
                     <span>{{ userName }}</span>
                 </a>

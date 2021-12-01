@@ -149,4 +149,36 @@ class HomeController extends Controller
             "ingradients" => $receipts
         ];
     }
+
+    public function getTopReceipts() {
+//        $data = DB::select(DB::raw("
+//            SELECT receipts.name as name, receipts.cooking_hours, receipts.cooking_minutes, receipts.main_img,
+//                   receipts.advice
+//            FROM receipts
+//            WHERE receipts.id = (SELECT TOP 5 id_receipt
+//                                FROM receipt_comments
+//                                GROUP BY receipt_comments.id_receipt
+//                                ORDER BY COUNT(receipt_comments.id_receipt))"));
+        $comments = DB::table('receipt_comments')
+            ->select('id_receipt', DB::raw('count(*) as total'))
+            ->groupBy('id_receipt')
+            ->orderByDesc('total')
+            ->take(5)->get();
+
+        $id_comments = array();
+        foreach($comments as $arr){
+            $id_comments[] = $arr->id_receipt;
+        }
+        $id_comments_ordered = implode(',', $id_comments);
+
+        $receipts = DB::table('receipts')
+            ->select('receipts.id','receipts.name as name', 'receipts.cooking_hours', 'receipts.cooking_minutes', 'receipts.main_img as image', 'categories.category', 'kitchens.kitchen', 'users.name as username', 'users.surname')
+            ->join('categories', 'receipts.id_category', '=','categories.id')
+            ->join('kitchens', 'receipts.id_kitchen', '=','kitchens.id')
+            ->join('users', 'receipts.id_user', '=','users.id')
+            ->whereIn('receipts.id', $id_comments)
+            ->orderByRaw("FIELD(receipts.id, $id_comments_ordered)")
+            ->get();
+        return $receipts;
+    }
 }

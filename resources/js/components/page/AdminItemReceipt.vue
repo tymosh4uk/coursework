@@ -107,6 +107,15 @@
                                 </button>
                             </form>
                         </div>
+                        <div class="receipt__delete__container" style="margin-left: 10px">
+                            <form id="form-editReceipt" enctype="multipart/form-data">
+                                <router-link :to="'/adminEdit/' + record.id">
+                                    <button type="button" style="height: 40px; width: 150px;" class="uk-button-primary">
+                                        Редагувати
+                                    </button>
+                                </router-link>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </router-link>

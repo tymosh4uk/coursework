@@ -1,6 +1,6 @@
 <template>
 
-        <ul>
+        <ul style="list-style: none;">
             <li v-for="record of receipts">
                 <router-link :to="'/receipt/' + record.id">
                     <div class="receipt__container">

@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Step extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'id_receipt',
+        'step',
+        'step_image',
+        'step_description'
+    ];
 }

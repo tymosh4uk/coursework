@@ -36,7 +36,7 @@ Route::post('/saveReceipt', [App\Http\Controllers\HomeController::class, 'saveRe
 Route::get('/getSavedById', [App\Http\Controllers\HomeController::class, 'getSavedById'])->name('getSavedById');
 Route::post('/removeFromSaved', [App\Http\Controllers\HomeController::class, 'removeFromSaved'])->name('removeFromSaved');
 Route::get('/getAllSaved', [App\Http\Controllers\HomeController::class, 'getAllSaved'])->name('getAllSaved');
-
+Route::get('/getTopReceipts', [App\Http\Controllers\HomeController::class, 'getTopReceipts'])->name('getTopReceipts');
 
 
 //Admin
@@ -44,6 +44,7 @@ Route::get('/getChartInfo',[App\Http\Controllers\AdminController::class, 'getCha
 Route::get('/getChartInfoKitchens', [App\Http\Controllers\AdminController::class, 'getChartInfoKitchens'])->name('getChartInfoKitchens');
 Route::post('/createCategory', [App\Http\Controllers\AdminController::class, 'createCategory'])->name('createCategory');
 Route::post('/createKitchen', [App\Http\Controllers\AdminController::class, 'createKitchen'])->name('createKitchen');
+Route::post('/editReceipt', [App\Http\Controllers\AdminController::class, 'editReceipt'])->name('editReceipt');
 
 Auth::routes();
 

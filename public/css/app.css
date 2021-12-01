@@ -11577,10 +11577,12 @@ button:focus {
 .content__steps__step__img {
   border-radius: 0%;
   background-color: unset;
-  -o-object-fit: cover;
-     object-fit: cover;
-  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  min-width: 100%;
   height: auto;
+  min-height: 300px;
+  max-height: 300px;
 }
 .content__steps__step__img__container {
   width: 50%;
@@ -12186,4 +12188,84 @@ button:focus {
 
 .uk-notification-message-success {
   background: #fff !important;
+}
+
+.my-carousel {
+  position: relative;
+}
+
+.carousel__item__container {
+  width: 100%;
+  max-height: 660px;
+  position: relative;
+}
+.carousel__item__container:hover .carousel__content__name {
+  color: #AF212B;
+}
+.carousel__item__container a {
+  text-decoration: none;
+  color: #fff;
+}
+.carousel__image {
+  min-height: 660px !important;
+  max-height: 660px !important;
+  -o-object-fit: cover;
+     object-fit: cover;
+  filter: brightness(60%);
+}
+.carousel__content__container {
+  display: inline-block;
+  position: absolute;
+  left: 60px;
+  bottom: 168px;
+  max-width: 600px;
+  max-height: 329px;
+}
+.carousel__content__categories {
+  display: inline-block;
+  margin-bottom: 3px;
+  vertical-align: top;
+  color: #fff;
+  transition: color 0.3s ease-in;
+  display: block;
+  float: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-left: 3px;
+}
+.carousel__content__categories__container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 5px;
+  color: #fff;
+  font-size: 11px;
+}
+.carousel__content__name {
+  font-size: 60px;
+  line-height: 65px;
+  max-height: 275px;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  font-family: Roboto, sans-serif;
+  font-weight: 900;
+  color: #fff;
+  transition: color 0.3s ease-in;
+}
+.carousel__content__author {
+  font: 12px/20px PT Serif, Georgia, serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  width: 500px;
+  margin-top: 25px;
+  color: #fff;
+}
+
+.owl-dots {
+  position: absolute;
+  bottom: 5px;
+  left: calc(50% - 60px);
+}
+
+.home__items__container {
+  margin-top: 30px;
 }

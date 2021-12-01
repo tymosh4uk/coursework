@@ -168,20 +168,20 @@
                         </div>
                     </div>
 
-                    <div class="content__steps__step__container">
+                    <div class="content__steps__step__container" v-for="item of steps">
 
                         <div class="content__steps__step__img__container">
                             <div class="content__steps__step__img__aligner">
-                                <img class="content__steps__step__img" alt="" src="https://eda.ru/img/eda/c434x295/s1.eda.ru/StaticContent/Photos/110811142241/1703141651290/p_O.png">
+                                <img class="content__steps__step__img" alt="" :src="'../storage/step_images/'+ item.step_image">
                             </div>
                         </div>
 
                         <div class="content__steps__step__info__container">
                             <div class="content__steps__step__info__inner">
                                 <div class="content__steps__step__info__aligner">
-                                    <span class="content__steps__step__info__count">1</span>
+                                    <span class="content__steps__step__info__count">{{ item.step }}</span>
                                     <span class="content__steps__step__info__text">
-                                        Всыпьте в творог 5 столовых ложек (с горкой) муки и тщательно перемешайте. Можно добавить немного больше муки, сырники получатся тогда более плотными. Или муки можно добавить чуть меньше, и тогда сырники будут нежнее. В итоге у вас должна получиться однородная масса, из которой можно будет лепить сырники.
+                                        {{ item.step_description }}
                                     </span>
                                 </div>
                             </div>
@@ -268,6 +268,7 @@ export default {
         userId: Number,
         receipt: Object,
         ingradients: [],
+        steps: [],
         not_found: false,
         comment: "",
         comments: "",
@@ -286,7 +287,8 @@ export default {
                 .then(res => {
                     this.receipt = res.data.receipt;
                     this.ingradients = res.data.ingradients;
-                    console.log(res.data);
+                    this.steps = res.data.steps;
+                    console.log(this.steps);
                     this.loading = false;
                 })
                 .catch(err => {

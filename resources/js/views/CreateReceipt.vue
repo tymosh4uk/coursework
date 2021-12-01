@@ -22,12 +22,12 @@
                 <div class="form__cooking-time__wrapper">
 
                     <div class="form__cooking-time__hours__wrapper">
-                        <input class="form__cooking-time__item" v-model="form.cooking_hours" type="number" min="0" step="1" value="0">
+                        <input class="form__cooking-time__item" v-model="form.cooking_hours" type="number" min="0" max="23" step="1" value="0">
                         <span class="form__cooking-time__text">Годин</span>
                     </div>
 
                     <div class="form__cooking-time__hours__wrapper" style="margin-left: 17px;">
-                        <input class="form__cooking-time__item" v-model="form.cooking_minutes" type="number" min="0" step="1" value="1">
+                        <input class="form__cooking-time__item" v-model="form.cooking_minutes" type="number" min="0" max="59" step="1" value="1">
                         <span class="form__cooking-time__text">Хвилин</span>
                     </div>
                 </div>
@@ -218,26 +218,41 @@ export default {
             count_ingradients: [],
             type_measurings: [],
             step_images: [],
-            step_descriptions: []
+            step_descriptions: [],
+            step_count: ""
         },
         loading: false,
         error: false
     }),
     methods: {
+
         filldata() {
             this.form.main_img_file = this.$refs.main_img_file.files[0];
 
             var imagesArr = [];
             var stepImages = $( ".step_img_file" );
 
+
+
             for(var i = 0; i < stepImages.length; i++){
                 var fileUpload = stepImages[i];                    // ***
-                if (fileUpload.files.length > 0) {                    // ***
-                    imagesArr.push({ step_image: fileUpload.files[0]});
+                if (fileUpload.files.length > 0) {
+                    // var file = {
+                    //     'lastMod'    : fileUpload.files[0].lastModified,
+                    //     'lastModDate': fileUpload.files[0].lastModifiedDate,
+                    //     'name'       : fileUpload.files[0].name,
+                    //     'size'       : fileUpload.files[0].size,
+                    //     'type'       : fileUpload.files[0].type
+                    // }
+                    // ***
+                    imagesArr.push(fileUpload.files[0]);
+                    // imagesArr.push({ step_image: fileUpload.files[0]});
+
                 }                                                 // ***
             }
-
+             // console.log(imagesArr);
             this.form.step_images = imagesArr;
+            this.form.step_count = imagesArr.length;
 
             // stepImages.each(function() {
             //     this.form.step_images.push(this.files[0]);
@@ -287,7 +302,18 @@ export default {
             this.form.type_measurings = measurings;
 
 
-            //console.log(measurings);
+            var step_description = $('textarea[name*="step_description"]');
+            var step_descriptions = [];
+
+            step_description.each(function() {
+                if (this.value != "") {
+                    step_descriptions.push({ step_description: this.value });
+                }
+            });
+
+            this.form.step_descriptions = step_descriptions;
+
+            // console.log(this.form);
 
         },
 
@@ -310,8 +336,24 @@ export default {
             data.append('ingradients', JSON.stringify(this.form.ingradients));
             data.append('count_ingradients', JSON.stringify(this.form.count_ingradients));
             data.append('type_measurings', JSON.stringify(this.form.type_measurings));
+            data.append('step_descriptions', JSON.stringify(this.form.step_descriptions));
+            data.append('step_count', this.form.step_count);
+            var stepImages = $( ".step_img_file" );
 
-            data.append('step_images', JSON.stringify(this.form.step_images));
+
+
+            for(var i = 0; i < stepImages.length; i++) {
+                var fileUpload = stepImages[i];                    // ***
+                if (fileUpload.files.length > 0) {
+                    data.append('step_images_'+i, fileUpload.files[0]);
+                }
+            }
+
+            // data.append('step_images', JSON.stringify(this.form.step_images));
+            for(var i=0; i<this.form.step_images.length; i++){
+
+            }
+
             data.append('photo', this.form.main_img_file);
 
 
@@ -322,7 +364,7 @@ export default {
 
             axios.post('/api/receipts', data)
                 .then(res => {
-                    //console.log(res.data);
+                    // console.info(res.data);
                     if (res.data.status) {
                         this.$router.push('/receipt/' + res.data.receipt.id);
 
@@ -414,7 +456,7 @@ $('body').delegate('#addStep', 'click', function () {
     setStep += '</div>'
 
     setStep += '<div class="step__textarea__container">'
-    setStep += '<textarea class="step__textarea" placeholder="Инструкция к шагу приготовления" name="input" autocomplete="on">fhgjrh</textarea>'
+    setStep += '<textarea class="step__textarea" placeholder="Инструкция к шагу приготовления" name="step_description" autocomplete="on">fhgjrh</textarea>'
     setStep += '</div>'
 
 
