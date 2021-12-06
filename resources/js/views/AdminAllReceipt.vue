@@ -6,7 +6,7 @@
         <div v-else>
             <item
                 :receipts="items"
-                :ingradients="receipts.ingradients"
+
             />
             <paginate
                 v-model="page"
@@ -24,7 +24,7 @@
 <script>
 import Spin from "../components/Spin";
 import axios from 'axios';
-import Item from '../components/page/ItemReceipt';
+import Item from '../components/page/AdminItemReceipt';
 import paginationMixin from '../mixins/pagination.mixin';
 
 export default {
@@ -45,7 +45,7 @@ export default {
         loadKitchen() {
             axios.get('api/receipts')
                 .then(res => {
-                    // console.log(res.data);
+                    console.log(res.data);
                     this.receipts = res.data;
                     this.setupPagination(res.data.receipts);
 

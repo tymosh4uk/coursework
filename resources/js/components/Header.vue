@@ -15,21 +15,33 @@
         </div>
 
         <div class="nav__user-navbar__container">
-            <div class="nav__user-navbar__item_search__container nav__user-navbar__item">
-<!--                <form method="POST" action="{{ route('receiptSearch') }}">-->
-                    <i class="fas fa-search nav__user-navbar__item_search"></i>
-                    <span class="nav__user-navbar__item_search__text">Пошук по сайту</span>
-<!--                </form>-->
-            </div>
+            <router-link :to="'/find'">
+                <div class="nav__user-navbar__item_search__container nav__user-navbar__item">
+    <!--                <form method="POST" action="{{ route('receiptSearch') }}">-->
+                        <i class="fas fa-search nav__user-navbar__item_search"></i>
+                        <span class="nav__user-navbar__item_search__text">Пошук по сайту</span>
+    <!--                </form>-->
+                </div>
+            </router-link>
         </div>
 
-        <div class="nav__user-navbar__container">
+        <div class="nav__user-navbar__container" v-if="!isAuth">
             <div class="nav__user-navbar__item_search__container nav__user-navbar__item nav__user-navbar__item_border">
                 <div class="nav__user-navbar__item__link-bookmark__container">
                     <i class="fas fa-bookmark nav__user-navbar__item__link-bookmark"></i>
                     <span class="nav__user-navbar__item__link-bookmark__text">Моя книга рецептів</span>
                 </div>
             </div>
+        </div>
+        <div class="nav__user-navbar__container" v-if="isAuth">
+            <router-link :to="savedHref">
+                <div class="nav__user-navbar__item_search__container nav__user-navbar__item nav__user-navbar__item_border">
+                    <div class="nav__user-navbar__item__link-bookmark__container">
+                        <i class="fas fa-bookmark nav__user-navbar__item__link-bookmark"></i>
+                        <span class="nav__user-navbar__item__link-bookmark__text">Моя книга рецептів</span>
+                    </div>
+                </div>
+            </router-link>
         </div>
 
 
@@ -46,10 +58,19 @@
         <div class="nav__user-navbar__container" v-if="isAuth">
             <div class="nav__user-navbar__item_enter__container nav__user-navbar__item nav__user-navbar__item_border">
                 <a href="/login" class="nav__user-navbar__item_enter__link">
-<!--                    <i class="fas fa-hat-chef"></i>-->
                     <img class="header_user_img" :src="'img/camera.png'" alt="Nazariy">
                     <span>{{ userName }}</span>
                 </a>
+                <div uk-drop="pos: bottom-justify">
+                    <div class="uk-card uk-card-body uk-card-default" style="padding: 20px 10px; width: 130px">
+                        <form id="form-logout" enctype="multipart/form-data">
+                            <button class="uk-button uk-button-danger" @click.prevent="logout">
+
+                                <span>Вийти</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -59,12 +80,7 @@
             </div>
         </div>
 
-        <form id="form-logout" enctype="multipart/form-data">
-            <button class="uk-button uk-button-primary" @click.prevent="logout">
 
-                <span>Logout</span>
-            </button>
-        </form>
 
 
     </div>
@@ -98,6 +114,7 @@ export default {
         return {
             isAuth: Boolean,
             userName: Object,
+            savedHref: "/saved",
             links: [
                 {
                     title: "Головна",

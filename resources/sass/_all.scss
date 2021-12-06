@@ -15,8 +15,9 @@ body {
     margin-left: auto;
     margin-right: auto;
     background-color: white;
-    padding: 60px 30px 0px;
+    padding: 60px 30px;
     margin-top: 70px;
+    margin-bottom: 50px;
 }
 
 a {
@@ -28,6 +29,4 @@ a:hover {
     color: inherit;
 }
 
-button:focus {
-    background-color: #fff;
-}
+

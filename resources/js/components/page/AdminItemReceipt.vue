@@ -1,9 +1,10 @@
 <template>
 
-        <ul style="list-style: none;">
-            <li v-for="record of receipts">
-                <router-link :to="'/receipt/' + record.id">
-                    <div class="receipt__container">
+    <ul>
+        <li v-for="record of receipts">
+            <router-link :to="'/receipt/' + record.id">
+                <div class="receipt__container">
+                    <div class="receipt__aligner__container">
                         <div class="receipt__container__inner">
                             <div class="receipt__img__container">
                                 <div class="receipt__img__wrapper" v-if="record.image !== null">
@@ -43,11 +44,11 @@
                                             <div class="receipt__content__description__elements__time__container">
                                                 <span uk-icon="clock" class="receipt__content__description__elements__time-icon"></span>
                                                 <span class="receipt__content__description__elements__time" v-if="record.cooking_hours != null && record.cooking_hours != 0">
-                                                    {{ record.cooking_hours }}год.
-                                                </span>
+                                                        {{ record.cooking_hours }}год.
+                                                    </span>
                                                 <span class="receipt__content__description__elements__time" v-if="record.cooking_minutes != null && record.cooking_minutes != 0">
-                                                    {{ record.cooking_minutes }}хв.
-                                                </span>
+                                                        {{ record.cooking_minutes }}хв.
+                                                    </span>
                                             </div>
                                         </div>
                                     </div>
@@ -58,8 +59,8 @@
                                         <div class="receipt__content__options__inner">
                                             <form id="form-logout" enctype="multipart/form-data">
                                                 <div class="receipt__content__options__btn__wrapper">
-<!--                                                    <input style="display: none" type="text" value="{{ record.id }}">-->
-<!--                                                    <label style="display: none" v-model="idReceipt">{{  }}</label>-->
+                                                    <!--                                                    <input style="display: none" type="text" value="{{ record.id }}">-->
+                                                    <!--                                                    <label style="display: none" v-model="idReceipt">{{  }}</label>-->
                                                     <button type="button" class="receipt__content__options__btn" @click.prevent="addToSaved(record.id)">
                                                         <div class="receipt__content__options__btn__inner">
                                                             <span uk-icon="bookmark" class="receipt__content__options__btn__icon"></span>
@@ -71,26 +72,26 @@
                                             <div class="receipt__content__options__elements__container">
                                                 <div class="receipt__content__options__element__wrapper">
                                                     <div class="receipt__content__options__element__inner">
-                                                        <span class="receipt__content__options__element__text">
-                                                            <i class="receipt__content__options__element__icon material-icons">bookmark</i>
-                                                            1
-                                                        </span>
+                                                            <span class="receipt__content__options__element__text">
+                                                                <i class="receipt__content__options__element__icon material-icons">bookmark</i>
+                                                                1
+                                                            </span>
                                                     </div>
                                                 </div>
                                                 <div class="receipt__content__options__element__wrapper">
                                                     <div class="receipt__content__options__element__inner">
-                                                        <span class="receipt__content__options__element__text">
-                                                             <i class="receipt__content__options__element__icon material-icons">thumb_up</i>
-                                                            2
-                                                        </span>
+                                                            <span class="receipt__content__options__element__text">
+                                                                 <i class="receipt__content__options__element__icon material-icons">thumb_up</i>
+                                                                2
+                                                            </span>
                                                     </div>
                                                 </div>
                                                 <div class="receipt__content__options__element__wrapper">
                                                     <div class="receipt__content__options__element__inner">
-                                                        <span class="receipt__content__options__element__text">
-                                                            <i class="receipt__content__options__element__icon material-icons">thumb_down</i>
-                                                            0
-                                                        </span>
+                                                            <span class="receipt__content__options__element__text">
+                                                                <i class="receipt__content__options__element__icon material-icons">thumb_down</i>
+                                                                0
+                                                            </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -99,24 +100,28 @@
                                 </div>
                             </div>
                         </div>
-<!--                        {{ record.id }}-->
-<!--                        {{ record.name }}-->
-<!--                        {{ record.category }}-->
-<!--                        {{ record.kitchen }}-->
-<!--                        {{ record.image }}-->
+                        <div class="receipt__delete__container">
+                            <form id="form-deleteReceipt" enctype="multipart/form-data">
+                                <button type="button" style="height: 40px; width: 150px;" class="uk-button-danger" @click.prevent="deleteReceipt(record.id)">
+                                    Видалити
+                                </button>
+                            </form>
+                        </div>
+                        <div class="receipt__delete__container" style="margin-left: 10px">
+                            <form id="form-editReceipt" enctype="multipart/form-data">
+                                <router-link :to="'/adminEdit/' + record.id">
+                                    <button type="button" style="height: 40px; width: 150px;" class="uk-button-primary">
+                                        Редагувати
+                                    </button>
+                                </router-link>
+                            </form>
+                        </div>
                     </div>
-                </router-link>
+                </div>
+            </router-link>
 
-            </li>
+        </li>
     </ul>
-<!--    <div v-for="item in receipts">-->
-<!--        <div style="display: flex" >-->
-<!--            <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">-->
-<!--                <h3 class="uk-card-title">{{ item.id }} - {{ item.name }} - {{ item.category }} - {{ item.kitchen }}</h3>-->
-<!--                <p>{{ item.cooking_hours }}:{{ item.cooking_minutes }} <a href="#">dolor</a></p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
 </template>
 
 <script>
@@ -130,32 +135,29 @@ export default {
         receipts: {
             required: true,
             type: Array
-        },
-        ingradients: {
-            required: true,
-            type: Array
-            // type: Object
         }
+        // ingradients: {
+        //     required: true,
+        //     type: Array
+        //     // type: Object
+        // }
     },
     mounted() {
         // console.log(this.ingradients);
     },
     methods: {
-        addToSaved(receipt) {
-            // console.log(receipt);
-            const data = new FormData();
+        deleteReceipt(receipt) {
+
             //
-            data.append('id_receipt', receipt);
-            //
-            axios.post('/saveReceipt', data)
+            axios.delete('api/receipts/'+ receipt)
                 .then(res => {
                     // console.log(res.data);
-            //         // window.location.reload();
+                    window.location.reload();
                     if (res.data.status) {
-            //
-            //             // this.$router.push('/receipt/' + this.receipt[0].id);
-            //
-            //
+                        //
+                        //             // this.$router.push('/receipt/' + this.receipt[0].id);
+                        //
+                        //
                     }
                     else {
                     }
@@ -163,37 +165,6 @@ export default {
         }
     }
 
-
-    // props: {
-    //     id: {
-    //         type: Number,
-    //         default: "NULL"
-    //     },
-    //     name: {
-    //         type: String,
-    //         default: "NULL"
-    //     },
-    //     category: {
-    //         type: String,
-    //         default: "NULL"
-    //     },
-    //     kitchen: {
-    //         type: String,
-    //         default: "NULL"
-    //     },
-    //     cooking_hours: {
-    //         type: Number,
-    //         default: "NULL"
-    //     },
-    //     cooking_minutes: {
-    //         type: Number,
-    //         default: "NULL"
-    //     },
-    //     ingradients: {
-    //         type: Object,
-    //         default: "NULL"
-    //     }
-    // }
 }
 
 

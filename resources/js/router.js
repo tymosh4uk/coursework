@@ -13,7 +13,12 @@ import AllReceipt from "./views/AllReceipt";
 import Admin from "./views/AdminStatistics";
 import AdminHeader from "./components/Test";
 import UserHeader from "./components/Header";
+import Saved from "./views/Saved";
 import paginate from 'vuejs-paginate'
+import AdminAllReceipt from "./views/AdminAllReceipt";
+import AdminCreate from "./views/AdminCreate";
+import AdminEdit from "./views/AdminEdit";
+import FindReceipt from "./views/FindReceipt";
 Vue.component('Paginate', paginate)
 
 
@@ -70,6 +75,41 @@ const router = new vueRouter({
                 default: Admin,
                 header: AdminHeader
             }
+        },
+        {
+            path: '/adminRecepty',
+            components: {
+                default: AdminAllReceipt,
+                header: AdminHeader
+            }
+        },
+        {
+            path: '/adminCreate',
+            components: {
+                default: AdminCreate,
+                header: AdminHeader
+            }
+        },
+        {
+            path: '/adminEdit/:id',
+            components: {
+                default: AdminEdit,
+                header: AdminHeader
+            }
+        },
+        {
+            path: '/saved',
+            components: {
+                default: Saved,
+                header: UserHeader
+            }
+        },
+        {
+            path: '/find',
+            components: {
+                default: FindReceipt,
+                header: UserHeader
+            }
         }
 
 
@@ -78,25 +118,16 @@ const router = new vueRouter({
 
 router.beforeEach(async (to, from, next) => {
     var currentUser;
-
     const requireAuth = to.matched.some(record => record.meta.auth)
     await axios.get('/currentId')
         .then(res => {
-        //console.log(res.data);
             currentUser = res.data;
-
-
         }).catch((error) => {
             this.showErrors(error.response.data.error)
         });
 
-    //console.log(requireAuth);
-    //console.log(currentUser);
-
     if (requireAuth && !currentUser) {
-
         next(window.location.href = '/login')
-
 
     } else {
         next()

@@ -213,6 +213,7 @@
     &__receipt {
         &__main-img {
             width: 620px;
+            max-height: 500px;
             height: auto;
             object-fit: contain;
 
@@ -585,9 +586,11 @@
             &__img {
                 border-radius: 0%;
                 background-color: unset;
-                object-fit: cover;
-                width: 100%;
+                object-fit: contain;
+                min-width: 100%;
                 height: auto;
+                min-height: 300px;
+                max-height: 300px;
 
                 &__container {
                     width: 50%;
@@ -665,6 +668,7 @@
     &__container {
         display: flex;
         justify-content: flex-start;
+        flex-direction: column;
         max-width: 620px;
 
         div {
@@ -736,5 +740,182 @@
             -webkit-box-pack: center;
             justify-content: center;
          }
+    }
+
+    &__inner {
+        position: relative;
+        margin: 2px 0px;
+        -webkit-box-flex: 0;
+        flex-grow: 0;
+        flex-shrink: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
+        display: block;
+        max-width: 620px;
+        width: 620px;
+        min-width: 620px;
+        flex-basis: 66.664% !important;
+    }
+
+    &__header {
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 13px;
+        line-height: 1;
+        letter-spacing: 1px;
+        margin: 10px 0px;
+        display: block;
+        font-family: "PT Serif", sans-serif;
+
+        &__container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 24px 0px;
+            width: 100%;
+
+        }
+    }
+
+    &__content {
+        &__container {
+            position: relative;
+            margin: 2px 0px;
+            -webkit-box-flex: 0;
+            flex-grow: 0;
+            flex-shrink: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: left;
+            display: block;
+            min-width: 66.664%;
+            flex-basis: 66.664% !important;
+        }
+
+        &__wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            flex: 1 1 auto;
+            align-items: center;
+        }
+
+        &__item {
+            &__container {
+                display: flex;
+                flex-wrap: wrap;
+                flex: 1 1 auto;
+                align-items: center;
+                margin-left: 0px;
+            }
+
+            &__user {
+                &__container {
+                    position: relative;
+                    margin: 2px 0px;
+                    -webkit-box-flex: 0;
+                    flex-grow: 0;
+                    flex-shrink: 1;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    text-align: left;
+                    display: block;
+                    min-width: 100%;
+                    flex-basis: 100% !important;
+
+                    a {
+                        text-decoration: none;
+                        outline: none;
+                        color: #000;
+                    }
+                }
+
+                &__wrapper {
+                    display: flex;
+                    flex-wrap: wrap;
+                    flex: 1 1 auto;
+                    align-items: center;
+                }
+
+                &__img {
+                    &__container {
+                        flex: 0 0 50px;
+                    }
+
+                    &__wrapper {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;
+                        position: relative;
+                    }
+                }
+
+                &__info {
+                    &__container {
+                        flex: 1 0 50%;
+                        margin-left: 10px;
+                    }
+
+                    &__name {
+                        color: black;
+                        -webkit-box-align: center;
+                        align-items: center;
+                        -webkit-box-pack: center;
+                        justify-content: center;
+                        display: block;
+                        font: 13px / 16px "PT Serif", Georgia, serif;
+                        text-transform: uppercase;
+                        letter-spacing: 0.1em;
+                    }
+
+                    &__date {
+                        color: black;
+                        -webkit-box-align: center;
+                        align-items: center;
+                        display: inline-flex;
+                        -webkit-box-pack: center;
+                        justify-content: center;
+                        font: 8px / 1 Roboto, sans-serif;
+                        text-transform: uppercase;
+                        letter-spacing: 0.1em;
+                    }
+                }
+
+
+
+
+            }
+
+            &__text {
+                color: black;
+                align-items: center;
+                display: inline-flex;
+                justify-content: center;
+                font-family: "PT Serif", Georgia, serif;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 33px;
+
+                &__container {
+                    position: relative;
+                    margin: 2px 0px;
+                    flex-grow: 0;
+                    flex-shrink: 1;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    text-align: left;
+                    display: block;
+                    min-width: 99.996%;
+                    flex-basis: 99.996% !important;
+                    margin-bottom: 20px;
+                    margin-left: 5px;
+                }
+            }
+
+
+
+        }
     }
 }

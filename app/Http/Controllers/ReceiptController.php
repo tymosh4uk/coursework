@@ -8,6 +8,7 @@ use App\Models\Receipt;
 use App\Models\Kitchen;
 use App\Models\Category;
 use App\Models\Ingradient;
+use App\Models\Step;
 use Validator;
 use Storage;
 use File;
@@ -30,7 +31,8 @@ class ReceiptController extends Controller
         $receipts = DB::table('receipts')
             ->join('categories', 'receipts.id_category', '=','categories.id')
             ->join('kitchens', 'receipts.id_kitchen', '=','kitchens.id')
-            ->select('receipts.id', 'receipts.name', 'receipts.cooking_hours', 'receipts.cooking_minutes', 'receipts.main_img as image', 'categories.category', 'kitchens.kitchen')
+            ->join('users', 'receipts.id_user', '=','users.id')
+            ->select('receipts.id', 'receipts.name', 'receipts.cooking_hours', 'receipts.cooking_minutes', 'receipts.main_img as image', 'categories.category', 'kitchens.kitchen', 'users.name as username', 'users.surname')
             ->get();
 
         $ingradients = [];
@@ -75,11 +77,13 @@ class ReceiptController extends Controller
     public function store(Request $request)
     {
 
-
+        //console.log($request['step_images']);
         $request['ingradients'] = json_decode($request['ingradients']);
         $request['count_ingradients'] = json_decode($request['count_ingradients']);
         $request['type_measurings'] = json_decode($request['type_measurings']);
-        $request['step_images'] = json_decode($request['step_images']);
+//        $request['step_images'] = json_decode($request['step_images']);
+        $request['step_descriptions'] = json_decode($request['step_descriptions']);
+
 
 //        return $request;
 
@@ -92,8 +96,7 @@ class ReceiptController extends Controller
                 "category" => ["required"],
                 "kitchen" => ["required"],
                 "user_id" => ["required"],
-                "advice" => ["nullable"],
-                "id_step" => ["required"]
+                "advice" => ["nullable"]
 //                "ingradients" => ["required"],
 //                "ingradients.*.ingradient" => ["required"]
             ]
@@ -105,6 +108,24 @@ class ReceiptController extends Controller
                 "errors" => $validator->messages()
             ];
         }
+
+//        if($request['step_images']) {
+//            for($i = 0; $i < count($request['step_images']); $i++) {
+//                $step_image = $request['step_images'][$i];
+//                $step_name = time().'_'.$step_image->name;
+////                return $step_name;
+//                $step_image->storeAs('step_images', $step_name, 'public');
+////
+////
+////                if($request['step_images'][$i]->step_image->isValid()){
+////                    return 'dfb';
+////                }
+////                $image = $request['step_images'][$i]->step_image;
+////                $name = time() .'_'. $image->getClientOriginalName();
+////                $request['step_images'][$i]->step_image->storeAs('step_images', $name, 'public');
+//            }
+
+//        }
 
         $ingradients=[];
 
@@ -120,27 +141,13 @@ class ReceiptController extends Controller
 
         if($request['photo']) {
             $image = $request['photo'];
-//            $extension = $image->getOriginalExtension();
             $name = time() .'_'. $image->getClientOriginalName();
-            //Storage::disk('public')->put($name, File::get($image));
             $request['photo']->storeAs('images', $name, 'public');
         }
 
-        if($request['step_images']) {
-            for($i = 0; $i < count($request['step_images']); $i++) {
-//                $step_image = $request['step_images'][$i]->step_image;
-//                $step_name = time().'_'.$step_image->getClientOriginalName();
-//                return $step_name;
-//                $step_image->storeAs('step_images', $name, 'public');
-//                if($request['step_images'][$i]->step_image->isValid()){
-//                    return 'dfb';
-//                }
-//                $image = $request['step_images'][$i]->step_image;
-//                $name = time() .'_'. $image->getClientOriginalName();
-//                $request['step_images'][$i]->step_image->storeAs('step_images', $name, 'public');
-            }
 
-        }
+
+
 
 
 
@@ -153,7 +160,7 @@ class ReceiptController extends Controller
             "id_kitchen" => $kitchen->id,
             "id_user" => $request['user_id'],
             "advice" => $request['advice'],
-            "id_step" => $request['id_step']
+            "id_step" => 1
         ]);
        //return $request['count_ingradients'];
 
@@ -169,7 +176,21 @@ class ReceiptController extends Controller
 
         }
 
+        $temp = 0;
 
+        for($i = 0; $i < $request['step_count']; $i++) {
+            $step_image =  $request["step_images_".$i];
+            $step_name = time() .'_'. $step_image->getClientOriginalName();
+            $step_image->storeAs('step_images', $step_name, 'public');
+            $temp = $i+1;
+            Step::create([
+                "id_receipt" => $receipt['id'],
+                "step" => $temp,
+                "step_image" => $step_name,
+                "step_description" => $request["step_descriptions"][$i]->step_description
+            ]);
+
+        }
 
 
 
@@ -222,13 +243,20 @@ class ReceiptController extends Controller
         $receipt = DB::table('receipts')
             ->join('categories', 'categories.id', '=', 'receipts.id_category')
             ->join('kitchens', 'kitchens.id', '=', 'receipts.id_kitchen')
+            ->join('users', 'receipts.id_user', '=','users.id')
             ->select('receipts.id', 'receipts.name','receipts.cooking_hours', 'cooking_minutes', 'receipts.main_img',
-            'receipts.advice', 'categories.category as category', 'kitchens.kitchen as kitchen')
+            'receipts.advice', 'categories.category as category', 'kitchens.kitchen as kitchen', 'users.name as username', 'users.surname')
             ->where('receipts.id', '=', $id)
             ->get();
 
 
         $ingradients = DB::table('ingradients')
+            ->select('*')
+            ->where('id_receipt', '=', $id)
+            ->orderBy('id')
+            ->get();
+
+        $steps = DB::table('steps')
             ->select('*')
             ->where('id_receipt', '=', $id)
             ->orderBy('id')
@@ -250,7 +278,8 @@ class ReceiptController extends Controller
         return [
             "status" => true,
             "receipt" => $receipt,
-            "ingradients" => $ingradients
+            "ingradients" => $ingradients,
+            "steps" => $steps
         ];
     }
 
@@ -285,7 +314,19 @@ class ReceiptController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $receipt = Receipt::find($id);
+//        return $receipt;
+        try
+        {
+            Category::destroy($receipt->id_category);
+            Kitchen::destroy($receipt->id_kitchen);
+            Receipt::destroy($id);
+            return response()->json('receipt deleted');
+        }
+
+        catch (Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
     }
 
     private function saveImageToFolder(Request $request) {

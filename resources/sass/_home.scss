@@ -1,0 +1,102 @@
+.my-carousel {
+    position: relative;
+}
+
+.carousel {
+    &__item {
+        &__container {
+            width: 100%;
+            max-height: 500px;
+            position: relative;
+
+            &:hover .carousel__content__name {
+                color: #AF212B;
+            }
+
+            a {
+                text-decoration: none;
+                color: #fff;
+            }
+        }
+    }
+
+    &__image {
+        min-height: 500px !important;
+        max-height: 500px !important;
+        object-fit: cover;
+        filter: brightness(60%);
+    }
+
+    &__content {
+        &__container {
+            display: inline-block;
+            position: absolute;
+            left: 60px;
+            bottom: 68px;
+            max-width: 600px;
+            max-height: 329px;
+        }
+
+        &__categories {
+            display: inline-block;
+            margin-bottom: 3px;
+            vertical-align: top;
+            color: #fff;
+            transition: color .3s ease-in;
+            display: block;
+            float: left;
+            font-size: 11px;
+            text-transform: uppercase;
+            text-decoration: none;
+            margin-left: 3px;
+
+            &__container {
+                position: relative;
+                display: inline-block;
+                margin-bottom: 5px;
+                color: #fff;
+                font-size: 11px;
+            }
+
+
+        }
+
+        &__name {
+            font-size: 60px;
+            line-height: 65px;
+            max-height: 275px;
+            text-shadow: 0 0 3px rgb(0 0 0 / 30%);
+            font-family: Roboto,sans-serif;
+            font-weight: 900;
+            color: #fff;
+            transition: color .3s ease-in;
+
+            &:hover {
+
+            }
+        }
+
+        &__author {
+            font: 12px/20px PT Serif,Georgia,serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            width: 500px;
+            margin-top: 25px;
+            color: #fff;
+        }
+    }
+}
+
+.owl-dots {
+    position: absolute;
+    bottom: 5px;
+    left: calc(50% - 60px);
+}
+
+.home {
+    &__items {
+        &__container {
+            margin-top: 30px;
+        }
+    }
+}

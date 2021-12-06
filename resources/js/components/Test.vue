@@ -1,5 +1,5 @@
 <template>
-    <nav class="uk-navbar-container" uk-navbar>
+    <nav class="uk-navbar-container" style="height: 80px" uk-navbar>
         <div class="uk-navbar-left">
 
             <ul class="uk-navbar-nav">
@@ -22,15 +22,19 @@ export default {
                     href: "/"
                 },
                 {
-                    title: "Блог",
-                    href: "/blog"
+                    title: "Статистика",
+                    href: "/admin"
                 },
                 {
-                    title: "Создать кухню",
-                    href: "/create"
+                    title: "Рецепти",
+                    href: "/adminRecepty"
                 },
                 {
-                    title: "Создать рецепт",
+                    title: "Додання",
+                    href: "/adminCreate"
+                },
+                {
+                    title: "Створити рецепт",
                     href: "/createReceipt"
                 }
             ]
