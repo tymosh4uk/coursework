@@ -2178,6 +2178,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -2399,13 +2401,10 @@ __webpack_require__.r(__webpack_exports__);
         title: "Рецепти",
         href: "/adminRecepty"
       }, {
-        title: "Створення",
+        title: "Додання",
         href: "/adminCreate"
       }, {
-        title: "Создать кухню",
-        href: "/create"
-      }, {
-        title: "Создать рецепт",
+        title: "Створити рецепт",
         href: "/createReceipt"
       }]
     };
@@ -3811,7 +3810,6 @@ __webpack_require__.r(__webpack_exports__);
         kitchen: "",
         advice: "",
         user_id: "",
-        id_step: "",
         ingradients: [],
         count_ingradients: [],
         type_measurings: [],
@@ -3914,7 +3912,6 @@ __webpack_require__.r(__webpack_exports__);
       data.append('kitchen', this.form.kitchen);
       data.append('advice', this.form.advice);
       data.append('user_id', this.form.user_id);
-      data.append('id_step', this.form.id_step);
       data.append('ingradients', JSON.stringify(this.form.ingradients));
       data.append('count_ingradients', JSON.stringify(this.form.count_ingradients));
       data.append('type_measurings', JSON.stringify(this.form.type_measurings));
@@ -3979,7 +3976,7 @@ $('body').delegate('#addIngradient', 'click', function () {
   setIngradient += '<input class="uk-input"  type="number" name="count[]" value=0 min=0>';
   setIngradient += '</div>';
   setIngradient += '<div class="ingradients__type">';
-  setIngradient += '<select class="uk-select" name="type_measurings[]">\n' + '<option name="measure">мл</option>\n' + '<option name="measure">грам</option>\n' + '<option name="measure">штук</option>\n' + '</select>\n' + '</div> ';
+  setIngradient += '<select class="uk-select" name="type_measurings[]">\n' + '<option name="measure">мл</option>\n' + '<option name="measure">грам</option>\n' + '<option name="measure">штук</option>\n' + '<option name="measure">столових ложок</option>\n' + '<option name="measure">чайних ложок</option>\n' + '<option name="measure">за смаком</option>\n' + '<option name="measure">стакан</option>\n' + '</select>\n' + '</div> ';
   setIngradient += '</div>';
   setIngradient += '<div class="ingradients__button" style="position: absolute; top: 15px; right: -30px; cursor: pointer;">';
   setIngradient += '<button id=deleteIngradient class="ingradients__deleteIngradient uk-close-large" onclick="event.preventDefault()" type="button" uk-close></button>';
@@ -4015,7 +4012,7 @@ $('body').delegate('#addStep', 'click', function () {
   setStep += '</div>';
   setStep += '</div>';
   setStep += '<div class="step__textarea__container">';
-  setStep += '<textarea class="step__textarea" placeholder="Инструкция к шагу приготовления" name="step_description" autocomplete="on">fhgjrh</textarea>';
+  setStep += '<textarea class="step__textarea" placeholder="Інструкція до кроку приготування" name="step_description" autocomplete="on"></textarea>';
   setStep += '</div>';
   setStep += '</div>';
   setStep += '<div class="step__button" style="position: absolute; top: 15px; right: -30px; cursor: pointer;">';
@@ -4119,6 +4116,155 @@ $(function () {
     readStepURL(this);
     console.log("Uploading image");
   });
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/FindReceipt.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/FindReceipt.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _components_Spin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Spin */ "./resources/js/components/Spin.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_page_ItemReceipt__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/page/ItemReceipt */ "./resources/js/components/page/ItemReceipt.vue");
+/* harmony import */ var _mixins_pagination_mixin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../mixins/pagination.mixin */ "./resources/js/mixins/pagination.mixin.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  mixins: [_mixins_pagination_mixin__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  components: {
+    Spin: _components_Spin__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Item: _components_page_ItemReceipt__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      getInfo: {},
+      user_id: "",
+      loading: true,
+      userId: Number,
+      receipts: [],
+      ingradients: [],
+      steps: [],
+      not_found: false,
+      comment: "",
+      comments: "",
+      isSaved: "",
+      form: {
+        category: "",
+        kitchen: "",
+        main_img_file: "",
+        searchData: null
+      }
+    };
+  },
+  mounted: function mounted() {// this.loadReceipt(this.$route.params.id)
+    // console.log(this.userId)
+  },
+  created: function created() {
+    this.getData();
+  },
+  methods: {
+    findReceipt: function findReceipt() {
+      var _this = this;
+
+      var category = document.getElementById('categories');
+      this.form.category = category.options[category.selectedIndex].text;
+      var kitchen = document.getElementById('kitchens');
+      this.form.kitchen = kitchen.options[kitchen.selectedIndex].text;
+
+      if (this.form.searchData !== null || this.form.category != 'Оберіть категорію' || this.form.kitchen != 'Оберіть кухню') {
+        var data = new FormData();
+
+        if (this.form.searchData !== null) {
+          data.append('name', this.form.searchData);
+        }
+
+        if (this.form.category != 'Оберіть категорію') {
+          data.append('category', this.form.category);
+        }
+
+        if (this.form.kitchen != 'Оберіть кухню') {
+          data.append('kitchen', this.form.kitchen);
+        }
+
+        axios__WEBPACK_IMPORTED_MODULE_1___default().post('/findReceipt', data).then(function (res) {
+          if (res.data) {
+            _this.receipts = res.data; // this.ingradients = res.data.ingradients;
+            // this.steps = res.data.steps;
+
+            console.log(res.data);
+            _this.loading = false;
+          }
+        })["catch"](function (err) {
+          _this.not_found = true;
+          _this.loading = false;
+        });
+      }
+    },
+    refreshReceipt: function refreshReceipt() {
+      window.location.reload();
+    },
+    getData: function getData() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/receipts/create').then(function (_ref) {
+        var data = _ref.data;
+        return _this2.getInfo = data;
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -5001,6 +5147,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_AdminAllReceipt__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./views/AdminAllReceipt */ "./resources/js/views/AdminAllReceipt.vue");
 /* harmony import */ var _views_AdminCreate__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./views/AdminCreate */ "./resources/js/views/AdminCreate.vue");
 /* harmony import */ var _views_AdminEdit__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./views/AdminEdit */ "./resources/js/views/AdminEdit.vue");
+/* harmony import */ var _views_FindReceipt__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./views/FindReceipt */ "./resources/js/views/FindReceipt.vue");
 var _this = undefined;
 
 
@@ -5012,6 +5159,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
+
 
 
 
@@ -5097,6 +5245,12 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     path: '/saved',
     components: {
       "default": _views_Saved__WEBPACK_IMPORTED_MODULE_13__["default"],
+      header: _components_Header__WEBPACK_IMPORTED_MODULE_12__["default"]
+    }
+  }, {
+    path: '/find',
+    components: {
+      "default": _views_FindReceipt__WEBPACK_IMPORTED_MODULE_18__["default"],
       header: _components_Header__WEBPACK_IMPORTED_MODULE_12__["default"]
     }
   }]
@@ -78650,6 +78804,45 @@ component.options.__file = "resources/js/views/CreateReceipt.vue"
 
 /***/ }),
 
+/***/ "./resources/js/views/FindReceipt.vue":
+/*!********************************************!*\
+  !*** ./resources/js/views/FindReceipt.vue ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _FindReceipt_vue_vue_type_template_id_68eaca70_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FindReceipt.vue?vue&type=template&id=68eaca70&scoped=true& */ "./resources/js/views/FindReceipt.vue?vue&type=template&id=68eaca70&scoped=true&");
+/* harmony import */ var _FindReceipt_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FindReceipt.vue?vue&type=script&lang=js& */ "./resources/js/views/FindReceipt.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _FindReceipt_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FindReceipt_vue_vue_type_template_id_68eaca70_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _FindReceipt_vue_vue_type_template_id_68eaca70_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "68eaca70",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/FindReceipt.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/views/Index.vue":
 /*!**************************************!*\
   !*** ./resources/js/views/Index.vue ***!
@@ -79101,6 +79294,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/views/FindReceipt.vue?vue&type=script&lang=js&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/views/FindReceipt.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FindReceipt_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FindReceipt.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/FindReceipt.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FindReceipt_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/views/Index.vue?vue&type=script&lang=js&":
 /*!***************************************************************!*\
   !*** ./resources/js/views/Index.vue?vue&type=script&lang=js& ***!
@@ -79466,6 +79675,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/views/FindReceipt.vue?vue&type=template&id=68eaca70&scoped=true&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/views/FindReceipt.vue?vue&type=template&id=68eaca70&scoped=true& ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FindReceipt_vue_vue_type_template_id_68eaca70_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FindReceipt_vue_vue_type_template_id_68eaca70_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FindReceipt_vue_vue_type_template_id_68eaca70_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FindReceipt.vue?vue&type=template&id=68eaca70&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/FindReceipt.vue?vue&type=template&id=68eaca70&scoped=true&");
+
+
+/***/ }),
+
 /***/ "./resources/js/views/Index.vue?vue&type=template&id=494d9643&scoped=true&":
 /*!*********************************************************************************!*\
   !*** ./resources/js/views/Index.vue?vue&type=template&id=494d9643&scoped=true& ***!
@@ -79591,10 +79817,36 @@ var render = function () {
         ),
       ]),
       _vm._v(" "),
-      _vm._m(1),
+      _c(
+        "div",
+        { staticClass: "nav__user-navbar__container" },
+        [
+          _c("router-link", { attrs: { to: "/find" } }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "nav__user-navbar__item_search__container nav__user-navbar__item",
+              },
+              [
+                _c("i", {
+                  staticClass: "fas fa-search nav__user-navbar__item_search",
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  { staticClass: "nav__user-navbar__item_search__text" },
+                  [_vm._v("Пошук по сайту")]
+                ),
+              ]
+            ),
+          ]),
+        ],
+        1
+      ),
       _vm._v(" "),
       !_vm.isAuth
-        ? _c("div", { staticClass: "nav__user-navbar__container" }, [_vm._m(2)])
+        ? _c("div", { staticClass: "nav__user-navbar__container" }, [_vm._m(1)])
         : _vm._e(),
       _vm._v(" "),
       _vm.isAuth
@@ -79641,7 +79893,7 @@ var render = function () {
         : _vm._e(),
       _vm._v(" "),
       !_vm.isAuth
-        ? _c("div", { staticClass: "nav__user-navbar__container" }, [_vm._m(3)])
+        ? _c("div", { staticClass: "nav__user-navbar__container" }, [_vm._m(2)])
         : _vm._e(),
       _vm._v(" "),
       _vm.isAuth
@@ -79709,7 +79961,7 @@ var render = function () {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm._m(4),
+      _vm._m(3),
     ]),
     _vm._v(" "),
     _c(
@@ -79748,29 +80000,6 @@ var staticRenderFns = [
       { staticClass: "nav-line__logo__wrapper", attrs: { href: "" } },
       [_c("i", { staticClass: "fas fa-hat-chef" })]
     )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "nav__user-navbar__container" }, [
-      _c(
-        "div",
-        {
-          staticClass:
-            "nav__user-navbar__item_search__container nav__user-navbar__item",
-        },
-        [
-          _c("i", {
-            staticClass: "fas fa-search nav__user-navbar__item_search",
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "nav__user-navbar__item_search__text" }, [
-            _vm._v("Пошук по сайту"),
-          ]),
-        ]
-      ),
-    ])
   },
   function () {
     var _vm = this
@@ -80286,7 +80515,7 @@ var render = function () {
                                                 [_vm._v("bookmark")]
                                               ),
                                               _vm._v(
-                                                "\n                                                            12\n                                                        "
+                                                "\n                                                            1\n                                                        "
                                               ),
                                             ]
                                           ),
@@ -80325,7 +80554,7 @@ var render = function () {
                                                 [_vm._v("thumb_up")]
                                               ),
                                               _vm._v(
-                                                "\n                                                            16\n                                                        "
+                                                "\n                                                            2\n                                                        "
                                               ),
                                             ]
                                           ),
@@ -80364,7 +80593,7 @@ var render = function () {
                                                 [_vm._v("thumb_down")]
                                               ),
                                               _vm._v(
-                                                "\n                                                            24\n                                                        "
+                                                "\n                                                            0\n                                                        "
                                               ),
                                             ]
                                           ),
@@ -80823,7 +81052,7 @@ var render = function () {
                                               [_vm._v("bookmark")]
                                             ),
                                             _vm._v(
-                                              "\n                                                            12\n                                                        "
+                                              "\n                                                            1\n                                                        "
                                             ),
                                           ]
                                         ),
@@ -80862,7 +81091,7 @@ var render = function () {
                                               [_vm._v("thumb_up")]
                                             ),
                                             _vm._v(
-                                              "\n                                                            16\n                                                        "
+                                              "\n                                                            2\n                                                        "
                                             ),
                                           ]
                                         ),
@@ -80901,7 +81130,7 @@ var render = function () {
                                               [_vm._v("thumb_down")]
                                             ),
                                             _vm._v(
-                                              "\n                                                            24\n                                                        "
+                                              "\n                                                            0\n                                                        "
                                             ),
                                           ]
                                         ),
@@ -81117,7 +81346,7 @@ var render = function () {
                 },
               ],
               staticClass: "uk-input",
-              attrs: { type: "text", placeholder: "Назва категорії" },
+              attrs: { type: "text", placeholder: "Назва кухні" },
               domProps: { value: _vm.form.kitchen },
               on: {
                 input: function ($event) {
@@ -81988,30 +82217,6 @@ var render = function () {
             ]),
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "uk-margin" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.form.id_step,
-                  expression: "form.id_step",
-                },
-              ],
-              staticClass: "uk-input",
-              attrs: { type: "number", placeholder: "id_step" },
-              domProps: { value: _vm.form.id_step },
-              on: {
-                input: function ($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.form, "id_step", $event.target.value)
-                },
-              },
-            }),
-          ]),
-          _vm._v(" "),
           _c("div", { staticClass: "send-btn__container" }, [
             _c(
               "button",
@@ -82207,6 +82412,168 @@ var staticRenderFns = [
     ])
   },
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/FindReceipt.vue?vue&type=template&id=68eaca70&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/FindReceipt.vue?vue&type=template&id=68eaca70&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "form",
+      {
+        staticStyle: { "margin-bottom": "20px" },
+        attrs: { id: "form", enctype: "multipart/form-data" },
+      },
+      [
+        _c("h3", [_vm._v("Пошук")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-margin" }, [
+          _c("label", { staticClass: "uk-form-label" }, [
+            _vm._v("Назва рецепту"),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "uk-form-controls" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.searchData,
+                  expression: "form.searchData",
+                },
+              ],
+              staticClass: "uk-input",
+              attrs: { type: "text", placeholder: "Введіть назву" },
+              domProps: { value: _vm.form.searchData },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "searchData", $event.target.value)
+                },
+              },
+            }),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-margin" }, [
+          _c("label", { staticClass: "uk-form-label" }, [_vm._v("Категорія")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            { staticClass: "uk-select", attrs: { id: "categories" } },
+            [
+              _c(
+                "option",
+                { attrs: { value: "", disabled: "", selected: "" } },
+                [_vm._v("Оберіть категорію")]
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.getInfo.categories, function (category) {
+                return _c(
+                  "option",
+                  { domProps: { value: category.category } },
+                  [_vm._v(_vm._s(category.category))]
+                )
+              }),
+            ],
+            2
+          ),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-margin" }, [
+          _c("label", { staticClass: "uk-form-label" }, [
+            _vm._v("Національна кухня"),
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            { staticClass: "uk-select", attrs: { id: "kitchens" } },
+            [
+              _c(
+                "option",
+                { attrs: { value: "", disabled: "", selected: "" } },
+                [_vm._v("Оберіть кухню")]
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.getInfo.kitchens, function (kitchen) {
+                return _c("option", { domProps: { value: kitchen.kitchen } }, [
+                  _vm._v(_vm._s(kitchen.kitchen)),
+                ])
+              }),
+            ],
+            2
+          ),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-margin" }, [
+          _c("div", { staticStyle: { display: "inline-flex" } }, [
+            _c(
+              "button",
+              {
+                staticClass: "uk-button uk-button-primary",
+                on: {
+                  click: function ($event) {
+                    $event.preventDefault()
+                    return _vm.findReceipt.apply(null, arguments)
+                  },
+                },
+              },
+              [_vm._v("Знайти")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "uk-button uk-button-danger",
+                staticStyle: { "margin-left": "10px" },
+                on: {
+                  click: function ($event) {
+                    $event.preventDefault()
+                    return _vm.refreshReceipt.apply(null, arguments)
+                  },
+                },
+              },
+              [_vm._v("Очистити")]
+            ),
+          ]),
+        ]),
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "comments__row" }),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticStyle: { "margin-top": "30px" } },
+      [
+        _c("item", {
+          attrs: { receipts: _vm.receipts, ingradients: _vm.receipts },
+        }),
+      ],
+      1
+    ),
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -82633,7 +83000,7 @@ var render = function () {
                       _c(
                         "span",
                         { staticClass: "content__header__rate__like-count" },
-                        [_vm._v("55")]
+                        [_vm._v("3")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -82653,7 +83020,7 @@ var render = function () {
                       _c(
                         "span",
                         { staticClass: "content__header__rate__dislike-count" },
-                        [_vm._v("16")]
+                        [_vm._v("1")]
                       ),
                     ]),
                   ]),
@@ -83062,7 +83429,7 @@ var render = function () {
                           ],
                           staticClass: "comments__textarea",
                           attrs: {
-                            placeholder: "Добавить комментарий",
+                            placeholder: "Додати коментарій",
                             name: "input",
                             autocomplete: "on",
                           },
@@ -83096,7 +83463,7 @@ var render = function () {
                                   },
                                 },
                               },
-                              [_vm._v("Отправить")]
+                              [_vm._v("Надіслати")]
                             ),
                           ]
                         ),

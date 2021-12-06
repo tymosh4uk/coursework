@@ -155,6 +155,8 @@ class HomeController extends Controller
 //            SELECT receipts.name as name, receipts.cooking_hours, receipts.cooking_minutes, receipts.main_img,
 //                   receipts.advice
 //            FROM receipts
+
+
 //            WHERE receipts.id = (SELECT TOP 5 id_receipt
 //                                FROM receipt_comments
 //                                GROUP BY receipt_comments.id_receipt
@@ -180,5 +182,45 @@ class HomeController extends Controller
             ->orderByRaw("FIELD(receipts.id, $id_comments_ordered)")
             ->get();
         return $receipts;
+    }
+
+    public function findReceipt(Request $request) {
+        $sql_query = "SELECT receipts.id, receipts.name as name, receipts.cooking_hours, receipts.cooking_minutes, receipts.main_img as image,
+                 receipts.advice, categories.category, kitchens.kitchen, users.name as username, users.surname
+                 FROM receipts
+                 JOIN categories ON (receipts.id_category = categories.id)
+                 JOIN kitchens ON (receipts.id_kitchen = kitchens.id)
+                 JOIN users ON (receipts.id_user = users.id)";
+
+        if($request['name']) {
+            $sql_query .= " WHERE receipts.name LIKE '%" . $request['name'] . "%'";
+        }
+        if($request['category']) {
+            $sql_query .= " WHERE categories.category LIKE '%" . $request['category'] . "%'";
+        }
+        if($request['kitchen']) {
+            $sql_query .= " WHERE kitchens.kitchen LIKE '%" . $request['kitchen'] . "%'";
+        }
+
+
+        $data = DB::select(DB::raw($sql_query));
+
+        if(count($data) > 0) {
+            return $data;
+        }
+        else {
+            false;
+        }
+
+//        if($request['name']) {
+//            $receipts = DB::table('receipts')
+//                ->join('categories', 'receipts.id_category', '=', 'categories.id')
+//                ->join('kitchens', 'receipts.id_kitchen', '=', 'kitchens.id')
+//                ->join('users', 'receipts.id_user', '=', 'users.id')
+//                ->select('receipts.id', 'receipts.name', 'receipts.cooking_hours', 'receipts.cooking_minutes', 'receipts.main_img as image', 'categories.category', 'kitchens.kitchen', 'users.name as username', 'users.surname')
+//                ->where('receipts.name', 'LIKE', '%' . $request['name'] . '%')
+//                ->get();
+//        }
+
     }
 }

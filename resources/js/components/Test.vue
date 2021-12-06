@@ -30,15 +30,11 @@ export default {
                     href: "/adminRecepty"
                 },
                 {
-                    title: "Створення",
+                    title: "Додання",
                     href: "/adminCreate"
                 },
                 {
-                    title: "Создать кухню",
-                    href: "/create"
-                },
-                {
-                    title: "Создать рецепт",
+                    title: "Створити рецепт",
                     href: "/createReceipt"
                 }
             ]

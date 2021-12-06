@@ -96,8 +96,7 @@ class ReceiptController extends Controller
                 "category" => ["required"],
                 "kitchen" => ["required"],
                 "user_id" => ["required"],
-                "advice" => ["nullable"],
-                "id_step" => ["required"]
+                "advice" => ["nullable"]
 //                "ingradients" => ["required"],
 //                "ingradients.*.ingradient" => ["required"]
             ]
@@ -161,7 +160,7 @@ class ReceiptController extends Controller
             "id_kitchen" => $kitchen->id,
             "id_user" => $request['user_id'],
             "advice" => $request['advice'],
-            "id_step" => $request['id_step']
+            "id_step" => 1
         ]);
        //return $request['count_ingradients'];
 

@@ -37,7 +37,7 @@
                 <legend class="uk-legend">Створити національну кухню</legend>
 
                 <div class="uk-margin">
-                    <input class="uk-input" v-model="form.kitchen" type="text" placeholder="Назва категорії">
+                    <input class="uk-input" v-model="form.kitchen" type="text" placeholder="Назва кухні">
                 </div>
 
 

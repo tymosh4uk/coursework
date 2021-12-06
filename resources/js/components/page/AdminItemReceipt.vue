@@ -74,7 +74,7 @@
                                                     <div class="receipt__content__options__element__inner">
                                                             <span class="receipt__content__options__element__text">
                                                                 <i class="receipt__content__options__element__icon material-icons">bookmark</i>
-                                                                12
+                                                                1
                                                             </span>
                                                     </div>
                                                 </div>
@@ -82,7 +82,7 @@
                                                     <div class="receipt__content__options__element__inner">
                                                             <span class="receipt__content__options__element__text">
                                                                  <i class="receipt__content__options__element__icon material-icons">thumb_up</i>
-                                                                16
+                                                                2
                                                             </span>
                                                     </div>
                                                 </div>
@@ -90,7 +90,7 @@
                                                     <div class="receipt__content__options__element__inner">
                                                             <span class="receipt__content__options__element__text">
                                                                 <i class="receipt__content__options__element__icon material-icons">thumb_down</i>
-                                                                24
+                                                                0
                                                             </span>
                                                     </div>
                                                 </div>

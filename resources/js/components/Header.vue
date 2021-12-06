@@ -15,12 +15,14 @@
         </div>
 
         <div class="nav__user-navbar__container">
-            <div class="nav__user-navbar__item_search__container nav__user-navbar__item">
-<!--                <form method="POST" action="{{ route('receiptSearch') }}">-->
-                    <i class="fas fa-search nav__user-navbar__item_search"></i>
-                    <span class="nav__user-navbar__item_search__text">Пошук по сайту</span>
-<!--                </form>-->
-            </div>
+            <router-link :to="'/find'">
+                <div class="nav__user-navbar__item_search__container nav__user-navbar__item">
+    <!--                <form method="POST" action="{{ route('receiptSearch') }}">-->
+                        <i class="fas fa-search nav__user-navbar__item_search"></i>
+                        <span class="nav__user-navbar__item_search__text">Пошук по сайту</span>
+    <!--                </form>-->
+                </div>
+            </router-link>
         </div>
 
         <div class="nav__user-navbar__container" v-if="!isAuth">

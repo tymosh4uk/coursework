@@ -77,12 +77,12 @@
                                 <button type="button" class="content__header__rate__like-btn">
                                     <i class="fal fa-thumbs-up content__header__rate__icon content__header__rate__icon__like__active"></i>
                                 </button>
-                                <span class="content__header__rate__like-count">55</span>
+                                <span class="content__header__rate__like-count">3</span>
 
                                 <button type="button" class="content__header__rate__like-btn">
                                     <i class="fal fa-thumbs-down content__header__rate__icon content__header__rate__icon__dislike__active"></i>
                                 </button>
-                                <span class="content__header__rate__dislike-count">16</span>
+                                <span class="content__header__rate__dislike-count">1</span>
                             </div>
                         </div>
                     </div>
@@ -199,11 +199,11 @@
                     <form id="form-logout" enctype="multipart/form-data">
                         <div class="comments__row"></div>
     <!--                    <p>{{ userId }}</p>-->
-                        <textarea placeholder="Добавить комментарий" v-model="comment" name="input" autocomplete="on" class="comments__textarea"></textarea>
+                        <textarea placeholder="Додати коментарій" v-model="comment" name="input" autocomplete="on" class="comments__textarea"></textarea>
 
                         <div class="comments__button__wrapper">
 
-                            <button type="button" class="comments__button" @click.prevent="sendComment">Отправить</button>
+                            <button type="button" class="comments__button" @click.prevent="sendComment">Надіслати</button>
 
 
                         </div>

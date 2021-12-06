@@ -6,7 +6,7 @@
     &__item {
         &__container {
             width: 100%;
-            max-height: 660px;
+            max-height: 500px;
             position: relative;
 
             &:hover .carousel__content__name {
@@ -21,8 +21,8 @@
     }
 
     &__image {
-        min-height: 660px !important;
-        max-height: 660px !important;
+        min-height: 500px !important;
+        max-height: 500px !important;
         object-fit: cover;
         filter: brightness(60%);
     }
@@ -32,7 +32,7 @@
             display: inline-block;
             position: absolute;
             left: 60px;
-            bottom: 168px;
+            bottom: 68px;
             max-width: 600px;
             max-height: 329px;
         }

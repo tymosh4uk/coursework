@@ -10053,10 +10053,6 @@ a:hover {
   color: inherit;
 }
 
-button:focus {
-  background-color: #fff;
-}
-
 .form__title {
   color: black;
   display: inline-flex;
@@ -12074,6 +12070,10 @@ button:focus {
   margin-bottom: 20px;
   list-style: none;
 }
+.nav__user-navbar__container a {
+  text-decoration: none;
+  color: #000;
+}
 .nav__user-navbar__item {
   padding: 0 17px;
   font: 11px/1 Roboto, sans-serif;
@@ -12196,7 +12196,7 @@ button:focus {
 
 .carousel__item__container {
   width: 100%;
-  max-height: 660px;
+  max-height: 500px;
   position: relative;
 }
 .carousel__item__container:hover .carousel__content__name {
@@ -12207,8 +12207,8 @@ button:focus {
   color: #fff;
 }
 .carousel__image {
-  min-height: 660px !important;
-  max-height: 660px !important;
+  min-height: 500px !important;
+  max-height: 500px !important;
   -o-object-fit: cover;
      object-fit: cover;
   filter: brightness(60%);
@@ -12217,7 +12217,7 @@ button:focus {
   display: inline-block;
   position: absolute;
   left: 60px;
-  bottom: 168px;
+  bottom: 68px;
   max-width: 600px;
   max-height: 329px;
 }

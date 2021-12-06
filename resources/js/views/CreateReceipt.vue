@@ -175,9 +175,9 @@
                 </div>
 
 
-                <div class="uk-margin">
-                    <input class="uk-input" v-model="form.id_step" type="number" placeholder="id_step">
-                </div>
+<!--                <div class="uk-margin">-->
+<!--                    <input class="uk-input" v-model="form.id_step" type="number" placeholder="id_step">-->
+<!--                </div>-->
 
 
 
@@ -213,7 +213,6 @@ export default {
             kitchen: "",
             advice: "",
             user_id: "",
-            id_step: "",
             ingradients: [],
             count_ingradients: [],
             type_measurings: [],
@@ -332,7 +331,6 @@ export default {
             data.append('kitchen', this.form.kitchen);
             data.append('advice', this.form.advice);
             data.append('user_id', this.form.user_id);
-            data.append('id_step', this.form.id_step);
             data.append('ingradients', JSON.stringify(this.form.ingradients));
             data.append('count_ingradients', JSON.stringify(this.form.count_ingradients));
             data.append('type_measurings', JSON.stringify(this.form.type_measurings));
@@ -409,6 +407,10 @@ $('body').delegate('#addIngradient', 'click', function () {
                       '<option name="measure">мл</option>\n' +
                       '<option name="measure">грам</option>\n' +
                       '<option name="measure">штук</option>\n' +
+                      '<option name="measure">столових ложок</option>\n' +
+                      '<option name="measure">чайних ложок</option>\n' +
+                      '<option name="measure">за смаком</option>\n' +
+                      '<option name="measure">стакан</option>\n' +
                       '</select>\n' +
                       '</div> '
     setIngradient += '</div>'
@@ -456,7 +458,7 @@ $('body').delegate('#addStep', 'click', function () {
     setStep += '</div>'
 
     setStep += '<div class="step__textarea__container">'
-    setStep += '<textarea class="step__textarea" placeholder="Инструкция к шагу приготовления" name="step_description" autocomplete="on">fhgjrh</textarea>'
+    setStep += '<textarea class="step__textarea" placeholder="Інструкція до кроку приготування" name="step_description" autocomplete="on"></textarea>'
     setStep += '</div>'
 
 
