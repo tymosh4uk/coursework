@@ -46,6 +46,11 @@ Route::get('/getChartInfoKitchens', [App\Http\Controllers\AdminController::class
 Route::post('/createCategory', [App\Http\Controllers\AdminController::class, 'createCategory'])->name('createCategory');
 Route::post('/createKitchen', [App\Http\Controllers\AdminController::class, 'createKitchen'])->name('createKitchen');
 Route::post('/editReceipt', [App\Http\Controllers\AdminController::class, 'editReceipt'])->name('editReceipt');
+Route::post('/findAdminReceipt', [App\Http\Controllers\AdminController::class, 'findAdminReceipt'])->name('findAdminReceipt');
+
+
+//KPZ
+Route::get('/receiptExport',[App\Http\Controllers\AdminController::class, 'receiptExport'])->name('receiptExport');
 
 Auth::routes();
 

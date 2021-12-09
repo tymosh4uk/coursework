@@ -34,6 +34,10 @@ export default {
                     href: "/adminCreate"
                 },
                 {
+                    title: "Користувачі",
+                    href: "/adminUsers"
+                },
+                {
                     title: "Створити рецепт",
                     href: "/createReceipt"
                 }

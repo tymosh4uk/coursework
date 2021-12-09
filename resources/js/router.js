@@ -8,16 +8,16 @@ import Blog from "./views/Blog";
 import Receipt from "./views/Receipt";
 import CreateKitchen from "./views/CreateKitchen";
 import CreateReceipt from "./views/CreateReceipt";
-import App from "./views/App";
 import AllReceipt from "./views/AllReceipt";
 import Admin from "./views/AdminStatistics";
-import AdminHeader from "./components/Test";
+import AdminHeader from "./components/AdminHeader";
 import UserHeader from "./components/Header";
 import Saved from "./views/Saved";
 import paginate from 'vuejs-paginate'
 import AdminAllReceipt from "./views/AdminAllReceipt";
 import AdminCreate from "./views/AdminCreate";
 import AdminEdit from "./views/AdminEdit";
+import AdminUser from "./views/AdminUsers";
 import FindReceipt from "./views/FindReceipt";
 Vue.component('Paginate', paginate)
 
@@ -59,10 +59,6 @@ const router = new vueRouter({
             meta: {auth: true}
         },
         {
-            path: '/app',
-            component: App
-        },
-        {
             path: '/recepty',
             components: {
                 default: AllReceipt,
@@ -87,6 +83,13 @@ const router = new vueRouter({
             path: '/adminCreate',
             components: {
                 default: AdminCreate,
+                header: AdminHeader
+            }
+        },
+        {
+            path: '/adminUsers',
+            components: {
+                default: AdminUser,
                 header: AdminHeader
             }
         },

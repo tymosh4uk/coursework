@@ -125,7 +125,10 @@ class HomeController extends Controller
 //            ->first();
 //
 //        return $saved->delete();
-        return DB::table('saveds')->where('saveds.id_user','=', Auth::id())->where('saveds.id_receipt','=', $request['id_receipt'])->delete();
+        return DB::table('saveds')
+            ->where('saveds.id_user','=', Auth::id())
+            ->where('saveds.id_receipt','=', $request['id_receipt'])
+            ->delete();
 
 
     }
@@ -192,14 +195,29 @@ class HomeController extends Controller
                  JOIN kitchens ON (receipts.id_kitchen = kitchens.id)
                  JOIN users ON (receipts.id_user = users.id)";
 
+        $count = 0;
+        $sql_query .= " WHERE";
+
         if($request['name']) {
-            $sql_query .= " WHERE receipts.name LIKE '%" . $request['name'] . "%'";
+            if($count != 0) {
+                $sql_query .= " AND";
+            }
+            $sql_query .= " receipts.name LIKE '%" . $request['name'] . "%'";
+            $count++;
         }
         if($request['category']) {
-            $sql_query .= " WHERE categories.category LIKE '%" . $request['category'] . "%'";
+            if($count != 0) {
+                $sql_query .= " AND";
+            }
+            $sql_query .= " categories.category LIKE '%" . $request['category'] . "%'";
+            $count++;
         }
         if($request['kitchen']) {
-            $sql_query .= " WHERE kitchens.kitchen LIKE '%" . $request['kitchen'] . "%'";
+            if($count != 0) {
+                $sql_query .= " AND";
+            }
+            $sql_query .= " kitchens.kitchen LIKE '%" . $request['kitchen'] . "%'";
+            $count++;
         }
 
 

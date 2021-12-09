@@ -60,11 +60,36 @@ class ReceiptController extends Controller
      */
     public function create()
     {
+
+        $receipts = DB::table('users')
+            ->select('users.id', DB::raw('count(receipts.id_user) as total'), 'users.surname', 'users.name', 'users.email', DB::raw("DATE_FORMAT(users.created_at, '%d-%b-%Y') as created_at"))
+            ->leftJoin('receipts', 'receipts.id_user', '=', 'users.id')
+            ->groupBy('users.id')
+            ->orderBy('users.id')
+            ->get();
+
+        $id_receipts = array();
+        foreach($receipts as $arr){
+            $id_receipts[] = $arr->id;
+        }
+        $id_receipts_ordered = implode(',', $id_receipts);
+
+        $users = DB::table("users")
+            ->select('users.id', 'users.surname', 'users.name', 'users.email',
+                DB::raw("DATE_FORMAT(users.created_at, '%d-%b-%Y') as created_at"))
+            ->whereIn('users.id', $id_receipts)
+            ->orderByRaw("FIELD(users.id, $id_receipts_ordered)")
+            ->get();
+
+//        $users->created_at->format('d-m-Y');
+
         $category = DB::table("categories")->select('category')->distinct('category')->get();
         $kitchen = DB::table("kitchens")->select('kitchen')->distinct('kitchen')->get();
         return [
             "categories" => $category,
-            "kitchens" => $kitchen
+            "kitchens" => $kitchen,
+            "users" => $users,
+            "receipts_count" => $receipts
         ];
     }
 
@@ -109,23 +134,6 @@ class ReceiptController extends Controller
             ];
         }
 
-//        if($request['step_images']) {
-//            for($i = 0; $i < count($request['step_images']); $i++) {
-//                $step_image = $request['step_images'][$i];
-//                $step_name = time().'_'.$step_image->name;
-////                return $step_name;
-//                $step_image->storeAs('step_images', $step_name, 'public');
-////
-////
-////                if($request['step_images'][$i]->step_image->isValid()){
-////                    return 'dfb';
-////                }
-////                $image = $request['step_images'][$i]->step_image;
-////                $name = time() .'_'. $image->getClientOriginalName();
-////                $request['step_images'][$i]->step_image->storeAs('step_images', $name, 'public');
-//            }
-
-//        }
 
         $ingradients=[];
 
@@ -144,11 +152,6 @@ class ReceiptController extends Controller
             $name = time() .'_'. $image->getClientOriginalName();
             $request['photo']->storeAs('images', $name, 'public');
         }
-
-
-
-
-
 
 
         $receipt = Receipt::create([
@@ -191,36 +194,6 @@ class ReceiptController extends Controller
             ]);
 
         }
-
-
-
-//
-//        $contents = file_get_contents($request->photo->path());
-//
-//        $newPath = $request->photo->store('photos', 's3');
-
-
-
-//        $file_name = $request->photo->getClientOriginalName();
-//        $file_path = $request->photo->storeAs('uploads', $file_name, 'public');
-
-
-        //if($request->file()) {
-
-
-//        $imageU = $request->file('main_img_file');
-//        $name = $receipt->id;
-//        $imageU->move(public_path('/ImagePost'), $name);
-//            $file_name = time().'_'.$request->file->getClientOriginalName();
-//            $file_path = $request->file('main_img_file')->storeAs('uploads', $file_name, 'public');
-//            console.log("hello");
-        //}
-
-        //this.saveImageToFolder($request);
-
-
-
-
 
 
         return [

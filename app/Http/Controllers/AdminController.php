@@ -9,6 +9,9 @@ use App\Models\Receipt;
 use App\Models\Kitchen;
 use App\Models\Category;
 
+use App\Exports\ReceiptsExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class AdminController extends Controller
 {
     public function getChartInfo() {
@@ -50,14 +53,12 @@ class AdminController extends Controller
     }
 
     public function editReceipt(Request $request) {
-//        $receipt = 1;
+
         $receipt = Receipt::find($request['id_receipt']);
         if($receipt) {
             $receipt->name = $request['name'];
             $receipt->cooking_hours = $request['cooking_hours'];
             $receipt->cooking_minutes = $request['cooking_minutes'];
-//            $receipt->category = $request['category'];
-//            $receipt->kitchen = $request['kitchen'];
             $receipt->advice = $request['advice'];
 
             if($request['category']) {
@@ -84,5 +85,84 @@ class AdminController extends Controller
             return true;
         }
         return false;
+    }
+
+    public function findAdminReceipt(Request $request) {
+        $sql_query = "SELECT receipts.id, receipts.name as name, receipts.cooking_hours, receipts.cooking_minutes, receipts.main_img as image,
+                 receipts.advice, categories.category, kitchens.kitchen, users.name as username, users.surname
+                 FROM receipts
+                 JOIN categories ON (receipts.id_category = categories.id)
+                 JOIN kitchens ON (receipts.id_kitchen = kitchens.id)
+                 JOIN users ON (receipts.id_user = users.id)";
+
+        $count = 0;
+        $sql_query .= " WHERE";
+
+        if($request['name']) {
+            if($count != 0) {
+                $sql_query .= " AND";
+            }
+            $sql_query .= " receipts.name LIKE '%" . $request['name'] . "%'";
+            $count++;
+        }
+        if($request['category']) {
+            if($count != 0) {
+                $sql_query .= " AND";
+            }
+            $sql_query .= " categories.category LIKE '%" . $request['category'] . "%'";
+            $count++;
+        }
+        if($request['kitchen']) {
+            if($count != 0) {
+                $sql_query .= " AND";
+            }
+            $sql_query .= " kitchens.kitchen LIKE '%" . $request['kitchen'] . "%'";
+            $count++;
+        }
+        if($request['user']) {
+            if($count != 0) {
+                $sql_query .= " AND";
+            }
+            $sql_query .= " users.id =" . $request['user'];
+            $count++;
+        }
+
+        if($request['createdFrom']) {
+            if($count != 0) {
+                $sql_query .= " AND";
+            }
+            $sql_query .= " DATE(receipts.created_at) >= '" . $request['createdFrom'] . "'";
+            $count++;
+        }
+
+        if($request['createdTo']) {
+            if($count != 0) {
+                $sql_query .= " AND";
+            }
+            $sql_query .= " DATE(receipts.created_at) <= '" . $request['createdTo'] . "'";
+            $count++;
+        }
+
+//        return $sql_query;
+
+
+        $data = DB::select(DB::raw($sql_query));
+
+        if(count($data) > 0) {
+            return $data;
+        }
+        else {
+            false;
+        }
+
+
+    }
+
+
+
+    //KPZ
+
+    public function receiptExport(){
+        return Excel::download(new ReceiptsExport, 'receipts.xlsx');
     }
 }
