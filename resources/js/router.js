@@ -8,10 +8,9 @@ import Blog from "./views/Blog";
 import Receipt from "./views/Receipt";
 import CreateKitchen from "./views/CreateKitchen";
 import CreateReceipt from "./views/CreateReceipt";
-import App from "./views/App";
 import AllReceipt from "./views/AllReceipt";
 import Admin from "./views/AdminStatistics";
-import AdminHeader from "./components/Test";
+import AdminHeader from "./components/AdminHeader";
 import UserHeader from "./components/Header";
 import Saved from "./views/Saved";
 import paginate from 'vuejs-paginate'
@@ -58,10 +57,6 @@ const router = new vueRouter({
                 header: UserHeader
             },
             meta: {auth: true}
-        },
-        {
-            path: '/app',
-            component: App
         },
         {
             path: '/recepty',
