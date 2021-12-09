@@ -46,24 +46,24 @@ and last:
 ![img_1.png](img_1.png)
 ### Admin Receipts CRUD
 ![img_2.png](img_2.png)
-###Admin Updating Receipts
+### Admin Updating Receipts
 ![img_5.png](img_5.png)
-###Admin Creating New Categories
+### Admin Creating New Categories
 ![img_3.png](img_3.png)
-###Admin Search
+### Admin Search
 ![img_4.png](img_4.png)
 
-###User Login
+### User Login
 ![img_6.png](img_6.png)
-###User Main Page
+### User Main Page
 ![img_7.png](img_7.png)
-###User Creating New Receipt
+### User Creating New Receipt
 ![img_8.png](img_8.png)
-###User Showing All Receipts
+### User Showing All Receipts
 ![img_9.png](img_9.png)
-###User Search
+### User Search
 ![img_10.png](img_10.png)
-###User Showing Certain Receipt
+### User Showing Certain Receipt
 ![img_11.png](img_11.png)
-###User Comments Section
+### User Comments Section
 ![img_12.png](img_12.png)
