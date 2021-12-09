@@ -60,11 +60,36 @@ class ReceiptController extends Controller
      */
     public function create()
     {
+
+        $receipts = DB::table('users')
+            ->select('users.id', DB::raw('count(receipts.id_user) as total'), 'users.surname', 'users.name', 'users.email', DB::raw("DATE_FORMAT(users.created_at, '%d-%b-%Y') as created_at"))
+            ->leftJoin('receipts', 'receipts.id_user', '=', 'users.id')
+            ->groupBy('users.id')
+            ->orderBy('users.id')
+            ->get();
+
+        $id_receipts = array();
+        foreach($receipts as $arr){
+            $id_receipts[] = $arr->id;
+        }
+        $id_receipts_ordered = implode(',', $id_receipts);
+
+        $users = DB::table("users")
+            ->select('users.id', 'users.surname', 'users.name', 'users.email',
+                DB::raw("DATE_FORMAT(users.created_at, '%d-%b-%Y') as created_at"))
+            ->whereIn('users.id', $id_receipts)
+            ->orderByRaw("FIELD(users.id, $id_receipts_ordered)")
+            ->get();
+
+//        $users->created_at->format('d-m-Y');
+
         $category = DB::table("categories")->select('category')->distinct('category')->get();
         $kitchen = DB::table("kitchens")->select('kitchen')->distinct('kitchen')->get();
         return [
             "categories" => $category,
-            "kitchens" => $kitchen
+            "kitchens" => $kitchen,
+            "users" => $users,
+            "receipts_count" => $receipts
         ];
     }
 

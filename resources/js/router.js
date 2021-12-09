@@ -18,6 +18,7 @@ import paginate from 'vuejs-paginate'
 import AdminAllReceipt from "./views/AdminAllReceipt";
 import AdminCreate from "./views/AdminCreate";
 import AdminEdit from "./views/AdminEdit";
+import AdminUser from "./views/AdminUsers";
 import FindReceipt from "./views/FindReceipt";
 Vue.component('Paginate', paginate)
 
@@ -87,6 +88,13 @@ const router = new vueRouter({
             path: '/adminCreate',
             components: {
                 default: AdminCreate,
+                header: AdminHeader
+            }
+        },
+        {
+            path: '/adminUsers',
+            components: {
+                default: AdminUser,
                 header: AdminHeader
             }
         },
