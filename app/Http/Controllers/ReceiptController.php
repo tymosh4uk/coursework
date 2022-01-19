@@ -162,8 +162,7 @@ class ReceiptController extends Controller
             "id_category" => $category->id,
             "id_kitchen" => $kitchen->id,
             "id_user" => $request['user_id'],
-            "advice" => $request['advice'],
-            "id_step" => 1
+            "advice" => $request['advice']  
         ]);
        //return $request['count_ingradients'];
 

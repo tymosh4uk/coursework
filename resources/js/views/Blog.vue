@@ -3,10 +3,7 @@
       <h1>Blog page</h1>
       <spin v-if="loading"></spin>
       <div v-else>
-          <item
-              v-for="item in kitchens"
-              :kitchen="item.kitchen"
-              :date="item.created_at"/>
+          
       </div>
   </div>
 </template>

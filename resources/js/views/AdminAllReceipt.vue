@@ -17,6 +17,7 @@
                 :container-class="'pagination'"
                 :page-class="'waves-effect'"
             />
+            
         </div>
     </div>
 </template>
