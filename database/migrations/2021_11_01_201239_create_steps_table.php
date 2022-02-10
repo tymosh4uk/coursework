@@ -15,11 +15,13 @@ class CreateStepsTable extends Migration
     {
         Schema::create('steps', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_receipt');
+            $table->unsignedBigInteger('id_receipt');
             $table->integer('step');
             $table->string('step_image');
             $table->text('step_description');
             $table->timestamps();
+
+            $table->foreign('id_receipt')->references('id')->on('receipts')->onDelete('cascade');
         });
     }
 

@@ -10032,6 +10032,7 @@ body {
   font-family: Roboto, sans-serif;
   color: black;
   line-height: 1;
+  padding: 0;
 }
 
 .body-container {
@@ -10040,7 +10041,6 @@ body {
   margin-right: auto;
   background-color: white;
   padding: 60px 30px;
-  margin-top: 70px;
   margin-bottom: 50px;
 }
 
@@ -12144,6 +12144,7 @@ a:hover {
   text-transform: uppercase;
   color: #000;
   text-decoration: none;
+  background-color: #fff;
 }
 .nav__user-navbar__item_add__link:hover {
   color: #24af30;
