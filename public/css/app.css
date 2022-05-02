@@ -12011,10 +12011,7 @@ a:hover {
 
 .nav__container {
   display: flex;
-  flex-wrap: wrap;
-  position: absolute;
   width: 100%;
-  min-width: 1000px;
   background: #fff;
   color: #000;
   z-index: 951;
@@ -12025,7 +12022,6 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 150px;
   text-decoration: none;
   color: #000;
 }
@@ -12036,6 +12032,7 @@ a:hover {
   flex-grow: 1;
   margin-top: 20px;
   margin-bottom: 20px;
+  width: auto;
 }
 .nav__navbar {
   display: inline-flex;
@@ -12183,6 +12180,39 @@ a:hover {
   margin-right: 5px;
 }
 
+.navigation {
+  width: 100%;
+  display: flex;
+}
+
+@media (max-width: 1200px) {
+  .nav-line__logo__wrapper {
+    padding: 0 30px;
+  }
+
+  .nav__user-navbar__item_search__container {
+    padding: 0 15px;
+  }
+}
+@media (max-width: 1050px) {
+  .nav__container {
+    justify-content: space-between;
+  }
+  .nav__burger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 50px;
+  }
+  .nav__burger i {
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.8s ease all;
+  }
+  .nav-line__logo__wrapper {
+    padding: 0 100px;
+  }
+}
 .uk-notification-message {
   background: #fff !important;
 }

@@ -1,5 +1,5 @@
 <template>
-    <header>
+    <div>
         <div class="nav__container">
 
             <a href="" class="nav-line__logo__wrapper">
@@ -17,10 +17,10 @@
             <div class="nav__user-navbar__container">
                 <router-link :to="'/find'">
                     <div class="nav__user-navbar__item_search__container nav__user-navbar__item">
-        <!--                <form method="POST" action="{{ route('receiptSearch') }}">-->
-                            <i class="fas fa-search nav__user-navbar__item_search"></i>
-                            <span class="nav__user-navbar__item_search__text">Пошук по сайту</span>
-        <!--                </form>-->
+                        <!--                <form method="POST" action="{{ route('receiptSearch') }}">-->
+                        <i class="fas fa-search nav__user-navbar__item_search"></i>
+                        <span class="nav__user-navbar__item_search__text">Пошук по сайту</span>
+                        <!--                </form>-->
                     </div>
                 </router-link>
             </div>
@@ -79,23 +79,31 @@
                     <a href="/createReceipt" class="nav__user-navbar__item_add__link">Додати рецепт</a>
                 </div>
             </div>
+
+
+
+
         </div>
 
 
-    </header>
+<!--        <nav class="uk-navbar-container" uk-navbar>-->
+<!--            <div class="uk-navbar-left">-->
+
+<!--                <ul class="uk-navbar-nav">-->
+<!--                    <li v-for="link in links">-->
+<!--                        <router-link :to="link.href">{{ link.title }}</router-link>-->
+<!--                    </li>-->
+<!--                </ul>-->
+
+<!--            </div>-->
+<!--        </nav>-->
+    </div>
 </template>
 
 <script>
 import axios from "axios";
-
-
 export default {
-
-
-
-
     data() {
-
         return {
             isAuth: Boolean,
             userName: Object,
@@ -120,7 +128,6 @@ export default {
             ]
         }
     },
-
     mounted() {
         this.checkAuth()
     },
@@ -129,11 +136,7 @@ export default {
             axios.post('logout')
                 .then(res => {
                     //console.log(res.data);
-
-                        window.location.reload();
-
-
-
+                    window.location.reload();
                 })
         },
         checkAuth() {
@@ -151,14 +154,11 @@ export default {
                     // this.isAuth = true;
                     //console.log("logged in");
                 })
-        .catch(error => console.log("error"));
-
+                .catch(error => console.log("error"));
         }
     }
 }
-
 </script>
 
 <style scoped>
-
 </style>
