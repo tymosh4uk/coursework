@@ -177,12 +177,14 @@ class HomeController extends Controller
         $id_comments_ordered = implode(',', $id_comments);
 
         $receipts = DB::table('receipts')
-            ->select('receipts.id','receipts.name as name', 'receipts.cooking_hours', 'receipts.cooking_minutes', 'receipts.main_img as image', 'categories.category', 'kitchens.kitchen', 'users.name as username', 'users.surname')
+            ->select(DB::raw('count(*) as ingradients_count, ingradients.id_receipt'), 'receipts.id','receipts.name as name', 'receipts.cooking_hours', 'receipts.cooking_minutes', 'receipts.main_img as image', 'categories.category', 'kitchens.kitchen', 'users.name as username', 'users.surname')
             ->join('categories', 'receipts.id_category', '=','categories.id')
             ->join('kitchens', 'receipts.id_kitchen', '=','kitchens.id')
             ->join('users', 'receipts.id_user', '=','users.id')
+            ->join('ingradients', 'receipts.id', '=','ingradients.id_receipt')
             ->whereIn('receipts.id', $id_comments)
             ->orderByRaw("FIELD(receipts.id, $id_comments_ordered)")
+            ->groupBy('ingradients.id_receipt')
             ->get();
         return $receipts;
     }

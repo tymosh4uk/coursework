@@ -32,7 +32,10 @@ class ReceiptController extends Controller
             ->join('categories', 'receipts.id_category', '=','categories.id')
             ->join('kitchens', 'receipts.id_kitchen', '=','kitchens.id')
             ->join('users', 'receipts.id_user', '=','users.id')
-            ->select('receipts.id', 'receipts.name', 'receipts.cooking_hours', 'receipts.cooking_minutes', 'receipts.main_img as image', 'categories.category', 'kitchens.kitchen', 'users.name as username', 'users.surname')
+            ->join('ingradients', 'receipts.id', '=','ingradients.id_receipt')
+
+            ->select(DB::raw('count(*) as ingradients_count, ingradients.id_receipt'),'receipts.id', 'receipts.name', 'receipts.cooking_hours', 'receipts.cooking_minutes', 'receipts.main_img as image', 'categories.category', 'kitchens.kitchen', 'users.name as username', 'users.surname')
+            ->groupBy('ingradients.id_receipt')
             ->get();
 
         $ingradients = [];
@@ -162,7 +165,7 @@ class ReceiptController extends Controller
             "id_category" => $category->id,
             "id_kitchen" => $kitchen->id,
             "id_user" => $request['user_id'],
-            "advice" => $request['advice']  
+            "advice" => $request['advice']
         ]);
        //return $request['count_ingradients'];
 
