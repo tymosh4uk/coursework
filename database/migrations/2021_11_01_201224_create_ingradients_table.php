@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSavedsTable extends Migration
+class CreateIngradientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateSavedsTable extends Migration
      */
     public function up()
     {
-        Schema::create('saveds', function (Blueprint $table) {
+        Schema::create('ingradients', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_receipt');
+            $table->string('ingradient');
+            $table->integer('count_ingradient')->nullable();
+            $table->string('type_measuring');
             $table->timestamps();
 
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_receipt')->references('id')->on('receipts')->onDelete('cascade');
         });
     }
@@ -31,6 +32,6 @@ class CreateSavedsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('saveds');
+        Schema::dropIfExists('ingradients');
     }
 }

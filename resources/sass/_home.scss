@@ -91,6 +91,10 @@
     position: absolute;
     bottom: 5px;
     left: calc(50% - 60px);
+
+    @media (max-width: 750px) {
+        left: calc(50% - 30px);
+    }
 }
 
 .home {

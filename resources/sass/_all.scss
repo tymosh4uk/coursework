@@ -4,19 +4,24 @@ html {
     background-color: #f8fafc !important;
 }
 
+ul {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: Roboto, sans-serif;
     color: rgb(0, 0, 0);
     line-height: 1;
+    padding: 0;
 }
 
 .body-container {
-    width: 1000px;
+    width: auto;
     margin-left: auto;
     margin-right: auto;
     background-color: white;
     padding: 60px 30px;
-    margin-top: 70px;
     margin-bottom: 50px;
 }
 

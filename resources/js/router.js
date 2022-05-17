@@ -12,6 +12,7 @@ import AllReceipt from "./views/AllReceipt";
 import Admin from "./views/AdminStatistics";
 import AdminHeader from "./components/AdminHeader";
 import UserHeader from "./components/Header";
+import MyHeader from "./components/MyHeader";
 import Saved from "./views/Saved";
 import paginate from 'vuejs-paginate'
 import AdminAllReceipt from "./views/AdminAllReceipt";
@@ -29,7 +30,7 @@ const router = new vueRouter({
             path: '/',
             components: {
                 default: Index,
-                header: UserHeader
+                header: MyHeader
             }
         },
         {
@@ -62,7 +63,7 @@ const router = new vueRouter({
             path: '/recepty',
             components: {
                 default: AllReceipt,
-                header: UserHeader
+                header: MyHeader
             }
         },
         {

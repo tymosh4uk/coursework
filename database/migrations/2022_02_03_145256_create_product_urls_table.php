@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIngradientsTable extends Migration
+class CreateProductUrlsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateIngradientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ingradients', function (Blueprint $table) {
+        Schema::create('product_urls', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_receipt');
-            $table->string('ingradient');
-            $table->integer('count_ingradient')->nullable();
-            $table->string('type_measuring');
+            $table->string('link')->unique();
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateIngradientsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ingradients');
+        Schema::dropIfExists('product_urls');
     }
 }

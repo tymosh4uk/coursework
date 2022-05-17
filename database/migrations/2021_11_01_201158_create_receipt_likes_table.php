@@ -15,9 +15,12 @@ class CreateReceiptLikesTable extends Migration
     {
         Schema::create('receipt_likes', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_user');
-            $table->integer('id_receipt');
+            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_receipt');
             $table->timestamps();
+
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_receipt')->references('id')->on('receipts')->onDelete('cascade');
         });
     }
 
