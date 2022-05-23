@@ -30,7 +30,7 @@ const router = new vueRouter({
             path: '/',
             components: {
                 default: Index,
-                header: MyHeader
+                header: UserHeader
             }
         },
         {
@@ -63,7 +63,7 @@ const router = new vueRouter({
             path: '/recepty',
             components: {
                 default: AllReceipt,
-                header: MyHeader
+                header: UserHeader
             }
         },
         {

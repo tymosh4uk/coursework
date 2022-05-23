@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\ParseProducts::class,
     ];
 
     /**
@@ -24,7 +24,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+         $schedule->command('parseProducts')
+             ->daily()
+             ->at('01:00')
+             ->timezone('Europe/Kiev')
+             ->runInBackground();
+
     }
 
     /**
