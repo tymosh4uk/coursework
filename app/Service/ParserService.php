@@ -12,9 +12,10 @@ class ParserService
 
     public function parser() {
 //        $this->parseUrls();
-//         $this->parseProducts();
-        $products = \App\Models\Product::with('product_url')->get();
+//        $this->parseProducts();
+//        $products = \App\Models\Product::with('product_url')->get();
         //dd($products);
+        return true;
     }
 
     private function parseUrls() {
@@ -61,7 +62,7 @@ class ParserService
             }
         }
 
-        dd($product_links);
+//        dd($product_links);
     }
 
     private function parseProducts() {
@@ -135,7 +136,7 @@ class ParserService
 //            if($i == 100 ) { break; }
         }
 
-        dd($pr_title);
+//        dd($pr_title);
     }
 
     private function addUrl($link) {

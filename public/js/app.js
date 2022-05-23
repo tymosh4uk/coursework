@@ -5437,7 +5437,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     path: '/',
     components: {
       "default": _views_Index__WEBPACK_IMPORTED_MODULE_3__["default"],
-      header: _components_MyHeader__WEBPACK_IMPORTED_MODULE_12__["default"]
+      header: _components_Header__WEBPACK_IMPORTED_MODULE_11__["default"]
     }
   }, {
     path: '/blog',
@@ -5467,7 +5467,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     path: '/recepty',
     components: {
       "default": _views_AllReceipt__WEBPACK_IMPORTED_MODULE_8__["default"],
-      header: _components_MyHeader__WEBPACK_IMPORTED_MODULE_12__["default"]
+      header: _components_Header__WEBPACK_IMPORTED_MODULE_11__["default"]
     }
   }, {
     path: '/admin',
@@ -81730,258 +81730,280 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    !_vm.mobile
-      ? _c("div", { staticClass: "nav__container" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "nav__top-line__container" }, [
+  return _c(
+    "div",
+    {
+      staticStyle: {
+        position: "relative",
+        "background-color": "#fff",
+        "box-shadow": "0 0 15px rgb(0 0 0 / 15%)",
+        "z-index": "5",
+      },
+    },
+    [
+      !_vm.mobile
+        ? _c("div", { staticClass: "nav__container" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "nav__top-line__container" }, [
+              _c(
+                "ul",
+                { staticClass: "nav__navbar" },
+                _vm._l(_vm.links, function (link) {
+                  return _c(
+                    "li",
+                    { staticClass: "nav__navbar__li" },
+                    [
+                      _c("router-link", { attrs: { to: link.href } }, [
+                        _vm._v(_vm._s(link.title)),
+                      ]),
+                    ],
+                    1
+                  )
+                }),
+                0
+              ),
+            ]),
+            _vm._v(" "),
             _c(
-              "ul",
-              { staticClass: "nav__navbar" },
-              _vm._l(_vm.links, function (link) {
-                return _c(
-                  "li",
-                  { staticClass: "nav__navbar__li" },
-                  [
-                    _c("router-link", { attrs: { to: link.href } }, [
-                      _vm._v(_vm._s(link.title)),
-                    ]),
-                  ],
-                  1
-                )
-              }),
-              0
-            ),
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "nav__user-navbar__container" },
-            [
-              _c("router-link", { attrs: { to: "/find" } }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "nav__user-navbar__item_search__container nav__user-navbar__item",
-                  },
-                  [
-                    _c("i", {
+              "div",
+              { staticClass: "nav__user-navbar__container" },
+              [
+                _c("router-link", { attrs: { to: "/find" } }, [
+                  _c(
+                    "div",
+                    {
                       staticClass:
-                        "fas fa-search nav__user-navbar__item_search",
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      { staticClass: "nav__user-navbar__item_search__text" },
-                      [_vm._v("Пошук")]
-                    ),
-                  ]
-                ),
-              ]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          !_vm.isAuth
-            ? _c("div", { staticClass: "nav__user-navbar__container" }, [
-                _vm._m(1),
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.isAuth
-            ? _c(
-                "div",
-                { staticClass: "nav__user-navbar__container" },
-                [
-                  _c("router-link", { attrs: { to: _vm.savedHref } }, [
-                    _c(
-                      "div",
-                      {
+                        "nav__user-navbar__item_search__container nav__user-navbar__item",
+                    },
+                    [
+                      _c("i", {
                         staticClass:
-                          "nav__user-navbar__item_search__container nav__user-navbar__item nav__user-navbar__item_border",
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "nav__user-navbar__item__link-bookmark__container",
-                          },
-                          [
-                            _c("i", {
-                              staticClass:
-                                "fas fa-bookmark nav__user-navbar__item__link-bookmark",
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "span",
-                              {
-                                staticClass:
-                                  "nav__user-navbar__item__link-bookmark__text",
-                              },
-                              [_vm._v("Книга рецептів")]
-                            ),
-                          ]
-                        ),
-                      ]
-                    ),
-                  ]),
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          !_vm.isAuth
-            ? _c("div", { staticClass: "nav__user-navbar__container" }, [
-                _vm._m(2),
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.isAuth
-            ? _c("div", { staticClass: "nav__user-navbar__container" }, [
-                _c(
+                          "fas fa-search nav__user-navbar__item_search",
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        { staticClass: "nav__user-navbar__item_search__text" },
+                        [_vm._v("Пошук")]
+                      ),
+                    ]
+                  ),
+                ]),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            !_vm.isAuth
+              ? _c("div", { staticClass: "nav__user-navbar__container" }, [
+                  _vm._m(1),
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.isAuth
+              ? _c(
                   "div",
-                  {
-                    staticClass:
-                      "nav__user-navbar__item_enter__container nav__user-navbar__item nav__user-navbar__item_border",
-                  },
+                  { staticClass: "nav__user-navbar__container" },
                   [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "nav__user-navbar__item_enter__link",
-                        attrs: { href: "/login" },
-                      },
-                      [
-                        _c("img", {
-                          staticClass: "header_user_img",
-                          attrs: { src: "img/camera.png", alt: "Nazariy" },
-                        }),
-                        _vm._v(" "),
-                        _c("span", [_vm._v(_vm._s(_vm.userName))]),
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { attrs: { "uk-drop": "pos: bottom-justify" } }, [
+                    _c("router-link", { attrs: { to: _vm.savedHref } }, [
                       _c(
                         "div",
                         {
-                          staticClass: "uk-card uk-card-body uk-card-default",
-                          staticStyle: { padding: "20px 10px", width: "130px" },
+                          staticClass:
+                            "nav__user-navbar__item_search__container nav__user-navbar__item nav__user-navbar__item_border",
                         },
                         [
                           _c(
-                            "form",
+                            "div",
                             {
-                              attrs: {
-                                id: "form-logout",
-                                enctype: "multipart/form-data",
-                              },
+                              staticClass:
+                                "nav__user-navbar__item__link-bookmark__container",
                             },
                             [
+                              _c("i", {
+                                staticClass:
+                                  "fas fa-bookmark nav__user-navbar__item__link-bookmark",
+                              }),
+                              _vm._v(" "),
                               _c(
-                                "button",
+                                "span",
                                 {
-                                  staticClass: "uk-button uk-button-danger",
-                                  on: {
-                                    click: function ($event) {
-                                      $event.preventDefault()
-                                      return _vm.logout.apply(null, arguments)
-                                    },
-                                  },
+                                  staticClass:
+                                    "nav__user-navbar__item__link-bookmark__text",
                                 },
-                                [_c("span", [_vm._v("Вийти")])]
+                                [_vm._v("Книга рецептів")]
                               ),
                             ]
                           ),
                         ]
                       ),
                     ]),
-                  ]
-                ),
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm._m(3),
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.mobile
-      ? _c("div", { staticClass: "nav__container" }, [
-          _c("header", { class: { "scrolled-nav": _vm.scrolledNav } }, [
-            _c(
-              "nav",
-              { staticClass: "custom-navigation" },
-              [
-                _vm._m(4),
-                _vm._v(" "),
-                _c("div", { staticClass: "icon" }, [
-                  _c("i", {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.mobile,
-                        expression: "mobile",
-                      },
-                    ],
-                    staticClass: "far fa-bars",
-                    class: { "icon-active": _vm.mobileNav },
-                    on: { click: _vm.toggleMobileNav },
-                  }),
-                ]),
-                _vm._v(" "),
-                _c("div", {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.mobileNav,
-                      expression: "mobileNav",
-                    },
                   ],
-                  staticClass: "dropdown-nav__background",
-                  on: { click: _vm.toggleMobileNav },
-                }),
-                _vm._v(" "),
-                _c("transition", { attrs: { name: "mobile-nav" } }, [
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.isAuth
+              ? _c("div", { staticClass: "nav__user-navbar__container" }, [
+                  _vm._m(2),
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.isAuth
+              ? _c("div", { staticClass: "nav__user-navbar__container" }, [
                   _c(
-                    "ul",
+                    "div",
                     {
+                      staticClass:
+                        "nav__user-navbar__item_enter__container nav__user-navbar__item nav__user-navbar__item_border",
+                    },
+                    [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "nav__user-navbar__item_enter__link",
+                          attrs: { href: "/login" },
+                        },
+                        [
+                          _c("img", {
+                            staticClass: "header_user_img",
+                            attrs: { src: "img/camera.png", alt: "Nazariy" },
+                          }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v(_vm._s(_vm.userName))]),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { attrs: { "uk-drop": "pos: bottom-justify" } },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "uk-card uk-card-body uk-card-default",
+                              staticStyle: {
+                                padding: "20px 10px",
+                                width: "130px",
+                              },
+                            },
+                            [
+                              _c(
+                                "form",
+                                {
+                                  attrs: {
+                                    id: "form-logout",
+                                    enctype: "multipart/form-data",
+                                  },
+                                },
+                                [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "uk-button uk-button-danger",
+                                      on: {
+                                        click: function ($event) {
+                                          $event.preventDefault()
+                                          return _vm.logout.apply(
+                                            null,
+                                            arguments
+                                          )
+                                        },
+                                      },
+                                    },
+                                    [_c("span", [_vm._v("Вийти")])]
+                                  ),
+                                ]
+                              ),
+                            ]
+                          ),
+                        ]
+                      ),
+                    ]
+                  ),
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm._m(3),
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.mobile
+        ? _c("div", { staticClass: "nav__container" }, [
+            _c("header", { class: { "scrolled-nav": _vm.scrolledNav } }, [
+              _c(
+                "nav",
+                { staticClass: "custom-navigation" },
+                [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "icon" }, [
+                    _c("i", {
                       directives: [
                         {
                           name: "show",
                           rawName: "v-show",
-                          value: _vm.mobileNav,
-                          expression: "mobileNav",
+                          value: _vm.mobile,
+                          expression: "mobile",
                         },
                       ],
-                      staticClass: "dropdown-nav",
-                    },
-                    _vm._l(_vm.links, function (link) {
-                      return _c(
-                        "li",
-                        { staticClass: "nav__navbar__li" },
-                        [
-                          _c("router-link", { attrs: { to: link.href } }, [
-                            _vm._v(_vm._s(link.title)),
-                          ]),
-                        ],
-                        1
-                      )
+                      staticClass: "far fa-bars",
+                      class: { "icon-active": _vm.mobileNav },
+                      on: { click: _vm.toggleMobileNav },
                     }),
-                    0
-                  ),
-                ]),
-              ],
-              1
-            ),
-          ]),
-        ])
-      : _vm._e(),
-  ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.mobileNav,
+                        expression: "mobileNav",
+                      },
+                    ],
+                    staticClass: "dropdown-nav__background",
+                    on: { click: _vm.toggleMobileNav },
+                  }),
+                  _vm._v(" "),
+                  _c("transition", { attrs: { name: "mobile-nav" } }, [
+                    _c(
+                      "ul",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.mobileNav,
+                            expression: "mobileNav",
+                          },
+                        ],
+                        staticClass: "dropdown-nav",
+                      },
+                      _vm._l(_vm.links, function (link) {
+                        return _c(
+                          "li",
+                          { staticClass: "nav__navbar__li" },
+                          [
+                            _c("router-link", { attrs: { to: link.href } }, [
+                              _vm._v(_vm._s(link.title)),
+                            ]),
+                          ],
+                          1
+                        )
+                      }),
+                      0
+                    ),
+                  ]),
+                ],
+                1
+              ),
+            ]),
+          ])
+        : _vm._e(),
+    ]
+  )
 }
 var staticRenderFns = [
   function () {

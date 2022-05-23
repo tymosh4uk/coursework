@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="position: relative; background-color: #fff; box-shadow: 0 0 15px rgb(0 0 0 / 15%); z-index: 5;">
         <div class="nav__container" v-if="!mobile">
 
             <a href="" class="nav-line__logo__wrapper">

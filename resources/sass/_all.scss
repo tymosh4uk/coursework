@@ -23,7 +23,15 @@ body {
     background-color: white;
     padding: 60px 30px;
     margin-bottom: 50px;
+
+    @media (min-width: 800px) {
+        width: 80%;
+        margin: 0 auto;
+        padding: 50px;
+    }
 }
+
+
 
 a {
     text-decoration: none;
