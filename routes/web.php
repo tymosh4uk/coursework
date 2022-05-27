@@ -38,6 +38,7 @@ Route::post('/removeFromSaved', [App\Http\Controllers\HomeController::class, 're
 Route::get('/getAllSaved', [App\Http\Controllers\HomeController::class, 'getAllSaved'])->name('getAllSaved');
 Route::get('/getTopReceipts', [App\Http\Controllers\HomeController::class, 'getTopReceipts'])->name('getTopReceipts');
 Route::post('/findReceipt', [App\Http\Controllers\HomeController::class, 'findReceipt'])->name('findReceipt');
+Route::get('/findProduct', [App\Http\Controllers\HomeController::class, 'findProduct'])->name('findProduct');
 
 
 //Admin

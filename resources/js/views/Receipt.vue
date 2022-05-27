@@ -133,10 +133,17 @@
                         </div>
                     </div>
 
-                    <div v-for="item of ingradients" class="content__ingradients__item__container">
+                    <div v-for="(item, index) of ingradients" class="content__ingradients__item__container">
                         <div class="content__ingradients__item__inner">
-                            <div class="content__ingradients__item__name__container">
-                                <span class="content__ingradients__item__name">{{ item.ingradient }}</span>
+                            <div class="content__ingradients__item__name__container" style="cursor: pointer" @mouseover ="toggleActive(index)"
+                                 @mouseleave ="untoggleActive()">
+                                <span class="content__ingradients__item__name" style="position: relative">{{ item.ingradient }}
+<!--                                    <v-btn icon>-->
+<!--                                        <v-icon>{{ showPopUp.includes(index) ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>-->
+<!--                                     </v-btn>-->
+                                    <ReceiptPopUp v-show="showPopUp.includes(index)" :ingragient=item.ingradient :count_ingradient=item.count_ingradient :type_measuring=item.type_measuring />
+                                </span>
+
                             </div>
                             <span class="content__ingradients__item__line-aligner"></span>
                             <span class="content__ingradients__item__cost">{{ item.count_ingradient }} {{ item.type_measuring }}</span>
@@ -145,105 +152,109 @@
                 </div>
             </div>
 
-            <div class="content__steps__container">
-                <div class="content__steps__wrapper">
-                    <div class="content__steps__header__container">
+            <div class="content__user-info__container">
+                <div class="content__steps__container">
+                    <div class="content__steps__wrapper">
+                        <div class="content__steps__header__container">
 
-                        <div class="content__steps__header__left__container">
-                            <span class="content__steps__header__left__text">
-                                Інструкція по приготуванню
-                            </span>
-                        </div>
-
-                        <div class="content__steps__header__right__container">
-                            <span class="content__header__time__wrapper">
-                                <span uk-icon="clock" class="content__header__time-icon"></span>
-                                <span class="content__header__time" v-if="receipt[0].cooking_hours != null && receipt[0].cooking_hours != 0">
-                                    {{ receipt[0].cooking_hours }} год.
+                            <div class="content__steps__header__left__container">
+                                <span class="content__steps__header__left__text">
+                                    Інструкція по приготуванню
                                 </span>
-                                <span class="content__header__time" v-if="receipt[0].cooking_minutes != null && receipt[0].cooking_minutes != 0">
-                                    &nbsp;{{ receipt[0].cooking_minutes }} хв.
+                            </div>
+
+                            <div class="content__steps__header__right__container">
+                                <span class="content__header__time__wrapper">
+                                    <span uk-icon="clock" class="content__header__time-icon"></span>
+                                    <span class="content__header__time" v-if="receipt[0].cooking_hours != null && receipt[0].cooking_hours != 0">
+                                        {{ receipt[0].cooking_hours }} год.
+                                    </span>
+                                    <span class="content__header__time" v-if="receipt[0].cooking_minutes != null && receipt[0].cooking_minutes != 0">
+                                        &nbsp;{{ receipt[0].cooking_minutes }} хв.
+                                    </span>
                                 </span>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="content__steps__step__container" v-for="item of steps">
-
-                        <div class="content__steps__step__img__container">
-                            <div class="content__steps__step__img__aligner">
-                                <img class="content__steps__step__img" alt="" :src="'../storage/step_images/'+ item.step_image">
                             </div>
                         </div>
 
-                        <div class="content__steps__step__info__container">
-                            <div class="content__steps__step__info__inner">
-                                <div class="content__steps__step__info__aligner">
-                                    <span class="content__steps__step__info__count">{{ item.step }}</span>
-                                    <span class="content__steps__step__info__text">
-                                        {{ item.step_description }}
-                                    </span>
+
+
+                        <div class="content__steps__step__container" v-for="item of steps">
+
+                            <div class="content__steps__step__img__container">
+                                <div class="content__steps__step__img__aligner">
+                                    <img class="content__steps__step__img" alt="" :src="'../storage/step_images/'+ item.step_image">
                                 </div>
                             </div>
+
+                            <div class="content__steps__step__info__container">
+                                <div class="content__steps__step__info__inner">
+                                    <div class="content__steps__step__info__aligner">
+                                        <span class="content__steps__step__info__count">{{ item.step }}</span>
+                                        <span class="content__steps__step__info__text">
+                                            {{ item.step_description }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
+
                     </div>
-
-
                 </div>
             </div>
 
+            <div class="content__user-info__container">
+                <div class="comments__container" v-if="userId">
+                    <div>
+                        <form id="form-logout" enctype="multipart/form-data">
+                            <div class="comments__row"></div>
+        <!--                    <p>{{ userId }}</p>-->
+                            <textarea placeholder="Додати коментарій" v-model="comment" name="input" autocomplete="on" class="comments__textarea"></textarea>
 
-            <div class="comments__container" v-if="userId">
-                <div>
-                    <form id="form-logout" enctype="multipart/form-data">
-                        <div class="comments__row"></div>
-    <!--                    <p>{{ userId }}</p>-->
-                        <textarea placeholder="Додати коментарій" v-model="comment" name="input" autocomplete="on" class="comments__textarea"></textarea>
+                            <div class="comments__button__wrapper">
 
-                        <div class="comments__button__wrapper">
-
-                            <button type="button" class="comments__button" @click.prevent="sendComment">Надіслати</button>
+                                <button type="button" class="comments__button" @click.prevent="sendComment">Надіслати</button>
 
 
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="comments__container" v-if="comments != 0">
-                <div class="comments__inner">
-
-                    <div class="comments__header__container">
-                        <span class="comments__header">Коментарії</span>
+                            </div>
+                        </form>
                     </div>
+                </div>
 
-                    <div class="comments__content__container">
-                        <div class="comments__content__wrapper">
-                            <div class="comments__content__item__container" v-for="commentary in comments">
-                                <div class="comments__content__item__user__container">
-                                    <a href="">
-                                        <div class="comments__content__item__user__wrapper">
-                                            <div class="comments__content__item__user__img__container">
-                                                <div class="comments__content__item__user__img__wrapper">
-                                                    <img class="content__user-info__user-content__img" src="https://agile.yakubovsky.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" alt="">
+                <div class="comments__container" v-if="comments != 0">
+                    <div class="comments__inner">
+
+                        <div class="comments__header__container">
+                            <span class="comments__header">Коментарії</span>
+                        </div>
+
+                        <div class="comments__content__container">
+                            <div class="comments__content__wrapper">
+                                <div class="comments__content__item__container" v-for="commentary in comments">
+                                    <div class="comments__content__item__user__container">
+                                        <a href="">
+                                            <div class="comments__content__item__user__wrapper">
+                                                <div class="comments__content__item__user__img__container">
+                                                    <div class="comments__content__item__user__img__wrapper">
+                                                        <img class="content__user-info__user-content__img" src="https://agile.yakubovsky.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" alt="">
+                                                    </div>
+                                                </div>
+                                                <div class="comments__content__item__user__info__container">
+                                                    <span class="comments__content__item__user__info__name">{{ commentary.name }} {{ commentary.surname }}</span>
+                                                    <span class="comments__content__item__user__info__date">{{ commentary.created_at }}</span>
                                                 </div>
                                             </div>
-                                            <div class="comments__content__item__user__info__container">
-                                                <span class="comments__content__item__user__info__name">{{ commentary.name }} {{ commentary.surname }}</span>
-                                                <span class="comments__content__item__user__info__date">{{ commentary.created_at }}</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>
 
-                                <div class="comments__content__item__text__container">
-                                    <span class="comments__content__item__text">{{ commentary.comment }}</span>
+                                    <div class="comments__content__item__text__container">
+                                        <span class="comments__content__item__text">{{ commentary.comment }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -259,8 +270,15 @@
 <script>
 import Spin from "../components/Spin";
 import axios from "axios";
+import ReceiptPopUp from "../components/page/ReceiptPopUp";
+import Vue from 'vue';
+import Vuetify from 'vuetify';
+
+Vue.use(Vuetify);
 export default {
+    vuetify: new Vuetify(),
     components: {
+        ReceiptPopUp,
         Spin
     },
     data: () => ({
@@ -272,7 +290,8 @@ export default {
         not_found: false,
         comment: "",
         comments: "",
-        isSaved: ""
+        isSaved: "",
+        showPopUp: [],
     }),
     mounted() {
         this.loadReceipt(this.$route.params.id)
@@ -282,6 +301,18 @@ export default {
         // console.log(this.userId)
     },
     methods: {
+        toggleActive(index) {
+            if (this.showPopUp.includes(index)) {
+                this.showPopUp.pop(index);
+                return;
+            }
+
+            this.showPopUp = [];
+            this.showPopUp.push(index);
+        },
+        untoggleActive() {
+            this.showPopUp = [];
+        },
         loadReceipt(id) {
             axios.get('/api/receipts/' + id)
                 .then(res => {

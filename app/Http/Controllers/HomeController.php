@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Service\ProductService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -241,6 +242,17 @@ class HomeController extends Controller
 //                ->where('receipts.name', 'LIKE', '%' . $request['name'] . '%')
 //                ->get();
 //        }
+
+    }
+
+    public function findProduct(Request $request) {
+        $product = $request->product;
+        $service = new ProductService();
+        $data = $service->getProduct($product);
+        return [
+           'result' => $data !== null ? $data : null
+        ];
+
 
     }
 }

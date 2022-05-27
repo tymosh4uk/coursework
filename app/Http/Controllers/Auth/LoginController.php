@@ -40,7 +40,6 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        echo Parser::parser();
         $this->middleware('guest')->except('logout');
         $this->redirectTo = '/';
 
