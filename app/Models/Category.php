@@ -9,4 +9,9 @@ class Category extends Model
 {
     use HasFactory;
     protected $fillable = ['category'];
+
+    public function receipt()
+    {
+        return $this->hasMany(Receipt::class, 'id_category', 'id');
+    }
 }
