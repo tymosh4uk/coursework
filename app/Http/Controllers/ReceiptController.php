@@ -140,13 +140,16 @@ class ReceiptController extends Controller
 
         $ingradients=[];
 
-        $category = Category::create([
-            "category" => $request['category']
-        ]);
 
-        $kitchen = Kitchen::create([
-            "kitchen" => $request['kitchen']
-        ]);
+        $category = Category::where(
+            "category", $request['category']
+        )->first();
+
+
+        $kitchen = Kitchen::where(
+            "kitchen", $request['kitchen']
+        )->first();
+
 
 
 
