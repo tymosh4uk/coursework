@@ -8,8 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Receipt_dislike extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'receipt_id',
-        'user_id',
-    ];
+    protected $fillable = ['user_id', 'receipt_id'];
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
+
+    public function receipt()
+    {
+        return $this->hasOne(Receipt::class);
+    }
 }

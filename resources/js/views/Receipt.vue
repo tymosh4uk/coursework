@@ -74,12 +74,12 @@
 
                         <div class="content__header__rate__wrapper">
                             <div class="content__header__rate__inner">
-                                <button type="button" class="content__header__rate__like-btn">
+                                <button type="button" class="content__header__rate__like-btn" @click="checkLikes()">
                                     <i class="fal fa-thumbs-up content__header__rate__icon content__header__rate__icon__like__active"></i>
                                 </button>
                                 <span class="content__header__rate__like-count">3</span>
 
-                                <button type="button" class="content__header__rate__like-btn">
+                                <button type="button" class="content__header__rate__like-btn" @click="checkDislikes()">
                                     <i class="fal fa-thumbs-down content__header__rate__icon content__header__rate__icon__dislike__active"></i>
                                 </button>
                                 <span class="content__header__rate__dislike-count">1</span>
@@ -292,6 +292,7 @@ export default {
         comments: "",
         isSaved: "",
         showPopUp: [],
+        user_id: ""
     }),
     mounted() {
         this.loadReceipt(this.$route.params.id)
@@ -428,6 +429,21 @@ export default {
                     else {
                     }
                 })
+        },
+        async checkLikes() {
+            await getUserId();
+            if(this.user_id !== "") {
+                const data = new FormData();
+                data.append('receipt_id', this.receipt);
+                data.append('user_id', this.user_id);
+            }
+
+        },
+        checkDislikes() {
+
+        },
+        getUserId() {
+            axios.get('/currentUserId').then(({ data }) => ( this.user_id = data));
         }
     }
 }
