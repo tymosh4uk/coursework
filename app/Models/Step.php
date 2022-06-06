@@ -14,4 +14,8 @@ class Step extends Model
         'step_image',
         'step_description'
     ];
+
+    public function receipt() {
+        return $this->belongsTo(Receipt::class, 'id', 'id_receipt');
+    }
 }

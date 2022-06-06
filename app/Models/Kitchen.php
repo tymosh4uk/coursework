@@ -9,4 +9,8 @@ class Kitchen extends Model
 {
     use HasFactory;
     protected $fillable = ['kitchen'];
+
+    public function receipt() {
+        return $this->hasMany(Receipt::class, 'id_kitchen', 'id');
+    }
 }
