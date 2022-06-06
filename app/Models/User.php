@@ -24,6 +24,10 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function receipt() {
+        return $this->hasMany(Receipt::class, 'id_user', 'id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

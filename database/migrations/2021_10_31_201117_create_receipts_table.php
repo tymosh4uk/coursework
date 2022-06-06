@@ -40,6 +40,7 @@ class CreateReceiptsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('receipt_dislikes');
         Schema::dropIfExists('receipts');
     }
 }
