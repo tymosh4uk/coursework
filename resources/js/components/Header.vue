@@ -147,13 +147,13 @@ export default {
         }
     },
     created() {
-        window.addEventListener('resize', this.checkScreen);
-        window.addEventListener('onclick', this.mobileNav = false)
+        window.addEventListener('resize', () => this.checkScreen());
+        window.addEventListener('onclick', () => this.mobileNav = false);
         this.checkScreen();
     },
     mounted() {
         this.checkAuth();
-        window.addEventListener('scroll', this.updateScroll);
+        window.addEventListener('scroll', () => this.updateScroll);
     },
     methods: {
         toggleMobileNav() {

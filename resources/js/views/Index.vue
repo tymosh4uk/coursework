@@ -37,7 +37,7 @@
 <script>
 import axios from "axios";
 import carousel from 'vue-owl-carousel'
-import Item from '../components/page/ItemReceipt';
+import Item from '../components/page/ReceiptList';
 
 
 export default {

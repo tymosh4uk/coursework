@@ -67,7 +67,7 @@ export default {
                        this.foundProduct = false;
                    }
 
-                    console.log(typeof res.data.result);
+                    // console.log(typeof res.data.result);
 
 
                 })

@@ -54,7 +54,10 @@ class HomeController extends Controller
     }
 
     public function getUserId() {
-        return Auth::user()->id;
+        if(Auth::check()) {
+            return Auth::user()->id;
+        }
+        return null;
     }
 
     public function logout(Request $request) {

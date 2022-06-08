@@ -46,7 +46,7 @@
                                     <button type="button" class="content__header__add-receipt-btn" @click.prevent="addToSaved(receipt[0].id)">
                                         <span uk-icon="bookmark" class="receipt__content__options__btn__icon"></span>
                                         Добавить в книгу рецептов
-                                        <span class="content__header__add-receipt-btn__count">1</span>
+                                        <span class="content__header__add-receipt-btn__count"></span>
                                     </button>
                                 </form>
                             </div>
@@ -68,21 +68,21 @@
                             <button type="button" class="content__header__add-receipt-btn">
                                 <span uk-icon="bookmark" class="receipt__content__options__btn__icon"></span>
                                 Добавить в книгу рецептов
-                                <span class="content__header__add-receipt-btn__count">2</span>
+                                <span class="content__header__add-receipt-btn__count"></span>
                             </button>
                         </div>
 
                         <div class="content__header__rate__wrapper">
                             <div class="content__header__rate__inner">
-                                <button type="button" class="content__header__rate__like-btn" @click="checkLikes()">
+                                <button type="button" class="content__header__rate__like-btn" @click="setLike()">
                                     <i class="fal fa-thumbs-up content__header__rate__icon content__header__rate__icon__like__active"></i>
                                 </button>
-                                <span class="content__header__rate__like-count">3</span>
+                                <span class="content__header__rate__like-count">{{likesCount}}</span>
 
-                                <button type="button" class="content__header__rate__like-btn" @click="checkDislikes()">
+                                <button type="button" class="content__header__rate__like-btn" @click="setDislike()">
                                     <i class="fal fa-thumbs-down content__header__rate__icon content__header__rate__icon__dislike__active"></i>
                                 </button>
-                                <span class="content__header__rate__dislike-count">1</span>
+                                <span class="content__header__rate__dislike-count">{{dislikesCount}}</span>
                             </div>
                         </div>
                     </div>
@@ -292,14 +292,17 @@ export default {
         comments: "",
         isSaved: "",
         showPopUp: [],
-        user_id: ""
+        user_id: "",
+        likesCount: 0,
+        dislikesCount: 0,
     }),
     mounted() {
         this.loadReceipt(this.$route.params.id)
         this.checkAuth()
         this.getAllComments()
         this.getSavedById()
-        // console.log(this.userId)
+        this.getLikesCount()
+        this.getUserId()
     },
     methods: {
         toggleActive(index) {
@@ -320,7 +323,7 @@ export default {
                     this.receipt = res.data.receipt;
                     this.ingradients = res.data.ingradients;
                     this.steps = res.data.steps;
-                    console.log(this.steps);
+                    // console.log(this.steps);
                     this.loading = false;
                 })
                 .catch(err => {
@@ -403,7 +406,7 @@ export default {
                 }
             })
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.isSaved = res.data;
                     // this.receipt = res.data.receipt;
                     // this.ingradients = res.data.ingradients;
@@ -421,7 +424,7 @@ export default {
             //
             axios.post('/removeFromSaved', data)
                 .then(res => {
-                    console.log(res.data);
+                    //console.log(res.data);
                     window.location.reload();
                     if (res.data.status) {
                         // this.$router.push('/receipt/' + this.receipt[0].id);
@@ -430,21 +433,65 @@ export default {
                     }
                 })
         },
-        async checkLikes() {
-            await getUserId();
-            if(this.user_id !== "") {
+        async setLike() {
+            await this.getUserId();
+            if(this.user_id) {
                 const data = new FormData();
-                data.append('receipt_id', this.receipt);
+                data.append('receipt_id', this.receipt[0].id);
                 data.append('user_id', this.user_id);
+
+                axios.post('/setLike', data)
+                    .then(res => {
+                        if (res.data.status) {
+                            this.getLikesCount();
+                        }
+
+                    })
+                    .catch(err => {
+                        this.loading = false;
+                    })
             }
 
         },
-        checkDislikes() {
+        async setDislike() {
+            await this.getUserId();
+            if(this.user_id) {
+                const data = new FormData();
+                data.append('receipt_id', this.receipt[0].id);
+                data.append('user_id', this.user_id);
 
+                axios.post('/setDislike', data)
+                    .then(res => {
+                        if (res.data.status) {
+                            this.getLikesCount();
+                        }
+
+                    })
+                    .catch(err => {
+                        this.loading = false;
+                    })
+            }
         },
         getUserId() {
             axios.get('/currentUserId').then(({ data }) => ( this.user_id = data));
-        }
+        },
+        getLikesCount() {
+            axios.get('/getLikesById', {
+                params: {
+                    receipt: this.$route.params.id
+                }
+            })
+                .then(res => {
+                    if(res.data.status) {
+                        this.likesCount = res.data.likes;
+                        this.dislikesCount = res.data.dislikes;
+                    }
+                    this.loading = false;
+                })
+                .catch(err => {
+                    this.loading = false;
+                });
+        },
     }
 }
 </script>

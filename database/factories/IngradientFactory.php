@@ -16,12 +16,12 @@ class IngradientFactory extends Factory
      */
     public function definition()
     {
-        $type_measuring = ['гр.', 'шт.', 'мл.', 'стак.', 'за смаком', 'чайних л.', 'столових л.'];
+        $type_measuring = ['гр.', 'шт.', 'мл.', 'стак.', 'чайних л.', 'столових л.'];
         $random_value = array_rand($type_measuring);
 
         return [
             'ingradient' => $this->faker->word(),
-            'count_ingradient' => $this->faker->numberBetween(1, 1000),
+            'count_ingradient' => $this->faker->numberBetween(1, 100),
             'type_measuring' => $type_measuring[$random_value],
             'created_at' => $this->faker->dateTimeBetween('-2 months', '-1 months'),
             'updated_at' => $this->faker->dateTimeBetween('-2 months', '-1 months'),

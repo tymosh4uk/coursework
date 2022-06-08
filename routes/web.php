@@ -39,6 +39,10 @@ Route::get('/getAllSaved', [App\Http\Controllers\HomeController::class, 'getAllS
 Route::get('/getTopReceipts', [App\Http\Controllers\HomeController::class, 'getTopReceipts'])->name('getTopReceipts');
 Route::post('/findReceipt', [App\Http\Controllers\HomeController::class, 'findReceipt'])->name('findReceipt');
 Route::get('/findProduct', [App\Http\Controllers\HomeController::class, 'findProduct'])->name('findProduct');
+Route::get('/getLikesById', [App\Http\Controllers\LikesController::class, 'getLikesById'])->name('getLikesById');
+Route::get('/getSavedsById', [App\Http\Controllers\LikesController::class, 'getSavedsById'])->name('getSavedsById');
+Route::post('/setLike', [App\Http\Controllers\LikesController::class, 'setLike'])->name('setLike');
+Route::post('/setDislike', [App\Http\Controllers\LikesController::class, 'setDislike'])->name('setDislike');
 
 
 //Admin

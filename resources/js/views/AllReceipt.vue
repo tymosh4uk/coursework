@@ -21,10 +21,11 @@
     </div>
 </template>
 
+
 <script>
 import Spin from "../components/Spin";
 import axios from 'axios';
-import Item from '../components/page/ItemReceipt';
+import Item from '../components/page/ReceiptList';
 import paginationMixin from '../mixins/pagination.mixin';
 
 export default {
