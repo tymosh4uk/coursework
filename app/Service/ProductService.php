@@ -25,7 +25,8 @@ class ProductService
             $query = $query->where('title', 'LIKE', '%'.$array_words[$i].'%');
         }
 
-        $query = $query->skip(1)->first();
+        $query = $query->first();
+//        $query = $query->skip(1)->first();
 
 //        $data = DB::table('products')
 //            ->where('title', 'like', $product.' %')

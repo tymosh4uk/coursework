@@ -11,8 +11,8 @@ class ParserService
 {
 
     public function parser() {
-//        $this->parseUrls();
-//        $this->parseProducts();
+        $this->parseUrls();
+        $this->parseProducts();
 //        $products = \App\Models\Product::with('product_url')->get();
         //dd($products);
         return true;

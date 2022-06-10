@@ -191,9 +191,7 @@ export default {
         record: {
             required: true
         },
-        ingradients: {
-            required: true
-        }
+        ingradients
     },
     created() {
         window.addEventListener('resize', () => this.checkScreen());
