@@ -39931,3 +39931,8 @@ a:hover {
 .home__items__container {
   margin-top: 30px;
 }
+
+.form__editor {
+  width: 80%;
+  margin: 0 auto;
+}

@@ -43,6 +43,8 @@ Route::get('/getLikesById', [App\Http\Controllers\LikesController::class, 'getLi
 Route::get('/getSavedsById', [App\Http\Controllers\LikesController::class, 'getSavedsById'])->name('getSavedsById');
 Route::post('/setLike', [App\Http\Controllers\LikesController::class, 'setLike'])->name('setLike');
 Route::post('/setDislike', [App\Http\Controllers\LikesController::class, 'setDislike'])->name('setDislike');
+Route::post('/createIdea', [App\Http\Controllers\IdeaController::class, 'createIdea'])->name('createIdea');
+
 
 
 //Admin
