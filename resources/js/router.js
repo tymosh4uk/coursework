@@ -21,6 +21,7 @@ import AdminEdit from "./views/AdminEdit";
 import AdminUser from "./views/AdminUsers";
 import FindReceipt from "./views/FindReceipt";
 import CreateIdea from "./views/CreateIdea";
+import Idea from "./views/Idea";
 Vue.component('Paginate', paginate)
 
 
@@ -42,6 +43,13 @@ const router = new vueRouter({
             path: '/receipt/:id',
             components: {
                 default: Receipt,
+                header: UserHeader
+            }
+        },
+        {
+            path: '/idea/:id',
+            components: {
+                default: Idea,
                 header: UserHeader
             }
         },

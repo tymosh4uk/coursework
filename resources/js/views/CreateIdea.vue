@@ -84,11 +84,8 @@ export default {
         store() {
             this.loading = true;
             this.form.image = this.$refs.main_img_file.files[0];
-            console.log(this.form.name);
-            console.log(this.form.image);
-            console.log(this.form.description);
-            if(this.form.name != "" && this.form.image != "" && this.form.description != "") {
 
+            if(this.form.name != "" && this.form.image != "" && this.form.description != "") {
 
                 const data = new FormData();
 
@@ -100,7 +97,7 @@ export default {
                     .then(res => {
                         // console.info(res.data);
                         if (res.data.status) {
-                            // this.$router.push('/receipt/' + res.data.receipt.id);
+                            this.$router.push('/idea/' + res.data.idea.id);
 
 
                         } else {

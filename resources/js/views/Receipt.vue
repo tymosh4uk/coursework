@@ -129,7 +129,7 @@
 
                     <div class="content__ingradients__header__container">
                         <div class="content__ingradients__header__wrapper">
-                            <span class="content__ingradients__header">Інградієнти</span>
+                            <span class="content__ingradients__header">Інгредієнти</span>
                         </div>
                     </div>
 

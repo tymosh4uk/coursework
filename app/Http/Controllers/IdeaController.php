@@ -45,4 +45,20 @@ class IdeaController extends Controller
             "idea" => $idea
         ];
     }
+
+    public function getIdea($id, Request $request) {
+
+        $idea = Idea::find($id);
+
+        if(!$idea) {
+            return [
+                'status' => false
+            ];
+        }
+
+        return [
+            "status" => true,
+            "idea" => $idea
+        ];
+    }
 }

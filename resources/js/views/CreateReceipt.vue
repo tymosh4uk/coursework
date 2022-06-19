@@ -106,14 +106,14 @@
                 <div class="ingradients__wrapper">
                     <div class="ingradients__cont">
                         <div id="ingradients" class="ingradients">
-                            <span title="" class="ingradients__title">Інградієнти</span>
+                            <span title="" class="ingradients__title">Інгредієнти</span>
                             <p class="ingradients__info">Вкажіть всі інгредієнти, які необхідні для приготування і подачі данної страви</p>
 
                         </div>
                         <button id="addIngradient" class="ingradients__add-button" onclick="event.preventDefault()">
                             <div class="ingradients__add-button__container">
                                 <span class="first" uk-icon="plus-circle"></span>
-                                <span class="second">Додати інградієнт</span>
+                                <span class="second">Додати інгредієнт</span>
                             </div>
 
                         </button>
@@ -169,7 +169,7 @@
                     <span class="form__title small-title">Примітка</span>
 
                     <div class="advice__wrapper">
-                        <textarea v-model="form.advice" placeholder="Використовуйте дане поле для опису альтернативного способу приготування страви чи варіантів заміни інградієнтів на подібні" name="input" autocomplete="on"></textarea>
+                        <textarea v-model="form.advice" placeholder="Використовуйте дане поле для опису альтернативного способу приготування страви чи варіантів заміни інгредієнтів на подібні" name="input" autocomplete="on"></textarea>
                     </div>
 
                 </div>
@@ -393,7 +393,7 @@ $('body').delegate('#addIngradient', 'click', function () {
     let setIngradient = '<div class="ingradients__group">'
     setIngradient += '<div class="ingradients__ingradient">'
     setIngradient += '<div class="ingradients__ingradient__container">'
-    setIngradient += '<input class="uk-input"  type="text" name="ingradients[]" placeholder="Вкажіть інградієнт">'
+    setIngradient += '<input class="uk-input"  type="text" name="ingradients[]" placeholder="Вкажіть інгредієнт">'
     setIngradient += '</div>'
     setIngradient += '</div>'
 

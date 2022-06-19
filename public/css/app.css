@@ -39936,3 +39936,37 @@ a:hover {
   width: 80%;
   margin: 0 auto;
 }
+
+.idea--container {
+  width: 80%;
+  margin: 0 auto;
+  font-family: "PT Serif", sans-serif;
+}
+.idea--container p {
+  font-size: 16px;
+  line-height: 35px;
+  margin: 10px;
+}
+.idea--container h1, .idea--container h2, .idea--container h3, .idea--container h4, .idea--container h5, .idea--container h6 {
+  font-family: "PT Serif", sans-serif;
+  margin: 20px;
+}
+.idea--container ul {
+  width: 90%;
+  margin: 0 auto;
+}
+.idea--container ul li {
+  line-height: 25px;
+  margin: 10px;
+}
+.idea--container p {
+  width: 100%;
+}
+.idea--container p img {
+  display: block;
+  width: 60%;
+  margin: 20px auto;
+  max-height: 500px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}

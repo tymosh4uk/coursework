@@ -44,6 +44,7 @@ Route::get('/getSavedsById', [App\Http\Controllers\LikesController::class, 'getS
 Route::post('/setLike', [App\Http\Controllers\LikesController::class, 'setLike'])->name('setLike');
 Route::post('/setDislike', [App\Http\Controllers\LikesController::class, 'setDislike'])->name('setDislike');
 Route::post('/createIdea', [App\Http\Controllers\IdeaController::class, 'createIdea'])->name('createIdea');
+Route::get('/getIdea/{id}', [App\Http\Controllers\IdeaController::class, 'getIdea'])->name('getIdea');
 
 
 
