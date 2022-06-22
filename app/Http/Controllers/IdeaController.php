@@ -61,4 +61,20 @@ class IdeaController extends Controller
             "idea" => $idea
         ];
     }
+
+    public function getTopIdeas() {
+
+        $ideas = Idea::latest()->take(5)->get();
+
+        if(!$ideas) {
+            return [
+                'status' => false
+            ];
+        }
+
+        return [
+            "status" => true,
+            "ideas" => $ideas
+        ];
+    }
 }

@@ -190,9 +190,6 @@ export default {
     props: {
         record: {
             required: true
-        },
-        ingradients: {
-            required: true
         }
     },
     created() {

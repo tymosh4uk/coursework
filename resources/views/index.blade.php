@@ -30,9 +30,11 @@
     </div>
 
 </div>
+{{--<script src="https://kit.fontawesome.com/fba0085d4d.js" crossorigin="anonymous"></script>--}}
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.8.0/dist/js/uikit.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.8.0/dist/js/uikit-icons.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+{{--<script src="https://kit.fontawesome.com/fba0085d4d.js" crossorigin="anonymous"></script>--}}
 
 <script src="/js/app.js"></script>
 

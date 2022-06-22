@@ -104,3 +104,17 @@
         }
     }
 }
+
+@media (min-width: 750px) {
+    .home__receipts {
+        flex: 0 40%;
+    }
+
+    .home__items__container {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+}

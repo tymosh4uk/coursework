@@ -1,0 +1,104 @@
+.idea--container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+
+
+    .idea__img--wrapper {
+        width: 100%;
+        height: 100%;
+        filter: brightness(40%);
+
+        img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            filter: blur(2px);
+        }
+    }
+
+    .idea__info--wrapper {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        &:hover .idea__title {
+            color: #AF212B;
+        }
+
+        &:hover .idea__line {
+            background-color: #AF212B;
+        }
+
+        .idea__title--wrapper {
+            text-align: center;
+        }
+
+        .idea__title {
+            font-family: Roboto, sans-serif;
+            align-items: center;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            color: #fff;
+            line-height: 30px;
+            font-size: 25px;
+            overflow: hidden;
+            white-space: pre-wrap;
+            text-shadow: 0 0 3px rgb(0 0 0 / 30%);
+            transition: color .3s ease-in;
+        }
+    }
+
+    .idea__line--wrapper {
+        margin: 2% auto;
+        width: 40%;
+        .idea__line--wrapper > .idea__line {
+
+        }
+
+        .idea__line--wrapper > .idea__line + .idea__line {
+            margin-top: 8px;
+        }
+
+
+
+
+        .idea__line {
+            height: 1px;
+            display: block;
+            background-color: #fff;
+            width: 100%;
+            margin-top: 3px;
+            transition: .3s ease-in;
+            border-radius: 80%;
+
+            &:first-child, &:last-child {
+                width: 95%;
+                margin: 3px auto;
+            }
+
+            //&:after {
+            //    content: "-----------";
+            //    position: absolute;
+            //    bottom: 0px;
+            //    transform: translateX(-50%);
+            //    width: 75px;
+            //    height: 1px;
+            //    overflow: hidden;
+            //    border-bottom: 3px double #fff;
+            //    border-top: 1px solid #fff;
+            //    left: 50% !important;
+            //}
+        }
+    }
+}
+
+.content__idea-info__container {
+    max-width: 80%;
+    margin: 0 auto;
+}

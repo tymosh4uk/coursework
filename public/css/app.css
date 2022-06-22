@@ -38837,7 +38837,6 @@ a:hover {
   align-items: center;
   justify-content: center;
   width: 17px;
-  height: 17px;
   padding: 20px;
 }
 .content__header__rate__icon__like__active::before {
@@ -39433,6 +39432,28 @@ a:hover {
   background-size: contain;
 }
 
+.share-btn {
+  border-radius: 3px;
+  height: 32px;
+  width: 38px;
+  line-height: 32px;
+  border: 0px solid #ffffff;
+  margin: 5px 10px 20px 0;
+  color: #ffffff;
+  transition: background-color 0.1s linear;
+  cursor: pointer;
+  position: relative;
+}
+
+.fas, .far {
+  font-family: "Font Awesome 5 Pro" !important;
+}
+
+.receipt-container {
+  display: flex;
+  justify-content: center;
+}
+
 .registration__container {
   padding: 20px 20px 0px;
   display: flex;
@@ -39932,6 +39953,19 @@ a:hover {
   margin-top: 30px;
 }
 
+@media (min-width: 750px) {
+  .home__receipts {
+    flex: 0 40%;
+  }
+
+  .home__items__container {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}
 .form__editor {
   width: 80%;
   margin: 0 auto;
@@ -39969,4 +40003,78 @@ a:hover {
   max-height: 500px;
   -o-object-fit: contain;
      object-fit: contain;
+}
+
+.idea--container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.idea--container .idea__img--wrapper {
+  width: 100%;
+  height: 100%;
+  filter: brightness(40%);
+}
+.idea--container .idea__img--wrapper img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: 100%;
+  filter: blur(2px);
+}
+.idea--container .idea__info--wrapper {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.idea--container .idea__info--wrapper:hover .idea__title {
+  color: #AF212B;
+}
+.idea--container .idea__info--wrapper:hover .idea__line {
+  background-color: #AF212B;
+}
+.idea--container .idea__info--wrapper .idea__title--wrapper {
+  text-align: center;
+}
+.idea--container .idea__info--wrapper .idea__title {
+  font-family: Roboto, sans-serif;
+  align-items: center;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  color: #fff;
+  line-height: 30px;
+  font-size: 25px;
+  overflow: hidden;
+  white-space: pre-wrap;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  transition: color 0.3s ease-in;
+}
+.idea--container .idea__line--wrapper {
+  margin: 2% auto;
+  width: 40%;
+}
+.idea--container .idea__line--wrapper .idea__line--wrapper > .idea__line + .idea__line {
+  margin-top: 8px;
+}
+.idea--container .idea__line--wrapper .idea__line {
+  height: 1px;
+  display: block;
+  background-color: #fff;
+  width: 100%;
+  margin-top: 3px;
+  transition: 0.3s ease-in;
+  border-radius: 80%;
+}
+.idea--container .idea__line--wrapper .idea__line:first-child, .idea--container .idea__line--wrapper .idea__line:last-child {
+  width: 95%;
+  margin: 3px auto;
+}
+
+.content__idea-info__container {
+  max-width: 80%;
+  margin: 0 auto;
 }

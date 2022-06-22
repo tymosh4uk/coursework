@@ -26,10 +26,17 @@
           </carousel>
       </div>
       <div class="home__items__container">
-          <item
-              :receipts="receipts"
-              :ingradients="receipts"
-          />
+          <div class="home__receipts">
+              <item
+                  :receipts="receipts"
+                  :ingradients="receipts"
+              />
+          </div>
+          <div class="home__receipts">
+              <itemIdea
+                  :ideas="ideas"
+              />
+          </div>
       </div>
   </div>
 </template>
@@ -38,15 +45,18 @@
 import axios from "axios";
 import carousel from 'vue-owl-carousel'
 import Item from '../components/page/ReceiptList';
+import ItemIdea from '../components/page/IdeaList';
 
 
 export default {
     components: {
         carousel,
-        Item
+        Item,
+        ItemIdea
     },
     data: () => ({
         receipts: [],
+        ideas: [],
         loading: true,
     }),
     mounted() {
@@ -56,9 +66,23 @@ export default {
         loadData() {
             axios.get('/getTopReceipts')
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.receipts = res.data;
                     // this.setupPagination(res.data.receipts);
+
+
+                    setTimeout(() => {
+                        this.loading = false;
+                    }, 500)
+
+                })
+
+            axios.get('/getTopIdeas')
+                .then(res => {
+                    if(res.data.status) {
+                        console.log(res.data.ideas);
+                        this.ideas = res.data.ideas;
+                    }
 
 
                     setTimeout(() => {
