@@ -20,6 +20,8 @@ import AdminCreate from "./views/AdminCreate";
 import AdminEdit from "./views/AdminEdit";
 import AdminUser from "./views/AdminUsers";
 import FindReceipt from "./views/FindReceipt";
+import CreateIdea from "./views/CreateIdea";
+import Idea from "./views/Idea";
 Vue.component('Paginate', paginate)
 
 
@@ -45,6 +47,13 @@ const router = new vueRouter({
             }
         },
         {
+            path: '/idea/:id',
+            components: {
+                default: Idea,
+                header: UserHeader
+            }
+        },
+        {
             path: '/create',
             components:{
                 default: CreateKitchen,
@@ -55,6 +64,14 @@ const router = new vueRouter({
             path: '/createReceipt',
             components: {
                 default: CreateReceipt,
+                header: UserHeader
+            },
+            meta: {auth: true}
+        },
+        {
+            path: '/createIdea',
+            components: {
+                default: CreateIdea,
                 header: UserHeader
             },
             meta: {auth: true}

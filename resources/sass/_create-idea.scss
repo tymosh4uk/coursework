@@ -1,0 +1,43 @@
+.form__editor {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.idea--container {
+    width: 80%;
+    margin: 0 auto;
+    font-family: "PT Serif", sans-serif;
+
+    p {
+        font-size: 16px;
+        line-height: 35px;
+        margin: 10px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: "PT Serif", sans-serif;
+        margin: 20px;
+    }
+
+    ul {
+        width: 90%;
+        margin: 0 auto;
+
+        li {
+            line-height: 25px;
+            margin: 10px;
+        }
+    }
+
+    p {
+        width: 100%;
+
+        img {
+            display: block;
+            width: 60%;
+            margin: 20px auto;
+            max-height: 500px;
+            object-fit: contain;
+        }
+    }
+}

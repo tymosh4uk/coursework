@@ -93,10 +93,35 @@
                     <div v-show="mobileNav" class="dropdown-nav__background" @click="toggleMobileNav">
                     </div>
                     <transition name="mobile-nav">
+
                         <ul v-show="mobileNav" class="dropdown-nav" style="">
                             <li class="nav__navbar__li" v-for="link in links">
                                 <router-link :to="link.href">{{ link.title }}</router-link>
                             </li>
+
+                            <li class="nav__navbar__li" >
+                                <router-link :to="'/find'">
+                                      ПОШУК
+                                </router-link>
+                            </li>
+                            <div v-if="!isAuth">
+                                <li class="nav__navbar__li" >
+                                    <a href="/">Книга рецептів</a>
+
+                                </li>
+                            </div>
+                            <div  v-if="isAuth">
+                                <li class="nav__navbar__li" >
+                                    <router-link :to="savedHref">
+                                        Книга рецептів
+                                    </router-link>
+                                </li>
+                            </div>
+                            <div class="nav__user-navbar__container">
+                                <div class="nav__user-navbar__item_add__container nav__user-navbar__item" style="width: 100%; text-align: center;">
+                                    <a href="/createReceipt" class="nav__user-navbar__item_add__link" style="justify-content: center">Додати рецепт</a>
+                                </div>
+                            </div>
                         </ul>
                     </transition>
                 </nav>
@@ -140,8 +165,8 @@ export default {
                     href: "/recepty"
                 },
                 {
-                    title: "Создать кухню",
-                    href: "/create"
+                    title: "Створити авторську ідею",
+                    href: "/createIdea"
                 }
             ]
         }

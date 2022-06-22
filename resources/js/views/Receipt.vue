@@ -129,7 +129,7 @@
 
                     <div class="content__ingradients__header__container">
                         <div class="content__ingradients__header__wrapper">
-                            <span class="content__ingradients__header">Інградієнти</span>
+                            <span class="content__ingradients__header">Інгредієнти</span>
                         </div>
                     </div>
 
@@ -205,6 +205,80 @@
             </div>
 
             <div class="content__user-info__container">
+                <div class="comments__header__container">
+                    <span class="comments__header">Поділитися</span>
+                </div>
+
+                <button class="share-btn" style="background-color: #179cde">
+                    <ShareNetwork
+                        network="telegram"
+                        v-bind:url="getLink()"
+                        title="Awesome Article"
+                        description="This is an awesome article for awesome readers"
+                        hashtags="Frontend, Programming">
+                        <span style="color: #fff">
+                            <i class="fa-solid fa-paper-plane"></i>
+<!--                            <i class="fa-brands fa-telegram"></i>-->
+<!--                          <font-awesome-icon icon="fa-brands fa-facebook-f" style="color: #fff; width: 20px"/>-->
+                        </span>
+                    </ShareNetwork>
+                </button>
+
+                <button class="share-btn" style="background-color: #25d366">
+                    <ShareNetwork
+                        network="whatsApp"
+                        v-bind:url="getLink()"
+                        title="Awesome Article"
+                        description="This is an awesome article for awesome readers"
+                        hashtags="Frontend, Programming">
+                        <span style="color: #fff">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </span>
+                    </ShareNetwork>
+                </button>
+
+                <button class="share-btn" style="background-color: #e60019">
+                    <ShareNetwork
+                        network="pinterest"
+                        v-bind:url="getLink()"
+                        title="Awesome Article"
+                        description="This is an awesome article for awesome readers"
+                        hashtags="Frontend, Programming">
+                        <span style="color: #fff">
+                            <i class="fa-brands fa-pinterest"></i>
+                        </span>
+                    </ShareNetwork>
+                </button>
+
+                <button class="share-btn" style="background-color: #1da1f2">
+                    <ShareNetwork
+                        network="twitter"
+                        v-bind:url="getLink()"
+                        title="Awesome Article"
+                        description="This is an awesome article for awesome readers"
+                        hashtags="Frontend, Programming">
+                        <span style="color: #fff">
+                            <i class="fa-brands fa-twitter"></i>
+                        </span>
+                    </ShareNetwork>
+                </button>
+
+                <button class="share-btn" style="background-color: #315efb">
+                    <ShareNetwork
+                        network="email"
+                        v-bind:url="getLink()"
+                        title="Awesome Article"
+                        description="This is an awesome article for awesome readers"
+                        hashtags="Frontend, Programming">
+                        <span style="color: #fff">
+                            <i class="fa-solid fa-envelope"></i>
+                        </span>
+                    </ShareNetwork>
+                </button>
+            </div>
+
+
+            <div class="content__user-info__container">
                 <div class="comments__container" v-if="userId">
                     <div>
                         <form id="form-logout" enctype="multipart/form-data">
@@ -221,6 +295,8 @@
                         </form>
                     </div>
                 </div>
+
+
 
                 <div class="comments__container" v-if="comments != 0">
                     <div class="comments__inner">
@@ -273,7 +349,9 @@ import axios from "axios";
 import ReceiptPopUp from "../components/page/ReceiptPopUp";
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+import VueSocialSharing from 'vue-social-sharing'
 
+Vue.use(VueSocialSharing);
 Vue.use(Vuetify);
 export default {
     vuetify: new Vuetify(),
@@ -295,16 +373,25 @@ export default {
         user_id: "",
         likesCount: 0,
         dislikesCount: 0,
+        currentURL: "",
     }),
     mounted() {
+        let recaptchaScript = document.createElement('script')
+        recaptchaScript.setAttribute('src', 'https://kit.fontawesome.com/fba0085d4d.js')
+        document.head.appendChild(recaptchaScript)
         this.loadReceipt(this.$route.params.id)
         this.checkAuth()
         this.getAllComments()
         this.getSavedById()
         this.getLikesCount()
         this.getUserId()
+        this.getLink()
     },
     methods: {
+        getLink() {
+            this.currentURL = window.location.origin + this.$route.path;
+            return window.location.origin + this.$route.path;
+        },
         toggleActive(index) {
             if (this.showPopUp.includes(index)) {
                 this.showPopUp.pop(index);

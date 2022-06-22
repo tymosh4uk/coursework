@@ -196,7 +196,6 @@
                 align-items: center;
                 justify-content: center;
                 width: 17px;
-                height: 17px;
                 padding: 20px;
 
                 &__like__active::before {
@@ -922,4 +921,26 @@
 
 .receipt-popup__image, .v-image__image {
     background-size: contain;
+}
+
+.share-btn {
+    border-radius: 3px;
+    height: 32px;
+    width: 38px;
+    line-height: 32px;
+    border: 0px solid #ffffff;
+    margin: 5px 10px 20px 0;
+    color: #ffffff;
+    transition: background-color .1s linear;
+    cursor: pointer;
+    position: relative;
+}
+
+.fas, .far {
+    font-family: "Font Awesome 5 Pro" !important;
+}
+
+.receipt-container {
+    display: flex;
+    justify-content: center;
 }
