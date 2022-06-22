@@ -944,3 +944,9 @@
     display: flex;
     justify-content: center;
 }
+
+.receipt__delete__container {
+    .uk-button-danger, .uk-button-primary {
+        color: #fff;
+    }
+}

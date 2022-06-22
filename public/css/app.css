@@ -39454,6 +39454,10 @@ a:hover {
   justify-content: center;
 }
 
+.receipt__delete__container .uk-button-danger, .receipt__delete__container .uk-button-primary {
+  color: #fff;
+}
+
 .registration__container {
   padding: 20px 20px 0px;
   display: flex;
